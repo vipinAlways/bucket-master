@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppsideBar from "@/components/AppsideBar";
+import { Provider } from "@radix-ui/react-tooltip";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,10 +32,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SidebarProvider>
-          <AppsideBar />
-          <main>
-            <SidebarTrigger/>
-            {children}</main>
+          <Provider>
+            <AppsideBar />
+            <main>
+              <SidebarTrigger />
+              {children}
+            </main>
+          </Provider>
         </SidebarProvider>
       </body>
     </html>
