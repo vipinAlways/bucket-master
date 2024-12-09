@@ -87,3 +87,25 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: 'Angelina';
+  src: url('/fonts/Angelina.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LeagueSpartan-Bold';
+  src: url('/fonts/LeagueSpartan-Bold.ttf') format('truetype'),
+       url('/fonts/LeagueSpartan-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand-VariableFont_wght';
+  src: url('/fonts/Quicksand-VariableFont_wght.ttf') format('truetype'),
+       url('/fonts/Quicksand-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

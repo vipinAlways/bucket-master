@@ -65,7 +65,13 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		fontFamily:{
+			my: ['"Angelina-rnla"'],
+			bucket:['"LeagueSpartan-Bold"'],
+			master:['"Quicksand-VariableFont_wght"']
+
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
