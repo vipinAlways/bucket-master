@@ -19,6 +19,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Home, Inbox, Settings } from "lucide-react";
+import { SessionProvider } from "next-auth/react";
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
@@ -37,6 +38,8 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
   ];
   return (
     <QueryClientProvider client={queryClient}>
+      <SessionProvider>
+
       <SidebarProvider
         open={open}
         onOpenChange={setOpen}
@@ -129,6 +132,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
         {children}
       </SidebarProvider>
+      </SessionProvider>
     </QueryClientProvider>
   );
 };
