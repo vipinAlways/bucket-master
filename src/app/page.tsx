@@ -8,10 +8,8 @@ export default function Home() {
   const session = useSession()
   return (
    <div>
-      <button onClick={()=>signIn()}>{session ?  "LogIn":"null" } </button>
-      <div className="">
-        <Button onClick={()=>signOut()}>Signout</Button>
-      </div>
+      <button onClick={() => signIn("google", { callbackUrl: "/dashboard" })}>{session ?  "LogIn":"null" } </button>
+     
    </div>
   );
 }
