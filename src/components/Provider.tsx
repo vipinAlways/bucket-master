@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SidebarProvider } from "./ui/sidebar";
+import { SidebarProvider, useSidebar } from "./ui/sidebar";
 import { cn } from "@/lib/utils";
 import {
   Sidebar,
@@ -19,11 +19,19 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Home, Inbox, Settings } from "lucide-react";
+import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 
 
-const Provider = ({ children }: { children: React.ReactNode }) => {
+const Provider = ({ children,className }: { children: React.ReactNode,className:string }) => {
+  const [hasMounted, setHasMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [queryClient] = useState(() => new QueryClient());
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) return null
   const items = [
     {
       title: "Home",
@@ -36,6 +44,8 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       icon: Inbox,
     },
   ];
+
+  
   return (
     <QueryClientProvider client={queryClient}>
 
@@ -43,16 +53,23 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
       <SidebarProvider
         open={open}
         onOpenChange={setOpen}
-        className=" w-[100vw]"
+        className={cn("w-[100vw]")}
+        style={{
+          // "--sidebar-width-mobile": "20rem",
+        }}
       >
         <Sidebar
           collapsible="icon"
           variant="floating"
-          className="items-center flex flex-col"
+          className={cn("items-center flex flex-col",className )}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
           color="#F1F1F1"
+          onTouchStart={() => setOpen(true)} // Mobile
+          onTouchEnd={() => setOpen(false)} // Mobile
+        
         >
+          
           <SidebarContent>
             <SidebarGroup>
               <SidebarGroupLabel className={cn("h-20", open ? "" : "hidden")}>

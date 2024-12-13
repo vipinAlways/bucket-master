@@ -14,14 +14,10 @@ const CreateUser = () => {
     onError: () =>
       toast({
         title: "Error",
-        description: "ServerError while creating user",
+        description: "ServerError",
         variant: "destructive",
       }),
-    onSuccess: () =>
-      toast({
-        title: "Group created",
-        description: "Group created successfully",
-      }),
+   
   });
   useEffect(() => {
     mutate();
