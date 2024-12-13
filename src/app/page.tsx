@@ -1,16 +1,7 @@
-"use client"
-
-import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
-
-
+import CreateUser from "@/components/CreateUser";
+import React from "react";
 
 
 export default function Home() {
- 
-  return (
-   <div>
-    <LoginLink>Login</LoginLink>
-     
-   </div>
-  );
+  return <CreateUser/>
 }
