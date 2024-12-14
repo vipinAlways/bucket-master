@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Provider from "@/components/Provider";
 import { Toaster } from "@/components/ui/toaster";
+import MobileNavigation from "@/components/MobileNav";
 
 
 
@@ -32,8 +33,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen bg-[#507758]`}
       >
-        <Provider className="md:block">
-       
+        <Provider className="md:block hidden">
+          <MobileNavigation className=""/>
           <main>{children}</main>
           <Toaster/>
         </Provider>

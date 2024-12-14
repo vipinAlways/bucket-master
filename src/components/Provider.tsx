@@ -54,9 +54,7 @@ const Provider = ({ children,className }: { children: React.ReactNode,className:
         open={open}
         onOpenChange={setOpen}
         className={cn("w-[100vw]")}
-        style={{
-          // "--sidebar-width-mobile": "20rem",
-        }}
+   
       >
         <Sidebar
           collapsible="icon"
@@ -64,10 +62,7 @@ const Provider = ({ children,className }: { children: React.ReactNode,className:
           className={cn("items-center flex flex-col",className )}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
-          color="#F1F1F1"
-          onTouchStart={() => setOpen(true)} // Mobile
-          onTouchEnd={() => setOpen(false)} // Mobile
-        
+          color="#F1F1F1"       
         >
           
           <SidebarContent>
