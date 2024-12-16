@@ -33,7 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen bg-[#507758]`}
       >
-        <Provider className="md:block hidden">
+        <Provider>
           <MobileNavigation className=""/>
           <main>{children}</main>
           <Toaster/>

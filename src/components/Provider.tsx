@@ -22,7 +22,7 @@ import { Home, Inbox, Settings } from "lucide-react";
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 
 
-const Provider = ({ children,className }: { children: React.ReactNode,className:string }) => {
+const Provider = ({ children }: { children: React.ReactNode}) => {
   const [hasMounted, setHasMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [queryClient] = useState(() => new QueryClient());
@@ -59,7 +59,7 @@ const Provider = ({ children,className }: { children: React.ReactNode,className:
         <Sidebar
           collapsible="icon"
           variant="floating"
-          className={cn("items-center flex flex-col",className )}
+          className={cn("items-center flex-col md:flex hidden" )}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
           color="#F1F1F1"       
