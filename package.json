@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "docker": "docker run -p 5432:5432 -e POSTGRES_PASSWORD=randompassword postgres",
-    "migrate" :"pnpm dlx prisma migrate dev  pnpm dlex prisma generate ",
+    "migrate": "pnpm dlx prisma migrate dev  pnpm dlex prisma generate ",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -28,6 +28,8 @@
     "prisma": "^6.0.1",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },
