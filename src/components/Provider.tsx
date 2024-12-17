@@ -81,6 +81,7 @@ const Provider = ({ children }: { children: React.ReactNode}) => {
                       alt="logo"
                       width={60}
                       height={30}
+                      className="w-16 aspect-square"
                     />
 
                     <p className="group-data-[collapsible=icon]:hidden text-center flex flex-col items-center ">

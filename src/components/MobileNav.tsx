@@ -4,6 +4,7 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetTitle,
   SheetTrigger,
@@ -37,9 +38,13 @@ const MobileNavigation = ({ className }: { className: string }) => {
     <header className={cn("sm:hidden")}>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Sidebar className="mx-2 my-1.5"/>
+          <Sidebar className="mx-2 my-1.5" />
         </SheetTrigger>
-        <SheetContent className="shad-sheet h-screen px-3" side={"left"}>
+        <SheetContent
+          className="shad-sheet h-screen px-3"
+          side={"left"}
+          aria-describedby="sheet-description"
+        >
           <SheetTitle>
             <Link
               href={"/"}
@@ -50,14 +55,17 @@ const MobileNavigation = ({ className }: { className: string }) => {
                 alt="logo"
                 width={60}
                 height={30}
+                className="aspect-square w-16 "
               />
 
-              <p className="group-data-[collapsible=icon]:hidden text-center flex flex-col items-center ">
-                <span className="font-bucket text-3xl">BuCkeT</span>
-                <span className="font-master text-sm tracking-[0.8rem] ml-0.5">
-                  master
-                </span>
-              </p>
+              <SheetDescription className="text-center flex flex-col items-center font-medium  outline-none ring-sidebar-ring ">
+        
+                  <span className="font-bucket text-3xl">BuCkeT</span>
+                  <span className="font-master text-sm tracking-[0.8rem] ml-0.5">
+                    master
+                  </span>
+              
+              </SheetDescription>
             </Link>
             <Separator className="mb-8 bg-light-200/20" />
           </SheetTitle>
@@ -83,10 +91,7 @@ const MobileNavigation = ({ className }: { className: string }) => {
 
             <SheetFooter className="px-3 py-2 flex flex-col text-xl">
               <SheetClose asChild>
-                <Link
-                  href={"/setting"}
-                  className="flex h-10 gap-2 text-xl"
-                >
+                <Link href={"/setting"} className="flex h-10 gap-2 text-xl">
                   <span>
                     <Settings className="text-xl" />
                   </span>

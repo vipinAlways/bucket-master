@@ -35,7 +35,7 @@ export default function RootLayout({
       >
         <Provider>
           <MobileNavigation className=""/>
-          <main>{children}</main>
+          <main className="p-2">{children}</main>
           <Toaster/>
         </Provider>
       </body>
