@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Home, Inbox, Settings } from "lucide-react";
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
+import { items } from "@/app/constants/constant";
 
 
 const Provider = ({ children }: { children: React.ReactNode}) => {
@@ -32,18 +33,7 @@ const Provider = ({ children }: { children: React.ReactNode}) => {
   }, []);
 
   if (!hasMounted) return null
-  const items = [
-    {
-      title: "Home",
-      url: "/home",
-      icon: Home,
-    },
-    {
-      title: "Inbox",
-      url: "#",
-      icon: Inbox,
-    },
-  ];
+  
 
   
   return (
@@ -96,7 +86,7 @@ const Provider = ({ children }: { children: React.ReactNode}) => {
 
               <SidebarGroupContent>
                 <SidebarMenu>
-                  <SidebarGroupLabel>hello</SidebarGroupLabel>
+                 
                   {items.map((item) => (
                     <SidebarMenuItem key={item.title} className="">
                       <SidebarMenuButton asChild>

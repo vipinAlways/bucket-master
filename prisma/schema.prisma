@@ -14,10 +14,24 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  userName String   
-  email    String
-  Avatar  String  
-  
+  id         String        @id @default(uuid())
+  userName   String
+  email      String
+  Avatar     String
+  BucketList BucketLists[]
+}
 
+model BucketLists {
+  id     String     @id @default(uuid())
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  duedate DateTime?
+  Achieved  Boolean
+  PhotoOfTarget String?
+  type  typeOfTarget
+}
+
+enum typeOfTarget {
+  dreamMilestone
+  ShortMilestone
 }

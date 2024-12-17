@@ -12,7 +12,9 @@ export const PostUser = async () => {
   }
 
   const exisingUser = await db.user.findFirst({
-    where: { id: user.id },
+    where: { 
+      email:user.email
+     },
   });
 
   if (!exisingUser) {
