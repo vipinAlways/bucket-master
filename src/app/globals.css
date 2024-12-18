@@ -75,7 +75,7 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    --sidebar-width-icon:30rem
+    --sidebar-width-icon: 30rem;
   }
 }
 
@@ -89,23 +89,23 @@ body {
 }
 
 @font-face {
-  font-family: 'Angelina';
-  src: url('/fonts/Angelina.ttf') format('truetype');
+  font-family: "Angelina";
+  src: url("/fonts/Angelina.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'LeagueSpartan-Bold';
-  src: url('/fonts/LeagueSpartan-Bold.ttf') format('truetype'),
-       url('/fonts/LeagueSpartan-Bold.ttf') format('truetype');
+  font-family: "LeagueSpartan-Bold";
+  src: url("/fonts/LeagueSpartan-Bold.ttf") format("truetype"),
+    url("/fonts/LeagueSpartan-Bold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Quicksand-VariableFont_wght';
-  src: url('/fonts/Quicksand-VariableFont_wght.ttf') format('truetype'),
-       url('/fonts/Quicksand-VariableFont_wght.ttf') format('truetype');
+  font-family: "Quicksand-VariableFont_wght";
+  src: url("/fonts/Quicksand-VariableFont_wght.ttf") format("truetype"),
+    url("/fonts/Quicksand-VariableFont_wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

@@ -108,7 +108,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
             >
               <Link
                 href={"/"}
-                className="flex h-10 justify-start items-center w-15"
+                className="flex h-10 items-center w-15"
               >
                 <span>
                   <Settings className="text-xl" />
