@@ -87,6 +87,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+@layer utilities {
+  .hover-btn {
+   @apply hover:transition hover:scale-110 hover:z-50 hover:ease-out hover:duration-300 transition-all
+  }
+}
 
 @font-face {
   font-family: "Angelina";

@@ -10,18 +10,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { Separator } from "./ui/separator";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { cn } from "@/lib/utils";
 import { Home, Inbox, Navigation, Settings, Sidebar } from "lucide-react";
 import Link from "next/link";
 import { items } from "@/app/constants/constant";
 
 const MobileNavigation = ({ className }: { className: string }) => {
-  
-  
   const [open, setOpen] = useState(false);
 
   return (
@@ -52,7 +47,7 @@ const MobileNavigation = ({ className }: { className: string }) => {
                 <span className="font-bucket text-3xl">BuCkeT</span>
                 <span className="font-master text-sm tracking-[0.8rem] ml-0.5">
                   master
-                </span> 
+                </span>
               </SheetDescription>
             </Link>
             <Separator className="mb-8 bg-light-200/20" />
