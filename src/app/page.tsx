@@ -8,10 +8,16 @@ export default function Home() {
   return (
     <div>
       <div className="p-2 flex gap-10 justify-between">
-        <div className="w-1/2 flex items-center justify-end">
+        <div className="relative w-1/2 flex items-center justify-end gap-10">
+          <div className="relative h-full">
+              <div className="h-12 w-36 absolute top-2/3 border -translate-y-1/3 left-1/2 ">
+
+              </div>
+          </div>
           <div className="">
             <Image src="/images/Bucket-icon.svg" alt="bucket" width={200} height={150} className="w-96 h-96"/>
           </div>
+
         </div>
 
         <div className="w-1/2">
@@ -32,6 +38,10 @@ export default function Home() {
                   <span className="text-xl">&#128221; &#10024;</span>
                 </span>
               </Button>
+              </div>
+
+              <div>
+
               </div>
             </div>
           )}
