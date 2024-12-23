@@ -29,9 +29,10 @@ model BucketLists {
   Achieved  Boolean
   PhotoOfTarget String?
   type  typeOfTarget
+  onHold   Boolean
 }
 
 enum typeOfTarget {
-  dreamMilestone
+  dreamMilestone 
   ShortMilestone
 }
