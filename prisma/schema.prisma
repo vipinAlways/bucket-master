@@ -24,7 +24,8 @@ model User {
 model BucketLists {
   id              String       @id @default(uuid())
   User            User?        @relation(fields: [userId], references: [id])
-  userId          String?
+  userId          String
+  ItemName        String
   duedate         DateTime?
   Achieved        Boolean
   PhotoOfTarget   String?
