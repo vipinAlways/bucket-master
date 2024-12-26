@@ -10,6 +10,7 @@ interface TargetProps {
   onHold: boolean;
   budget: number;
   remainingAmount: number;
+  itemName:string
 }
 
 export const startTarget = async ({
@@ -18,6 +19,7 @@ export const startTarget = async ({
   onHold,
   budget,
   remainingAmount,
+  itemName
 }: TargetProps) => {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
@@ -54,6 +56,7 @@ export const startTarget = async ({
         duedate: duedate,
         budget: budget,
         remainingAmount: remainingAmount,
+        ItemName:itemName        
       },
     });
 
