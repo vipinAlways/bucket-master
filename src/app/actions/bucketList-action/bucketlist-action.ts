@@ -7,18 +7,14 @@ import { $Enums } from "@prisma/client";
 interface TargetProps {
   duedate: Date;
   type: $Enums.typeOfTarget;
-  onHold: boolean;
   budget: number;
-  remainingAmount: number;
   itemName:string
 }
 
 export const startTarget = async ({
   duedate,
   type,
-  onHold,
   budget,
-  remainingAmount,
   itemName
 }: TargetProps) => {
   const { getUser } = getKindeServerSession();
@@ -34,29 +30,30 @@ export const startTarget = async ({
       },
     });
 
-    const isAlreadyHaveTarget = await db.bucketLists.findFirst({
+    const isAlreadyHaveTarget = await db.bucketItems.findFirst({
       where: {
         userId: dbuser?.id,
-        Achieved: false,
-        onHold: false,
+        Active:true
       },
     });
 
     if (isAlreadyHaveTarget) {
+      console.log(isAlreadyHaveTarget,"ye chahiye");
       throw new Error("Currently the target is on hold");
     }
 
-    const createTarget = await db.bucketLists.create({
+    const createTarget = await db.bucketItems.create({
       data: {
         userId: dbuser?.id,
         Achieved: false,
-        onHold: onHold,
+        onHold: false,
         type: type,
         PhotoOfTarget: "",
         duedate: duedate,
         budget: budget,
-        remainingAmount: remainingAmount,
-        ItemName:itemName        
+        remainingAmount: 0,
+        ItemName:itemName ,
+        Active:true      
       },
     });
 
@@ -66,3 +63,34 @@ export const startTarget = async ({
     throw new Error("error while creating target");
   }
 };
+
+export const activeBucketItem = async ()=>{
+  await db.$connect()
+
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user?.email) {
+      throw new Error("Invalid user data");
+    }
+    const dbuser = await db.user.findFirst({
+      where:{
+        email:user.email
+      }
+    })
+
+    if (!dbuser) throw new Error("no user with this email")
+    return  await db.bucketItems.findFirst({
+      where:{
+        userId:dbuser.id,
+        Active:true
+      }
+    })
+    
+  } catch (error) {
+    console.log("error while find bucket item", error);
+    throw new Error("error while bucket item");
+  }
+}
+
+

@@ -18,12 +18,13 @@ model User {
   userName   String
   email      String
   Avatar     String
-  BucketList BucketLists[]
+  BucketItem BucketItems[]
 }
 
-model BucketLists {
+model BucketItems {
   id              String       @id @default(uuid())
   User            User?        @relation(fields: [userId], references: [id])
+  Active          Boolean
   userId          String
   ItemName        String
   duedate         DateTime?
