@@ -89,7 +89,7 @@ body {
 }
 @layer utilities {
   .hover-btn {
-   @apply hover:transition hover:scale-110  hover:ease-out hover:duration-300 transition-all
+    @apply hover:transition hover:scale-110  hover:ease-out hover:duration-300 transition-all;
   }
 }
 
@@ -113,4 +113,28 @@ body {
     url("/fonts/Quicksand-VariableFont_wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+
+.new {
+  background-color: #11ff00;
+  box-shadow: 0 0 25px 15px #14c407, 0 0 7px 5px #0d9a03,
+    0 0 10px 5px rgb(11, 207, 207);
+}
+.bgnew {
+  background: rgb(222,11,11);
+  background: linear-gradient(40deg, #de0b0b 17%, #b63e3ef5 41%, #fe0505f8 56%, #cf3434 80%);
+  background-size: 400% 400%;
+  animation: gradient 8s ease infinite;
+}
+
+@keyframes gradient {
+  0%{
+    background-position: 0% 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0% 50%;
+  }
 }

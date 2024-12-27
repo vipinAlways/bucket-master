@@ -18,13 +18,12 @@ const TimeCountDown = () => {
     queryFn: async () => activeBucketItem(),
   });
 
-  // Update the `time` state when `data` changes
   useEffect(() => {
     if (data?.duedate) {
       setTime(new Date(data.duedate));
     }
+    console.log(data, "data");
   }, [data]);
-  
 
   useEffect(() => {
     if (!time) return;
@@ -48,17 +47,26 @@ const TimeCountDown = () => {
     };
 
     const interval = setInterval(updateRemainingTime, 1000);
-    updateRemainingTime(); // Initial call to set the remaining time immediately.
+    updateRemainingTime(); 
 
-    return () => clearInterval(interval); // Cleanup interval on unmount.
+    return () => clearInterval(interval); 
   }, [time]);
 
   return (
-    <div>
-      <p>Days: {remainingTime.days}</p>
-      <p>Hours: {remainingTime.hours}</p>
-      <p>Minutes: {remainingTime.minutes}</p>
-      <p>Seconds: {remainingTime.seconds}</p>
+    <div className="grid grid-cols-1 grid-rows-2 text-black font-bucket font-bold md:text-3xl text-4xl justify-items-center items-center text-center selection:select-text"> 
+     
+      <div className="grid grid-cols-4 max-md:gap-2 w-56 items-center">
+        <p className="text-center w-full">{remainingTime.days}</p>
+        <p className="text-center w-full"> {remainingTime.hours}</p>
+        <p className="text-center w-full"> {remainingTime.minutes}</p>
+        <p className="text-center w-full"> {remainingTime.seconds}</p>
+      </div>
+      <div className="grid grid-cols-4 ic w-56 md:text-lg text-xl max-md:gap-2 ">
+        <p className="text-center ">Days</p>
+        <p className="text-center ">Hrs</p>
+        <p className="text-center ">Min</p>
+        <p className="text-center ">Sec</p>
+      </div>
     </div>
   );
 };

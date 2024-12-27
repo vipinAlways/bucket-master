@@ -51,7 +51,7 @@ export const startTarget = async ({
         PhotoOfTarget: "",
         duedate: duedate,
         budget: budget,
-        remainingAmount: 0,
+        remainingAmount: budget,
         ItemName:itemName ,
         Active:true      
       },
@@ -93,4 +93,44 @@ export const activeBucketItem = async ()=>{
   }
 }
 
+
+export const remainingAmountIncrease = async({remainingAmount}:{remainingAmount:number})=>{
+  await db.$connect()
+
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user?.email) {
+      throw new Error("Invalid user data");
+    }
+    const dbuser = await db.user.findFirst({
+      where:{
+        email:user.email
+      }
+    })
+
+    if (!dbuser) throw new Error("no user with this email")
+    const activeBucket = await db.bucketItems.findFirst({
+      where:{
+        userId:dbuser.id,
+        Active:true
+      }
+    })
+
+    if (!activeBucket) throw new Error("no active bucket")
+   
+    return await db.bucketItems.update({
+      where:{
+        id:activeBucket.id
+      },
+      data:{
+        remainingAmount:remainingAmount
+      }
+    })
+    
+  } catch (error) {
+    console.log("error while find bucket item", error);
+    throw new Error("error while bucket item");
+  }
+}
 

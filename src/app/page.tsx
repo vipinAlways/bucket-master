@@ -1,13 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PostUser } from "./actions/User-action/UserAction";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import { startTarget } from "./actions/bucketList-action/bucketlist-action";
+import {
+  activeBucketItem,
+  remainingAmountIncrease,
+  startTarget,
+} from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
+import Loader from "@/components/Loader";
+import { Minus, Plus } from "lucide-react";
 
 interface TargetProps {
   duedate: Date;
@@ -26,6 +32,7 @@ export default function Home() {
   const [isActive, setIsActive] = useState(false);
   const { toast } = useToast();
   const [hidden, setHidden] = useState("hidden");
+  const [functionalamount, setFunctionalAmount] = useState<number>(0);
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -58,6 +65,18 @@ export default function Home() {
     },
   });
 
+  const { data } = useQuery({
+    queryKey: ["item-active"],
+    queryFn: async () => activeBucketItem(),
+  });
+
+  useEffect(() => {
+    if (data?.Active) {
+      setIsActive(data.Active);
+    }
+    console.log(data, "data");
+  }, [data]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createBucketITem.mutate({
@@ -68,7 +87,35 @@ export default function Home() {
     });
   };
 
-  
+  const remainingAmountFu = useMutation({
+    mutationFn: remainingAmountIncrease,
+    onError: () =>
+      toast({
+        title: "Error",
+        description: "ServerError while increasing remaining amount",
+        variant: "destructive",
+      }),
+    onSuccess: () => {
+      toast({
+        title: "Success",
+        description: "Remaining Amount Increased Successfully",
+      });
+      queryClient.invalidateQueries({ queryKey: ["item-active"] });
+    },
+  });
+
+  const handleRemainingAmountIncrease = () => {
+    remainingAmountFu.mutate({
+      remainingAmount: data?.remainingAmount! - functionalamount,
+    });
+    setFunctionalAmount(0);
+  };
+  const handleRemainingAmountdecrease = () => {
+    remainingAmountFu.mutate({
+      remainingAmount: data?.remainingAmount! + functionalamount,
+    });
+    setFunctionalAmount(0);
+  };
 
   useEffect(() => {
     mutate();
@@ -77,9 +124,9 @@ export default function Home() {
     <div>
       <div className="p-2 flex max-md:gap-10 justify-between relative max-md:flex-col items-center">
         <div className="relative md:w-1/2 w-full max-md:flex-col flex items-center justify-end md:gap-10">
-          <div className="max-md:hidden relative h-full">
-            <div className="h-12 w-36 absolute top-2/3 border -translate-y-1/3 left-1/2 ">
-                <TimeCountDown/>
+          <div className="max-md:hidden  h-full">
+            <div className="min-h-12 w-fit absolute top-[60%] -translate-y-1/4  left-1/2 -translate-x-2/3 px-3 py-0.5  ">
+              <TimeCountDown />
             </div>
           </div>
           <div className="">
@@ -89,16 +136,44 @@ export default function Home() {
               width={2000}
               height={150}
               className="w-full h-96"
+              priority
             />
           </div>
-          <div className="block border w-full md:hidden h-20">
-
+          <div className="block w-full md:hidden h-20">
+            <TimeCountDown />
           </div>
         </div>
 
         <div className="md:w-1/2 w-full">
           {isActive ? (
-            <div></div>
+            <div className="w-80 flex items-center justify-start max-h-80 flex-col">
+              <p>
+                <span>{data?.budget}</span>
+              </p>
+              <p>
+                <span>{data?.remainingAmount}</span>
+              </p>
+              <div className="flex items-center justify-between w-96  gap-6">
+                <Button onClick={handleRemainingAmountdecrease}>
+                  <Minus />
+                </Button>
+                <input
+                  placeholder="Enter the amount"
+                  name="amountEnter"
+                  type="text"
+                  value={functionalamount}
+                  onChange={(e) => {
+                    const number =
+                      parseInt(e.target.value.replace(/[^\d]/g, ""), 10) || 0;
+                    setFunctionalAmount(number);
+                  }}
+                />
+
+                <Button onClick={handleRemainingAmountIncrease}>
+                  <Plus />
+                </Button>
+              </div>
+            </div>
           ) : (
             <div className="w-full flex items-center justify-start max-h-80">
               <div
@@ -218,6 +293,10 @@ export default function Home() {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="flex w-full items-start  px-10">
+        <Loader />
       </div>
     </div>
   );
