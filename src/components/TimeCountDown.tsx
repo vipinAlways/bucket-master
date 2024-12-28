@@ -54,7 +54,7 @@ const TimeCountDown = () => {
   }, [time]);
 
   return (
-    <div className="flex flex-col w-full text-zinc-800 font-bucket md:text-6xl text-4xl items-center text-center selection:select-text">
+    <div className="flex flex-col w-full  font-bucket md:text-6xl text-4xl items-center text-center selection:select-text  text-transparent-border">
       <div
         className={cn(
           "grid grid-cols-4 max-md:gap-2 w-full items-center",
@@ -66,7 +66,7 @@ const TimeCountDown = () => {
         <p className="text-center w-full"> {remainingTime.minutes}</p>
         <p className="text-center w-full"> {remainingTime.seconds}</p>
       </div>
-      <div className="grid grid-cols-4 ic w-full md:text-2xl text-xl max-md:gap-2 text-black ">
+      <div className="grid grid-cols-4 ic w-full md:text-2xl text-xl max-md:gap-2">
         <p className="text-center ">Days</p>
         <p className="text-center ">Hrs</p>
         <p className="text-center ">Min</p>
