@@ -14,6 +14,7 @@ import {
 import TimeCountDown from "@/components/TimeCountDown";
 import Loader from "@/components/Loader";
 import { Minus, Plus } from "lucide-react";
+import PendingLoader from "@/components/PendingLoader";
 
 interface TargetProps {
   duedate: Date;
@@ -65,7 +66,7 @@ export default function Home() {
     },
   });
 
-  const { data } = useQuery({
+  const { data,isPending } = useQuery({
     queryKey: ["item-active"],
     queryFn: async () => activeBucketItem(),
   });
@@ -120,12 +121,16 @@ export default function Home() {
   useEffect(() => {
     mutate();
   }, [mutate]);
+
+  if (isPending) {
+    return <PendingLoader/>
+  }
   return (
     <div>
       <div className="p-2 flex max-md:gap-10 justify-between relative max-md:flex-col items-center">
         <div className="relative md:w-1/2 w-full max-md:flex-col flex items-center justify-end md:gap-10">
           <div className="max-md:hidden  h-full">
-            <div className="min-h-12 w-fit absolute top-[60%] -translate-y-1/4  left-1/2 -translate-x-2/3 px-3 py-0.5  ">
+            <div className="min-h-12 w-80 absolute top-[40%] -translate-y-1/4  left-1/3 -translate-x-2/3 px-3 py-0.5  ">
               <TimeCountDown />
             </div>
           </div>
@@ -146,16 +151,16 @@ export default function Home() {
 
         <div className="md:w-1/2 w-full">
           {isActive ? (
-            <div className="w-80 flex items-center justify-start max-h-80 flex-col">
-              <p>
+            <div className="w-80 flex font-bucket text-textgreen items-center justify-start max-h-80 flex-col gap-4 teb">
+              <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite ">
                 <span>{data?.budget}</span>
               </p>
-              <p>
+              <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite">
                 <span>{data?.remainingAmount}</span>
               </p>
-              <div className="flex items-center justify-between w-96  gap-6">
-                <Button onClick={handleRemainingAmountdecrease}>
-                  <Minus />
+              <div className="flex items-center justify-between w-80">
+                <Button onClick={handleRemainingAmountdecrease} className="bg-red-600 text-2xl p-0.5 w-12 h-9 hover:bg-red-600">
+                  <Minus className="text-2xl" />
                 </Button>
                 <input
                   placeholder="Enter the amount"
@@ -167,9 +172,10 @@ export default function Home() {
                       parseInt(e.target.value.replace(/[^\d]/g, ""), 10) || 0;
                     setFunctionalAmount(number);
                   }}
+                  className="h-9 rounded-full px-2"
                 />
 
-                <Button onClick={handleRemainingAmountIncrease}>
+                <Button onClick={handleRemainingAmountIncrease} className="bg-green-600 text-2xl p-0.5 w-12 h-9 hover:bg-green-600">
                   <Plus />
                 </Button>
               </div>

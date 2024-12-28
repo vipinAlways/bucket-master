@@ -31,7 +31,7 @@ const Loader = () => {
       <div
       style={{ width: `${remainingBalancePercentage > 0 ? remainingBalancePercentage : 100}%` }}
         className={cn(
-          "h-full border-2 rounded-full absolute top-0 left-0 z-30 ",
+          "h-full  rounded-full absolute top-0 left-0 z-30 ",
           remainingBalance > 0
             ? `new`
             : ""
@@ -40,7 +40,7 @@ const Loader = () => {
       <div
      
         className={cn(
-          "h-full border-2 rounded-full absolute top-0 left-0 w-full",
+          "h-full border rounded-full absolute top-0 left-0 w-full",
           remainingBalance > 0
             ? `bgnew`
             : ""

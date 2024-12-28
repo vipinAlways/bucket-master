@@ -1,5 +1,6 @@
 "use client";
 import { activeBucketItem } from "@/app/actions/bucketList-action/bucketlist-action";
+import { cn } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 
@@ -47,21 +48,25 @@ const TimeCountDown = () => {
     };
 
     const interval = setInterval(updateRemainingTime, 1000);
-    updateRemainingTime(); 
+    updateRemainingTime();
 
-    return () => clearInterval(interval); 
+    return () => clearInterval(interval);
   }, [time]);
 
   return (
-    <div className="grid grid-cols-1 grid-rows-2 text-black font-bucket font-bold md:text-3xl text-4xl justify-items-center items-center text-center selection:select-text"> 
-     
-      <div className="grid grid-cols-4 max-md:gap-2 w-56 items-center">
+    <div className="flex flex-col w-full text-zinc-800 font-bucket md:text-6xl text-4xl items-center text-center selection:select-text">
+      <div
+        className={cn(
+          "grid grid-cols-4 max-md:gap-2 w-full items-center",
+          remainingTime.days === 0 && "text-red-800"
+        )}
+      >
         <p className="text-center w-full">{remainingTime.days}</p>
         <p className="text-center w-full"> {remainingTime.hours}</p>
         <p className="text-center w-full"> {remainingTime.minutes}</p>
         <p className="text-center w-full"> {remainingTime.seconds}</p>
       </div>
-      <div className="grid grid-cols-4 ic w-56 md:text-lg text-xl max-md:gap-2 ">
+      <div className="grid grid-cols-4 ic w-full md:text-2xl text-xl max-md:gap-2 text-black ">
         <p className="text-center ">Days</p>
         <p className="text-center ">Hrs</p>
         <p className="text-center ">Min</p>
