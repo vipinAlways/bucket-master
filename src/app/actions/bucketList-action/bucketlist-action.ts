@@ -11,13 +11,14 @@ interface TargetProps {
   itemName:string
 }
 
+const { getUser } = getKindeServerSession();
 export const startTarget = async ({
   duedate,
   type,
   budget,
   itemName
 }: TargetProps) => {
-  const { getUser } = getKindeServerSession();
+ 
   const user = await getUser();
   if (!user?.email) {
     throw new Error("Invalid user data");
@@ -68,7 +69,7 @@ export const activeBucketItem = async ()=>{
   await db.$connect()
 
   try {
-    const { getUser } = getKindeServerSession();
+   
     const user = await getUser();
     if (!user?.email) {
       throw new Error("Invalid user data");
@@ -98,7 +99,7 @@ export const remainingAmountIncrease = async({remainingAmount}:{remainingAmount:
   await db.$connect()
 
   try {
-    const { getUser } = getKindeServerSession();
+   
     const user = await getUser();
     if (!user?.email) {
       throw new Error("Invalid user data");
@@ -134,3 +135,42 @@ export const remainingAmountIncrease = async({remainingAmount}:{remainingAmount:
   }
 }
 
+export const targetAchieved = async()=>{
+  await db.$connect();
+  try {
+    const user= await getUser();
+    if (!user?.email) {
+      throw new Error("Invalid user data");
+    }
+    const dbuser = await db.user.findFirst({
+      where:{
+        email:user.email
+      }
+    })
+
+    if (!dbuser) throw new Error("no user with this email")
+    const activeBucket = await db.bucketItems.findFirst({
+      where:{
+        userId:dbuser.id,
+        Active:true,
+        onHold:false
+      }
+    })
+
+    if (!activeBucket) throw new Error("no active bucket")
+   
+    return await db.bucketItems.update({
+      where:{
+        id:activeBucket.id
+      },
+      data:{
+        onHold:true,
+        Active:false
+      }
+    })
+    
+    
+  } catch (error) {
+    
+  }
+}

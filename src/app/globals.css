@@ -119,25 +119,25 @@ body {
   background: rgb(222, 11, 11);
   background: linear-gradient(
     40deg,
-    #de0b0b 17%,
-    #b63e3ef5 41%,
-    #fe0505f8 56%,
-    #cf3434 80%
+    #a82a2a 17%,
+    #be1b1bf5 41%,
+    #821515f8 56%,
+    #e20c0c 80%
   );
   background-size: 400% 400%;
   animation: gradient 8s ease infinite;
 }
 .new {
   background-color: #4d955c;
-  box-shadow: 0 0 25px 15px #70b87e, 0 0 7px 5px #0d9a03,
+  box-shadow: 0 0 20px 10px #70b87e, 0 0 7px 5px #0d9a03,
     0 0 10px 5px rgb(11, 207, 207);
-    background: linear-gradient(
-      40deg,
-      #70b87e 17%,
-      #0d9a03 41%,
-      #4d955c 56%,
-      #6acf34 80%
-    );
+  background: linear-gradient(
+    40deg,
+    #70b87e 17%,
+    #0d9a03 41%,
+    #4d955c 56%,
+    #6acf34 80%
+  );
   background-size: 400% 400%;
   animation: gradient 8s ease infinite;
 }
@@ -176,7 +176,7 @@ body {
 .text-transparent-border {
   font-size: 48px;
   font-weight: bold;
-  color: transparent; 
-  -webkit-text-stroke: 1px rgb(2, 34, 8);
-  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+  color: transparent;
+  -webkit-text-stroke: 1px #479255;
+  text-shadow: 4px 4px 8px rgba(12, 39, 9, 0.5);
 }

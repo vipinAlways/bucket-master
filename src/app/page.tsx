@@ -13,8 +13,9 @@ import {
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
 import Loader from "@/components/Loader";
-import { Minus, Plus } from "lucide-react";
+import { Divide, Minus, Plus } from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
+import OnholdProof from "@/components/OnholdProof";
 
 interface TargetProps {
   duedate: Date;
@@ -31,8 +32,11 @@ export default function Home() {
     itemName: "",
   });
   const [isActive, setIsActive] = useState(false);
+  const [dissable, setDissable] = useState(false);
+  const [completed, setCompelted] = useState(false);
   const { toast } = useToast();
   const [hidden, setHidden] = useState("hidden");
+
   const [functionalamount, setFunctionalAmount] = useState<number>(0);
   const queryClient = useQueryClient();
 
@@ -75,7 +79,7 @@ export default function Home() {
     if (data?.Active) {
       setIsActive(data.Active);
     }
-    console.log(data, "data");
+    
   }, [data]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -106,10 +110,14 @@ export default function Home() {
   });
 
   const handleRemainingAmountIncrease = () => {
-    remainingAmountFu.mutate({
-      remainingAmount: data?.remainingAmount! - functionalamount,
-    });
-    setFunctionalAmount(0);
+    
+      remainingAmountFu.mutate({
+        remainingAmount: data?.remainingAmount! - functionalamount,
+      });
+      setFunctionalAmount(0);
+    
+   
+
   };
   const handleRemainingAmountdecrease = () => {
     remainingAmountFu.mutate({
@@ -122,6 +130,19 @@ export default function Home() {
     mutate();
   }, [mutate]);
 
+  useEffect(() => {
+    if (data?.remainingAmount! <functionalamount) {
+      setDissable(true);
+
+    } 
+    else if (data?.remainingAmount! === 0) {
+      setCompelted(true);
+    }
+    else {
+      setDissable(false);
+    }
+  }  , [functionalamount,setFunctionalAmount]);
+
   if (isPending) {
     return <PendingLoader/>
   }
@@ -130,7 +151,12 @@ export default function Home() {
       <div className="p-2 flex max-md:gap-10 justify-between relative max-md:flex-col items-center">
         <div className="relative md:w-1/2 w-full max-md:flex-col flex items-center justify-end md:gap-10">
           <div className="max-md:hidden  h-full">
-            <div className="min-h-12 w-80 absolute top-[40%] -translate-y-1/4  left-1/3 -translate-x-2/3 px-3 py-0.5  ">
+            <div className="flex items-start justify-center w-36 h-96 rounded-full px-5 py-1 selection:select-none">
+                <h1 className="text-6xl flex items-center justify-center text-textwhite font-master text-center rounded-xl shrink-0">
+                  {data?.ItemName}
+                </h1>
+            </div>
+            <div className="min-h-12 w-80 absolute top-[60%] -translate-y-1/4  left-[45%] -translate-x-[60%] px-3 py-0.5">
               <TimeCountDown />
             </div>
           </div>
@@ -148,10 +174,13 @@ export default function Home() {
             <TimeCountDown />
           </div>
         </div>
-
         <div className="md:w-1/2 w-full">
           {isActive ? (
-            <div className="w-80 flex font-bucket text-textgreen items-center justify-start max-h-80 flex-col gap-4 teb">
+            !completed ? (<div className="w-full flex justify-start">
+              <OnholdProof/>
+            </div>):(
+              <div className="h-88 felx flex-col items-center justify-center">
+              <div className="w-80 flex font-bucket text-textgreen items-center justify-start max-h-80 flex-col gap-4 teb">
               <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite ">
                 <span>{data?.budget}</span>
               </p>
@@ -175,11 +204,16 @@ export default function Home() {
                   className="h-9 rounded-full px-2"
                 />
 
-                <Button onClick={handleRemainingAmountIncrease} className="bg-green-600 text-2xl p-0.5 w-12 h-9 hover:bg-green-600">
+                <Button onClick={handleRemainingAmountIncrease} className="bg-green-600 text-2xl p-0.5 w-12 h-9 hover:bg-green-600" disabled={dissable}>
                   <Plus />
                 </Button>
               </div>
+              <p className="text-center w-80 text-red-500 h-9">
+                {dissable? "You have entered more than remaining amount" : ""}
+              </p>
             </div>
+          </div>
+            )
           ) : (
             <div className="w-full flex items-center justify-start max-h-80">
               <div

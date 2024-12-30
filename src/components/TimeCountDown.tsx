@@ -51,7 +51,7 @@ const TimeCountDown = () => {
     updateRemainingTime();
 
     return () => clearInterval(interval);
-  }, [time]);
+  }, [time,data?.onHold]);
 
   return (
     <div className="flex flex-col w-full  font-bucket md:text-6xl text-4xl items-center text-center selection:select-text  text-transparent-border">

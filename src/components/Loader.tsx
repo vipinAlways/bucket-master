@@ -32,7 +32,7 @@ const Loader = () => {
       style={{ width: `${remainingBalancePercentage > 0 ? remainingBalancePercentage : 100}%` }}
         className={cn(
           "h-full  rounded-full absolute top-0 left-0 z-30 ",
-          remainingBalance > 0
+          remainingBalance >= 0
             ? `new`
             : ""
         )}
