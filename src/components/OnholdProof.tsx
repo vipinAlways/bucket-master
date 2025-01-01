@@ -32,6 +32,7 @@ const OnholdProof = () => {
     <div className="flex items-center justify-center gap-4 flex-col w-fit mr-10">
       <Button className="w-full h-14 text-2xl p-5" >Upload Proof</Button>
       <Button className="w-full h-14 text-2xl p-5" onClick={()=>mutate()}>On hold</Button>
+     
     </div>
   );
 };

@@ -131,17 +131,22 @@ export default function Home() {
   }, [mutate]);
 
   useEffect(() => {
-    if (data?.remainingAmount! <functionalamount) {
-      setDissable(true);
+    if (data?.remainingAmount !== undefined) {
+      if (data.remainingAmount < functionalamount) {
+        setDissable(true);
+      } else {
+        setDissable(false);
+      }
+  
+      setCompelted(data.remainingAmount === 0);
+    } else {
+      setDissable(false); 
+    }
+  }, [data?.remainingAmount, functionalamount]);
+  
 
-    } 
-    else if (data?.remainingAmount! === 0) {
-      setCompelted(true);
-    }
-    else {
-      setDissable(false);
-    }
-  }  , [functionalamount,setFunctionalAmount]);
+
+
 
   if (isPending) {
     return <PendingLoader/>
@@ -176,8 +181,9 @@ export default function Home() {
         </div>
         <div className="md:w-1/2 w-full">
           {isActive ? (
-            !completed ? (<div className="w-full flex justify-start">
+            completed === true ? (<div className="w-full flex justify-start">
               <OnholdProof/>
+              <Button onClick={()=>setCompelted(false)}>Edit Amount</Button>
             </div>):(
               <div className="h-88 felx flex-col items-center justify-center">
               <div className="w-80 flex font-bucket text-textgreen items-center justify-start max-h-80 flex-col gap-4 teb">

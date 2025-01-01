@@ -23,6 +23,8 @@ const TimeCountDown = () => {
     if (data?.duedate) {
       setTime(new Date(data.duedate));
     }
+    if (data?.onHold)
+      setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     console.log(data, "data");
   }, [data]);
 
@@ -36,6 +38,9 @@ const TimeCountDown = () => {
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
+
+      if (data?.onHold)
+        setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
@@ -51,7 +56,7 @@ const TimeCountDown = () => {
     updateRemainingTime();
 
     return () => clearInterval(interval);
-  }, [time,data?.onHold]);
+  }, [time, data?.onHold]);
 
   return (
     <div className="flex flex-col w-full  font-bucket md:text-6xl text-4xl items-center text-center selection:select-text  text-transparent-border">
