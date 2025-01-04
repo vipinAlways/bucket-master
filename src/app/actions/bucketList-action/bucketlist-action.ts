@@ -165,7 +165,8 @@ export const targetAchieved = async()=>{
       },
       data:{
         onHold:true,
-        Active:false
+        Active:false,
+        duedate:new Date()
       }
     })
     

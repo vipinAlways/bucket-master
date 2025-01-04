@@ -23,6 +23,7 @@ const OnholdProof = () => {
         description: "Target is on hold",
       });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      queryClient.invalidateQueries({ queryKey: ["active-time"] });
     },
   });
 
