@@ -129,7 +129,7 @@ body {
 }
 .new {
   background-color: #4d955c;
-  box-shadow: 0 0 20px 10px #70b87e, 0 0 7px 5px #0d9a03,
+  box-shadow: 0 0 3px 1px #70b87e, 0 0 7px 5px #0d9a03,
     0 0 10px 5px rgb(11, 207, 207);
   background: linear-gradient(
     40deg,

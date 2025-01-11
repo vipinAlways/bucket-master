@@ -8,11 +8,10 @@ import { useToast } from "@/hooks/use-toast";
 import {
   activeBucketItem,
   remainingAmountIncrease,
-
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
 import Loader from "@/components/Loader";
-import {  Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
 import OnholdProof from "@/components/OnholdProof";
 import CreateBucketItem from "@/components/CreateBucketItem";
@@ -24,8 +23,25 @@ export default function Home() {
   const { toast } = useToast();
 
   const [functionalamount, setFunctionalAmount] = useState<number>(0);
+
+  const [fillHeight, setFIllHieght] = useState<number>(0);
+  const [remainingBalancePercentage, setRemainingBalancePercentage] =
+    useState(0);
+
   const queryClient = useQueryClient();
 
+  const { data, isPending } = useQuery({
+    queryKey: ["item-active"],
+    queryFn: activeBucketItem,
+  });
+
+  useEffect(() => {
+    if (data?.remainingAmount! >= 0 && data?.budget) {
+      const percentage = 100 - (data.remainingAmount / data.budget) * 100;
+      setRemainingBalancePercentage(percentage);
+      setFIllHieght(500 * ((percentage) / 100));
+    }
+  }, [data]);
   const { mutate } = useMutation({
     mutationKey: ["create-user"],
     mutationFn: PostUser,
@@ -35,11 +51,6 @@ export default function Home() {
         description: "ServerError",
         variant: "destructive",
       }),
-  });
-
-  const { data, isPending } = useQuery({
-    queryKey: ["item-active"],
-    queryFn: async () => activeBucketItem(),
   });
 
   useEffect(() => {
@@ -99,6 +110,7 @@ export default function Home() {
   if (isPending) {
     return <PendingLoader />;
   }
+  console.log(fillHeight,"ye hain");
   return (
     <div>
       <div className="p-2 flex max-md:gap-10 justify-between relative max-md:flex-col items-center">
@@ -113,15 +125,51 @@ export default function Home() {
               <TimeCountDown />
             </div>
           </div>
-          <div className="">
-            <Image
-              src="/images/Bucket-icon.svg"
-              alt="bucket"
-              width={2000}
-              height={150}
-              className="w-full h-96"
-              priority
-            />
+          <div className="h-fit w-96 ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox={`0 0 600 ${Math.floor(fillHeight)}`} 
+              style={{ maxHeight: `${Math.floor(fillHeight)}%`, width: "100%" ,display:"block"}} 
+              className="border rotate-180 relative p-0"
+            >
+              <defs>
+                <linearGradient
+                  id="waterGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="0%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style={{ stopColor: "#3ca6f5", stopOpacity: 1 }}
+                  />
+                  <stop
+                    offset="100%"
+                    style={{ stopColor: "#1e81ce", stopOpacity: 1 }}
+                  />
+                </linearGradient>
+                <mask id="fillMask" className="relative">
+                  <rect
+                    className="fill-rect"
+                    x="0"
+                    y={fillHeight - 500}
+                    width="500"
+                    height={fillHeight*10} 
+                    fill="#fff"
+                  />
+                </mask>
+              </defs>
+              <path
+                d="M150 100 Q250 50 350 100 L370 400 Q250 450 130 400 Z"
+                fill="url(#waterGradient)"
+                mask="url(#fillMask)"
+                stroke="#555"
+                strokeWidth="8"
+              />
+            </svg>
+
+            <div className="absolute top-0">hello</div>
           </div>
           <div className="block w-full md:hidden h-20">
             <TimeCountDown />
