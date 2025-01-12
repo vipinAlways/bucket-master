@@ -128,7 +128,7 @@ export default function Home() {
           <div className="h-fit w-96 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox={`0 0 600 ${Math.floor(fillHeight)}`} 
+              viewBox={`0 0 700 ${Math.floor(fillHeight)}`} 
               style={{ maxHeight: `${Math.floor(fillHeight)}%`, width: "100%" ,display:"block"}} 
               className="border rotate-180 relative p-0"
             >
@@ -191,10 +191,10 @@ export default function Home() {
                   <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite">
                     <span>{data?.remainingAmount}</span>
                   </p>
-                  <div className="flex items-center justify-between w-80">
+                  <div className="flex items-center justify-between w-fit gap-2.5">
                     <Button
                       onClick={handleRemainingAmountdecrease}
-                      className="bg-red-600 text-2xl p-0.5 w-12 h-9 hover:bg-red-600"
+                      className="bg-red-600 text-2xl p-0.5 w-12 h-9 rounded-2xl hover:bg-red-600"
                     >
                       <Minus className="text-2xl" />
                     </Button>
@@ -209,12 +209,12 @@ export default function Home() {
                           0;
                         setFunctionalAmount(number);
                       }}
-                      className="h-9 rounded-full px-2"
+                      className="h-9 rounded-full px-2 w-40 text-xl "
                     />
 
                     <Button
                       onClick={handleRemainingAmountIncrease}
-                      className="bg-green-600 text-2xl p-0.5 w-12 h-9 hover:bg-green-600"
+                      className="bg-green-600 text-2xl p-0.5 w-12 h-9 rounded-2xl hover:bg-green-600"
                       disabled={dissable}
                     >
                       <Plus />
