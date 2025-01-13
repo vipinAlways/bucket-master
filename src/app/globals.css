@@ -180,3 +180,12 @@ body {
   -webkit-text-stroke: 1px #479255;
   text-shadow: 4px 4px 8px rgba(12, 39, 9, 0.5);
 }
+
+/* .me:hover{
+  transform: rotateY(180deg);
+  transition: all 0.3s ease-in;
+}
+
+.me2{
+  transform: rotateY(180deg);
+} */

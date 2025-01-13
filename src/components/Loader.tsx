@@ -40,7 +40,7 @@ const Loader = () => {
       <div
      
         className={cn(
-          "h-full border rounded-full absolute top-0 left-0 w-full",
+          "h-full rounded-full absolute top-0 left-0 w-full",
           remainingBalance > 0
             ? `bgnew`
             : ""
