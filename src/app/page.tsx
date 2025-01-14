@@ -28,7 +28,7 @@ export default function Home() {
   const [remainingBalancePercentage, setRemainingBalancePercentage] =
     useState(0);
 
-  const [isHover, setIsHover] = useState(false);
+  const [isHover, setIsHover] = useState(true);
 
   const queryClient = useQueryClient();
 
@@ -300,12 +300,9 @@ l-40 -44 5 40 c3 22 8 85 12 140 6 84 11 105 31 130 22 27 30 31 79 31 43 0
                 <Button onClick={() => setCompelted(false)}>Edit Amount</Button>
               </div>
             ) : (
-              <div onMouseEnter={()=>{
-                setIsHover(true)
-              }} onMouseLeave={()=>setIsHover(false)} className="h-[22rem] w-96 me  z-10 hover:rotate-180 duration-300 hover:z-20">
-               <div className="w-80 rounded-xl bg-[#cfcfcf] h-full">
-               {isHover ? (
-                  <div className="w-80 flex font-bucket text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full rotate-180 duration-150">
+              <div className="h-80 w-80 relative me transition-all  duration-600 ease-linear">
+                <div className="absolute  w-full card  rounded-xl bg-[#cfcfcf] h-full transition-all duration-400 ease-in-out  ">
+                  <div className="back w-80 flex font-bucket text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full ">
                     <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite ">
                       <span>{data?.budget}</span>
                     </p>
@@ -349,15 +346,13 @@ l-40 -44 5 40 c3 22 8 85 12 140 6 84 11 105 31 130 22 27 30 31 79 31 43 0
                         : ""}
                     </p>
                   </div>
-                ) : (
-                  <div className="flex flex-col justify-around p-8 h-full font-bucket text-textgreen">
-                    <h1 className="w-full text-6xl text-start">Hover:</h1>
+                  <div className="front flex flex-col justify-around p-8 h-full font-bucket text-textgreen ">
+                    <h1 className="w-full text-6xl text-start">Hover:</h1> 
                     <h1 className="w-full text-6xl text-end">To:</h1>
-                    <h1 className="w-full text-6xl text-start">Edit The:</h1>
+                    <h1 className="w-full text-6xl text-start">Edit:</h1>
                     <h1 className="w-full text-6xl text-end">Bucket:</h1>
                   </div>
-                )}
-               </div>
+                </div>
               </div>
             )
           ) : (
