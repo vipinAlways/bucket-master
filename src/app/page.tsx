@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
+
 import React, { useEffect, useState } from "react";
 import { PostUser } from "./actions/User-action/UserAction";
 import { useToast } from "@/hooks/use-toast";
@@ -112,7 +112,7 @@ export default function Home() {
   if (isPending) {
     return <PendingLoader />;
   }
-  console.log(fillHeight, "ye hain");
+  
   return (
     <div>
       <div className="p-2 flex max-md:gap-10 justify-between relative max-md:flex-col items-center">
@@ -128,54 +128,6 @@ export default function Home() {
             </div>
           </div>
           <div className="h-fit w-96 ">
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox={`0 0 500 ${Math.floor(fillHeight)}`}
-              style={{
-                maxHeight: `${Math.floor(fillHeight)}%`,
-                width: "100%",
-                display: "block",
-              }}
-              className="border rotate-180 relative p-0"
-            >
-              <defs>
-                <linearGradient
-                  id="waterGradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="0%"
-                  y2="100%"
-                >
-                  <stop
-                    offset="0%"
-                    style={{ stopColor: "#3ca6f5", stopOpacity: 1 }}
-                  />
-                  <stop
-                    offset="100%"
-                    style={{ stopColor: "#1e81ce", stopOpacity: 1 }}
-                  />
-                </linearGradient>
-                <mask id="fillMask" className="relative">
-                  <rect
-                    className="fill-rect"
-                    x="0"
-                    y={fillHeight - 500}
-                    width="500"
-                    height={fillHeight * 10}
-                    fill="#fff"
-                  />
-                </mask>
-              </defs>
-              <path
-                d="m150 100 Q250 50 350 100 L370 400 Q250 450 130 400 Z"
-                fill="url(#waterGradient)"
-                mask="url(#fillMask)"
-                stroke="#555"
-                strokeWidth="8"
-                
-              />
-            </svg> */}
-
             <svg
               version="1.0"
               xmlns="http://www.w3.org/2000/svg"
@@ -347,7 +299,7 @@ l-40 -44 5 40 c3 22 8 85 12 140 6 84 11 105 31 130 22 27 30 31 79 31 43 0
                     </p>
                   </div>
                   <div className="front flex flex-col justify-around p-8 h-full font-bucket text-textgreen ">
-                    <h1 className="w-full text-6xl text-start">Hover:</h1> 
+                    <h1 className="w-full text-6xl text-start">Hover:</h1>
                     <h1 className="w-full text-6xl text-end">To:</h1>
                     <h1 className="w-full text-6xl text-start">Edit:</h1>
                     <h1 className="w-full text-6xl text-end">Bucket:</h1>
