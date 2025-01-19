@@ -314,7 +314,7 @@ l-40 -44 5 40 c3 22 8 85 12 140 6 84 11 105 31 130 22 27 30 31 79 31 43 0
       </div>
 
       <div className="flex w-full items-start  px-10">
-        <Loader />
+      {data?.Active &&   <Loader />}
       </div>
     </div>
   );

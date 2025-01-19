@@ -43,6 +43,10 @@ export const startTarget = async ({
       throw new Error("Currently the target is on hold");
     }
 
+    if (duedate <= new Date()) {
+      throw new Error ("date should be not be today")
+    }
+
     const createTarget = await db.bucketItems.create({
       data: {
         userId: dbuser?.id,
@@ -54,7 +58,8 @@ export const startTarget = async ({
         budget: budget,
         remainingAmount: budget,
         ItemName:itemName ,
-        Active:true      
+        Active:true,
+        failed:false
       },
     });
 
