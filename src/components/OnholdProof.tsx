@@ -2,7 +2,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { targetAchieved } from "@/app/actions/bucketList-action/bucketlist-action";
+import { targetonHold } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
 
 const OnholdProof = () => {
@@ -10,7 +10,7 @@ const OnholdProof = () => {
   const queryClient = useQueryClient();
   const {mutate} = useMutation({
     mutationKey: ["onhold"],
-    mutationFn: targetAchieved,
+    mutationFn: targetonHold,
     onError: () =>
       toast({
         title: "Error",
