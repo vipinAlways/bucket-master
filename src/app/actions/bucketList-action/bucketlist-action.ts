@@ -196,21 +196,24 @@ export const failedTOAcheive = async () => {
         userId: dbuser.id,
         Active: true,
         onHold: false,
+        failed:false
       },
     });
 
     if (!activeBucket || activeBucket.budget) throw new Error("no active bucket");
-    if (activeBucket.duedate && activeBucket.duedate < new Date()) {
-      return await db.bucketItems.update({
-        where: {
-          id: activeBucket.id,
-        },
-        data: {
-          failed: true,
-          Active: false,
-       
-        },
-      });
+    if (activeBucket.duedate && new Date(activeBucket.duedate )< new Date()) {
+ 
+    return await db.bucketItems.update({
+      where: {
+        id: activeBucket.id,
+      },
+      data: {
+        failed: true,
+        Active: false,
+     
+      },
+    });
+   
     }
 
   } catch (error) {
