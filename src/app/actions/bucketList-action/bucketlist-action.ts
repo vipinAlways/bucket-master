@@ -225,10 +225,11 @@ export const failedTOAcheive = async () => {
       },
     });
 
-    if (!activeBucket || activeBucket.budget) {
+    if (!activeBucket || !activeBucket.budget ) {
       console.log("no active bucket");
       return;
     }
+   
     if (activeBucket.duedate && new Date(activeBucket.duedate) < new Date()) {
       return await db.bucketItems.update({
         where: {

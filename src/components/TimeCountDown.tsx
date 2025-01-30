@@ -5,7 +5,7 @@ import {
 } from "@/app/actions/bucketList-action/bucketlist-action";
 
 import { cn } from "@/lib/utils";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 
 const TimeCountDown = () => {
@@ -18,6 +18,8 @@ const TimeCountDown = () => {
     seconds: 0,
   });
 
+  const queryClient = useQueryClient();
+
   const { data } = useQuery({
     queryKey: ["item-active"],
     queryFn: async () => activeBucketItem(),
@@ -26,58 +28,63 @@ const TimeCountDown = () => {
   const { mutate } = useMutation({
     mutationFn: async () => failedTOAcheive(),
     onSuccess: () => {
-      console.log("onSuccess");
-    }
+      queryClient.invalidateQueries({ queryKey: ["item-active"] });
+    },
   });
 
   useEffect(() => {
     if (data?.duedate) {
       setTime(new Date(data.duedate));
     }
-    
-    console.log(data, "data");
+
+ 
   }, [data]);
-  
+
   useEffect(() => {
     if (!time) return;
     const updateRemainingTime = () => {
       const now = new Date();
       const diff = time.getTime() - now.getTime();
-      
+
       if (diff <= 0) {
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
-      
+
       if (data?.onHold)
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      
+
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
         (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
+
       setRemainingTime({ days, hours, minutes, seconds });
     };
-    
+
     const interval = setInterval(updateRemainingTime, 1000);
     updateRemainingTime();
-    
+
     return () => clearInterval(interval);
   }, [time, data?.onHold, data?.Active]);
   useEffect(() => {
-    if (remainingTime.days === 0 && remainingTime.hours === 0 && remainingTime.minutes === 0 && remainingTime.seconds === 0) {
+    if (
+      remainingTime.days === 0 &&
+      remainingTime.hours === 0 &&
+      remainingTime.minutes === 0 &&
+      remainingTime.seconds === 0
+    ) {
       mutate();
     }
-  }, [data?.duedate]);
-  
+  }, [data?.duedate, data?.onHold, remainingTime]);
+
   return (
     <div
-    className={`flex flex-col w-full  font-bucket md:text-6xl text-4xl items-center text-center selection:select-text  text-transparent-border  ${
-      !data?.Active && "hidden"
-    }`}
+      className={`flex flex-col w-full  font-bucket md:text-6xl text-4xl items-center text-center selection:select-text  text-transparent-border  ${
+        !data?.Active && "hidden"
+      }`}
     >
       <div
         className={cn(
