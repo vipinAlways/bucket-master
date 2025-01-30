@@ -20,7 +20,8 @@ export const startTarget = async ({
 }: TargetProps) => {
   const user = await getUser();
   if (!user?.email) {
-    throw new Error("Invalid user data");
+    console.log("Invalid user data");
+    return;
   }
 
   try {
@@ -29,6 +30,7 @@ export const startTarget = async ({
         email: user?.email,
       },
     });
+    if (!dbuser) console.log("no user with this email");
 
     const isAlreadyHaveTarget = await db.bucketItems.findFirst({
       where: {
@@ -39,11 +41,12 @@ export const startTarget = async ({
 
     if (isAlreadyHaveTarget) {
       console.log(isAlreadyHaveTarget, "ye chahiye");
-      throw new Error("Currently the target is on hold");
+      return;
     }
 
     if (duedate <= new Date()) {
-      throw new Error("date should be not be today");
+      console.log("date should be not be today");
+      return;
     }
 
     const createTarget = await db.bucketItems.create({
@@ -65,7 +68,7 @@ export const startTarget = async ({
     return createTarget;
   } catch (error) {
     console.log("error while creating target", error);
-    throw new Error("error while creating target");
+    return;
   }
 };
 
@@ -75,7 +78,8 @@ export const activeBucketItem = async () => {
   try {
     const user = await getUser();
     if (!user?.email) {
-      throw new Error("Invalid user data");
+      console.log("Invalid user data");
+      return;
     }
     const dbuser = await db.user.findFirst({
       where: {
@@ -83,7 +87,10 @@ export const activeBucketItem = async () => {
       },
     });
 
-    if (!dbuser) throw new Error("no user with this email");
+    if (!dbuser) {
+      console.log("no user with this email");
+      return;
+    }
     return await db.bucketItems.findFirst({
       where: {
         userId: dbuser.id,
@@ -92,7 +99,7 @@ export const activeBucketItem = async () => {
     });
   } catch (error) {
     console.log("error while find bucket item", error);
-    throw new Error("error while bucket item");
+    console.log("error while bucket item");
   }
 };
 
@@ -106,7 +113,8 @@ export const remainingAmountIncrease = async ({
   try {
     const user = await getUser();
     if (!user?.email) {
-      throw new Error("Invalid user data");
+      console.log("Invalid user data");
+      return;
     }
     const dbuser = await db.user.findFirst({
       where: {
@@ -114,7 +122,10 @@ export const remainingAmountIncrease = async ({
       },
     });
 
-    if (!dbuser) throw new Error("no user with this email");
+    if (!dbuser) {
+      console.log("no user with this email");
+      return;
+    }
     const activeBucket = await db.bucketItems.findFirst({
       where: {
         userId: dbuser.id,
@@ -122,7 +133,10 @@ export const remainingAmountIncrease = async ({
       },
     });
 
-    if (!activeBucket) throw new Error("no active bucket");
+    if (!activeBucket) {
+      console.log("no active bucket");
+      return;
+    }
 
     return await db.bucketItems.update({
       where: {
@@ -134,7 +148,7 @@ export const remainingAmountIncrease = async ({
     });
   } catch (error) {
     console.log("error while find bucket item", error);
-    throw new Error("error while bucket item");
+    console.log("error while bucket item");
   }
 };
 
@@ -143,7 +157,8 @@ export const targetonHold = async () => {
   try {
     const user = await getUser();
     if (!user?.email) {
-      throw new Error("Invalid user data");
+      console.log("Invalid user data");
+      return;
     }
     const dbuser = await db.user.findFirst({
       where: {
@@ -151,7 +166,10 @@ export const targetonHold = async () => {
       },
     });
 
-    if (!dbuser) throw new Error("no user with this email");
+    if (!dbuser) {
+      console.log("no user with this email");
+      return;
+    }
     const activeBucket = await db.bucketItems.findFirst({
       where: {
         userId: dbuser.id,
@@ -160,7 +178,10 @@ export const targetonHold = async () => {
       },
     });
 
-    if (!activeBucket) throw new Error("no active bucket");
+    if (!activeBucket) {
+      console.log("no active bucket");
+      return;
+    }
 
     return await db.bucketItems.update({
       where: {
@@ -174,7 +195,7 @@ export const targetonHold = async () => {
     });
   } catch (error) {
     console.log("error while holding bucket item server", error);
-    throw new Error("error while bucket item server holding");
+    console.log("error while bucket item server holding");
   }
 };
 export const failedTOAcheive = async () => {
@@ -182,7 +203,8 @@ export const failedTOAcheive = async () => {
   try {
     const user = await getUser();
     if (!user?.email) {
-      throw new Error("Invalid user data");
+      console.log("Invalid user data");
+      return;
     }
     const dbuser = await db.user.findFirst({
       where: {
@@ -190,34 +212,36 @@ export const failedTOAcheive = async () => {
       },
     });
 
-    if (!dbuser) throw new Error("no user with this email");
+    if (!dbuser) {
+      console.log("no user with this email");
+      return;
+    }
     const activeBucket = await db.bucketItems.findFirst({
       where: {
         userId: dbuser.id,
         Active: true,
         onHold: false,
-        failed:false
+        failed: false,
       },
     });
 
-    if (!activeBucket || activeBucket.budget) throw new Error("no active bucket");
-    if (activeBucket.duedate && new Date(activeBucket.duedate )< new Date()) {
- 
-    return await db.bucketItems.update({
-      where: {
-        id: activeBucket.id,
-      },
-      data: {
-        failed: true,
-        Active: false,
-     
-      },
-    });
-   
+    if (!activeBucket || activeBucket.budget) {
+      console.log("no active bucket");
+      return;
     }
-
+    if (activeBucket.duedate && new Date(activeBucket.duedate) < new Date()) {
+      return await db.bucketItems.update({
+        where: {
+          id: activeBucket.id,
+        },
+        data: {
+          failed: true,
+          Active: false,
+        },
+      });
+    }
   } catch (error) {
     console.log("error while failed bucket item server", error);
-    throw new Error("error while bucket item server failed");
+    console.log("error while bucket item server failed");
   }
 };

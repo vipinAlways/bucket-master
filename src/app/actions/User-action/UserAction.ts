@@ -8,7 +8,8 @@ export const PostUser = async () => {
   const user = await getUser();
 
   if (!user?.family_name || !user?.email || !user?.picture) {
-    throw new Error("Invalid user data");
+    console.log("Invalid user data");
+    return
   }
 
   const exisingUser = await db.user.findFirst({
