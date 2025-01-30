@@ -18,6 +18,7 @@ model User {
   email      String
   Avatar     String
   BucketItem BucketItems[]
+  level      Int          @default(0)
 }
 
 model BucketItems {

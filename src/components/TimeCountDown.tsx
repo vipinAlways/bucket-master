@@ -78,7 +78,7 @@ const TimeCountDown = () => {
     ) {
       mutate();
     }
-  }, [data?.duedate, data?.onHold, remainingTime]);
+  }, [ remainingTime.hours]);
 
   return (
     <div
