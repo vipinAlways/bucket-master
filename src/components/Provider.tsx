@@ -43,13 +43,14 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
           className={cn("items-center flex-col md:flex hidden")}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
-          color="#F1F1F1"
+          
+          
         >
-          <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupLabel className={cn("h-20", open ? "" : "hidden")}>
+          <SidebarContent  className="bg-bggreen   rounded-tl-lg rounded-tr-lg">
+            <SidebarGroup className="bg-text-green rounded-lg"> 
+              <SidebarGroupLabel className={cn("h-20 ", open ? "" : "hidden")}>
                 <SidebarMenuButton
-                  className="w-full flex items-center h-fit"
+                  className="w-full flex items-center h-fit hover:text-bggreen"
                   asChild
                 >
                   <Link
@@ -65,7 +66,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
                     />
 
                     <p className="group-data-[collapsible=icon]:hidden text-center flex flex-col items-center ">
-                      <span className="font-bucket text-3xl">BuCkeT</span>
+                      <span className="font-bucket text-3xl ">BuCkeT</span>
                       <span className="font-master text-sm tracking-[0.8rem] ml-0.5">
                         master
                       </span>
@@ -101,14 +102,14 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          <SidebarFooter className=" flex mx-1">
+          <SidebarFooter className="flex  bg-bggreen rounded-b-lg px-1">
             <SidebarMenuButton
-              className="w-full flex items-center h-fit"
+              className="w-full flex items-center h-fit  hover:bg-textgreen"
               asChild
             >
               <Link
                 href={"/"}
-                className="flex h-10 items-center w-15"
+                className="flex h-10 items-center w-15 "
               >
                 <span>
                   <Settings className="text-xl" />

@@ -6,7 +6,7 @@ const BucketLabel = () => {
   return (
     <Link
       href={"/"}
-      className="flex min-h-20 justify-center items-center px-2 w-full max-sm:gap-8 bg-textwhite rounded-lg z-30 sticky -top-2"
+      className="flex min-h-20 justify-center items-center px-2 w-full max-sm:gap-8 bg-bggreen border-b border-headLine rounded-lg z-30 sticky -top-2"
     >
       <Image
         src="/images/Bucket-icon.svg"
@@ -17,7 +17,7 @@ const BucketLabel = () => {
         className="sm:h-32 sm:w-60 max-sm:w-24 max-sm:h-14 object-contain"
       />
 
-      <p className="text-center flex flex-col font-medium  outline-none ring-sidebar-ring text-sidebar-foreground/80">
+      <p className="text-center flex flex-col font-medium  outline-none ring-sidebar-ring text-sidebar-foreground/80 text-textgreen">
         <span className="font-bucket sm:text-7xl text-2xl  ">
           BuCkeT
         </span>

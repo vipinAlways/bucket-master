@@ -13,7 +13,9 @@ export default {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
 			textwhite:"#F1F1F1",
-			textgreen:"#507758",
+			textgreen:"#e4f8f2",
+			headLine:"#8ee0c7",
+			bggreen:"#05130f",
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

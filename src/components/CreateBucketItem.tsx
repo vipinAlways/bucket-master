@@ -68,7 +68,7 @@ const CreateBucketItem = () => {
           <input
             type="text"
             placeholder="Target Name"
-            className="w-full h-14 p-2 border border-[#ff3d13] rounded-lg"
+            className="w-full h-14 p-2 rounded-lg"
             value={target?.itemName}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const targetName = e.target.value.toUpperCase() || "";
@@ -84,7 +84,7 @@ const CreateBucketItem = () => {
           <input
             type="text"
             placeholder="Budget Of Target"
-            className="w-full h-14 p-2 border border-[#ff3d13] rounded-lg"
+            className="w-full h-14 p-2 rounded-lg"
             value={target?.budget}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const newBudget = parseInt(e.target.value) || 0;
@@ -100,7 +100,7 @@ const CreateBucketItem = () => {
           <input
             type="date"
             placeholder="Due Date"
-            className="w-full h-14 p-2 border border-[#ff3d13] rounded-lg"
+            className="w-full h-14 p-2 rounded-lg"
             value={
               target?.duedate ? target.duedate.toISOString().split("T")[0] : ""
             }
@@ -124,7 +124,7 @@ const CreateBucketItem = () => {
                 type: e.target.value as TargetProps["type"],
               }))
             }
-            className="w-full h-14 p-2 border border-[#ff3d13] rounded-lg"
+            className="w-full h-14 p-2 rounded-lg"
           >
             <option value="ShortMilestone">Short Milestone</option>
             <option value="dreamMilestone">Dream Milestone</option>
@@ -132,7 +132,7 @@ const CreateBucketItem = () => {
 
           <Button
             type="submit"
-            className="text-center text-2xl p-3 h-12 bg-[#ff3d13] hover:bg-[#ff3e13f2] text-[#f5edeb] w-40"
+            className="text-center text-2xl p-3 h-12  text-[#f5edeb] w-40 hover:bg-[#3c237f] bg-[#3c237f]"
             disabled={pending}
           >
             <span className="text-center flex items-center gap-4">
@@ -143,14 +143,14 @@ const CreateBucketItem = () => {
       </div>
       <div className="flex items-center justify-center flex-col gap-6">
         <Button
-          className="text-center text-4xl p-3 h-20 bg-[#ff3d13] hover:bg-[#ff3e13f2] text-[#f5edeb] w-96 md:hover-btn"
+          className="text-center text-4xl p-3 h-20  text-[#f5edeb] w-96 md:hover-btn "
           onClick={() => setHidden("")}
         >
           <span className="text-center flex items-center gap-4">
             Add to Bucket <span className="text-xl">&#128221; &#10024;</span>
           </span>
         </Button>
-        <Button className="text-center text-4xl p-3 h-20 bg-[#ff3d13] hover:bg-[#ff3e13f2] text-[#f5edeb] w-80 md:hover-btn">
+        <Button className="text-center text-4xl p-3 h-20  text-[#f5edeb] w-80 md:hover-btn">
           <span className="text-center flex items-center gap-4  ">
             Track Record
             <span className="text-xl">&#128221; &#10024;</span>

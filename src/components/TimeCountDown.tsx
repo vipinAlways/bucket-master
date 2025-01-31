@@ -29,6 +29,7 @@ const TimeCountDown = () => {
     mutationFn: async () => failedTOAcheive(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-active"] });
     },
   });
 
