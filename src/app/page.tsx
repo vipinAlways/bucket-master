@@ -113,8 +113,8 @@ export default function Home() {
 
   return (
     <div>
-      <div className="p-2 flex max-md:gap-10 justify-between relative max-md:flex-col items-center">
-        <div className="relative md:w-1/2 w-full max-md:flex-col flex items-center justify-end md:gap-10">
+      <div className="p-2 flex max-md:gap-10 justify-around relative max-md:flex-col items-center">
+        <div className="relative md:w-fit w-full max-md:flex-col flex items-center justify-end md:gap-10">
           <div className="max-md:hidden  h-full">
             <div className="flex items-start justify-center w-36 h-96 rounded-full px-5 py-1 selection:select-none">
               <h1 className="text-6xl flex items-center justify-center text-textwhite font-master text-center rounded-xl shrink-0">
@@ -125,10 +125,8 @@ export default function Home() {
               <TimeCountDown />
             </div>
           </div>
-          <div className="h-fit w-96 ">
-           bucket
-
-            <div className="absolute top-0">hello</div>
+          <div className="bucket ">
+            <div className="water h-96 w-96"></div>
           </div>
           <div className="block w-full md:hidden h-20">
             <TimeCountDown />

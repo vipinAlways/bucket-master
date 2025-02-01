@@ -64,7 +64,7 @@ const CreateBucketItem = () => {
           X
         </h1>
 
-        <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit} >
+        <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Target Name"
@@ -143,7 +143,7 @@ const CreateBucketItem = () => {
       </div>
       <div className="flex items-center justify-center flex-col gap-6">
         <Button
-          className="text-center text-4xl p-3 h-20  text-[#f5edeb] w-96 md:hover-btn "
+          className="text-center text-4xl p-3 h-20  text-[#f5edeb] w-80 md:hover-btn "
           onClick={() => setHidden("")}
         >
           <span className="text-center flex items-center gap-4">

@@ -43,11 +43,9 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
           className={cn("items-center flex-col md:flex hidden")}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
-          
-          
         >
-          <SidebarContent  className="bg-bggreen   rounded-tl-lg rounded-tr-lg">
-            <SidebarGroup className="bg-text-green rounded-lg"> 
+          <SidebarContent className="bg-bggreen   rounded-tl-lg rounded-tr-lg">
+            <SidebarGroup className="bg-text-green rounded-lg">
               <SidebarGroupLabel className={cn("h-20 ", open ? "" : "hidden")}>
                 <SidebarMenuButton
                   className="w-full flex items-center h-fit hover:text-bggreen"
@@ -107,10 +105,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
               className="w-full flex items-center h-fit  hover:bg-textgreen"
               asChild
             >
-              <Link
-                href={"/"}
-                className="flex h-10 items-center w-15 "
-              >
+              <Link href={"/"} className="flex h-10 items-center w-15 ">
                 <span>
                   <Settings className="text-xl" />
                 </span>

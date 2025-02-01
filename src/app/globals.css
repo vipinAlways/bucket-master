@@ -181,9 +181,8 @@ body {
   text-shadow: 4px 4px 8px rgba(12, 39, 9, 0.5);
 }
 
-.me:hover >.card {
+.me:hover > .card {
   transform: rotateY(180deg);
-  
 }
 .card {
   transform-style: preserve-3d;
@@ -207,3 +206,37 @@ body {
   transform: rotateY(180deg);
 }
 
+.water {
+  background-color: skyblue;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0% 10%, 100% 10%, 90% 100%, 10% 100%);
+}
+
+.water:before,
+.water:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -1%;
+  background-color: #fff;
+}
+.water:before {
+  border-radius: 45%;
+  background: rgba(255, 255, 255, 0.7);
+  animation: wave 5s linear infinite;
+}
+.water:after {
+  border-radius: 45%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: wave 5s linear infinite;
+}
+@keyframes wave {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
