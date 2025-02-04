@@ -11,6 +11,7 @@ interface TargetProps {
   itemName: string;
 }
 
+
 const { getUser } = getKindeServerSession();
 export const startTarget = async ({
   duedate,
@@ -246,5 +247,36 @@ export const failedTOAcheive = async () => {
     console.log("error while bucket item server failed");
   }
 };
+export const getFailedToAcheive = async ()=>{
+  await db.$connect()
+
+  try {
+     const user = await getUser();
+    if (!user?.email) {
+      console.log("Invalid user data");
+      return;
+    }
+    const dbuser = await db.user.findFirst({
+      where: {
+        email: user.email,
+      },
+    });
+
+    if (!dbuser) {
+      console.log("no user with this email");
+      throw new Error("User is not regiester")
+    }
+
+    return await db.bucketItems.findMany({
+      where:{
+        userId:dbuser.id,
+        failed:true,
+        Active:false
+      }
+    })
+  } catch (error) {
+    throw new Error("Server Error")
+  }
+}
 
 

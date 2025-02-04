@@ -217,9 +217,10 @@ body {
 .water:after {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: -1%;
+  width: 24.5rem;
+  height: 24.5rem;
+  top: -21%;
+  left: -3rem;
   background-color: #fff;
 }
 .water:before {
@@ -228,7 +229,7 @@ body {
   animation: wave 5s linear infinite;
 }
 .water:after {
-  border-radius: 45%;
+  border-radius: 35%;
   background: rgba(255, 255, 255, 0.3);
   animation: wave 5s linear infinite;
 }

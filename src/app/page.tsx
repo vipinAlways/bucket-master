@@ -7,6 +7,7 @@ import { PostUser } from "./actions/User-action/UserAction";
 import { useToast } from "@/hooks/use-toast";
 import {
   activeBucketItem,
+  getFailedToAcheive,
   remainingAmountIncrease,
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
@@ -33,6 +34,10 @@ export default function Home() {
   const { data, isPending } = useQuery({
     queryKey: ["item-active"],
     queryFn: activeBucketItem,
+  });
+  const failed = useQuery({
+    queryKey: ["item-failed"],
+    queryFn: getFailedToAcheive,
   });
 
   useEffect(() => {
@@ -107,6 +112,8 @@ export default function Home() {
     }
   }, [data?.remainingAmount, functionalamount]);
 
+  console.log(failed.data, "ye hain ");
+
   if (isPending) {
     return <PendingLoader />;
   }
@@ -126,7 +133,7 @@ export default function Home() {
             </div>
           </div>
           <div className="bucket ">
-            <div className="water h-96 w-96"></div>
+            <div className="water h-80 w-80"></div>
           </div>
           <div className="block w-full md:hidden h-20">
             <TimeCountDown />
@@ -203,6 +210,16 @@ export default function Home() {
 
       <div className="flex w-full items-start  px-10">
         {data?.Active && <Loader />}
+      </div>
+
+      <div>
+
+        <h1 className="text-textgreen">Recent Failed targets</h1>
+        {failed.data?.map((failedTarget, index) => (
+          <div key={index}>
+            <h1 className="text-white">{failedTarget.ItemName}</h1>
+          </div>
+        ))}
       </div>
     </div>
   );
