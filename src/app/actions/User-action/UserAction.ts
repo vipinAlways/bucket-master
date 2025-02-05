@@ -38,9 +38,9 @@ export const levelUpdate  = async (level: number) => {
   }
 
   const existingUser = await db.user.findFirst({
-    where: { 
-      email:user.email
-     },
+    where: {
+      email: user.email
+    }
   });
 
   if (!existingUser) {

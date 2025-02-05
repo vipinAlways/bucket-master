@@ -89,7 +89,7 @@ const TimeCountDown = () => {
     >
       <div
         className={cn(
-          "grid grid-cols-4 max-md:gap-2 w-full items-center",
+          "grid grid-cols-4 max-md:gap-2 w-72 items-center",
           remainingTime.days === 0 && "text-red-800"
         )}
       >

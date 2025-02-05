@@ -147,23 +147,24 @@ export default function Home() {
   console.log(failed.data, "ye hain");
   return (
     <div className="w-full">
-      <div className="p-2 flex max-md:gap-10 justify-around w-45 relative max-md:flex-col items-center">
-        <div className="relative md:w-fit w-full max-md:flex-col flex items-center justify-end md:gap-10">
-          <div className="max-md:hidden  h-full">
-            <div className="flex items-start justify-center w-36 h-96 rounded-full px-5 py-1 selection:select-none">
-              <h1 className="text-6xl flex items-center justify-center text-textwhite font-master text-center rounded-xl shrink-0">
-                {data?.ItemName}
-              </h1>
-            </div>
-            <div className="min-h-12 w-96 absolute top-[60%] -translate-y-1/4  left-[45%] -translate-x-[70%] px-10 py-0.5">
-              <TimeCountDown />
-            </div>
+      <div>
+        <div className="max-md:hidden  h-20 flex items-center justify-center pt-4">
+          <div className="flex items-start justify-center h-full rounded-full selection:select-none">
+            <h1 className="text-6xl missed flex items-center gap-4 justify-center text-textwhite font-bucket text-center rounded-xl shrink-0">
+              Target Name:<span>{data?.ItemName}</span>
+            </h1>
           </div>
-          <div className="bucket ">
-            <div className=" water rounded-md  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"></div>
-          </div>
-          <div className="block w-full md:hidden h-20">
+        </div>
+      </div>
+      <div className="p-2 flex max-md:gap-10 justify-around w-45 relative max-md:flex-col h-96 py-8 items-center">
+        <div className="relative md:w-fit w-full max-md:flex-col flex items-center h-80 justify-start md:gap-10">
+          <div className="h-full w-full flex items-end  ">
             <TimeCountDown />
+          </div>
+          <div className="h-full w-full flex items-center justify-center ">
+            <div className="bucket ">
+              <div className=" water rounded-md  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"></div>
+            </div>
           </div>
         </div>
         <div className="md:w-1/2 w-full flex justify-center">
@@ -174,12 +175,12 @@ export default function Home() {
               </div>
             ) : (
               <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
-                <div className="relative  w-full card  rounded-xl bg-[#cfcfcf] h-full transition-all duration-400 ease-in-out  ">
+                <div className="relative  w-full card  rounded-xl bg-headLine h-full transition-all duration-400 ease-in-out  ">
                   <div className="back w-80 flex font-bucket text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full ">
-                    <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite ">
+                    <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bggreen border-none">
                       <span>{data?.budget}</span>
                     </p>
-                    <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite">
+                    <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bggreen border-none">
                       <span>{data?.remainingAmount}</span>
                     </p>
                     <div className="flex items-center justify-between w-fit gap-2.5">
@@ -219,15 +220,13 @@ export default function Home() {
                         : ""}
                     </p>
                   </div>
-                  <div className="front flex flex-col justify-around p-8 h-full font-bucket text-textgreen ">
+                  <div className="front flex flex-col justify-around p-8 h-full font-bucket text-textgreen rounded-md bg-headLine">
                     <h1 className="w-full text-6xl text-start">Hover:</h1>
                     <h1 className="w-full text-6xl text-end">To:</h1>
                     <h1 className="w-full text-6xl text-start">Edit:</h1>
                     <h1 className="w-full text-6xl text-end">Bucket:</h1>
                   </div>
                 </div>
-
-                <OnholdProof />
               </div>
             )
           ) : (
