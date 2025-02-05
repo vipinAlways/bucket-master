@@ -11,7 +11,6 @@ interface TargetProps {
   itemName: string;
 }
 
-
 const { getUser } = getKindeServerSession();
 export const startTarget = async ({
   duedate,
@@ -176,6 +175,7 @@ export const targetonHold = async () => {
         userId: dbuser.id,
         Active: true,
         onHold: false,
+        failed:false
       },
     });
 
@@ -226,11 +226,11 @@ export const failedTOAcheive = async () => {
       },
     });
 
-    if (!activeBucket || !activeBucket.budget ) {
+    if (!activeBucket || !activeBucket.budget) {
       console.log("no active bucket");
       return;
     }
-   
+
     if (activeBucket.duedate && new Date(activeBucket.duedate) < new Date()) {
       return await db.bucketItems.update({
         where: {
@@ -247,14 +247,13 @@ export const failedTOAcheive = async () => {
     console.log("error while bucket item server failed");
   }
 };
-export const getFailedToAcheive = async ()=>{
-  await db.$connect()
+export const getFailedToAcheive = async () => {
+  await db.$connect();
 
   try {
-     const user = await getUser();
+    const user = await getUser();
     if (!user?.email) {
-      console.log("Invalid user data");
-      return;
+      throw new Error("User is not Authenticated");
     }
     const dbuser = await db.user.findFirst({
       where: {
@@ -264,19 +263,82 @@ export const getFailedToAcheive = async ()=>{
 
     if (!dbuser) {
       console.log("no user with this email");
-      throw new Error("User is not regiester")
+      throw new Error("User is not regiester");
     }
 
     return await db.bucketItems.findMany({
-      where:{
-        userId:dbuser.id,
-        failed:true,
-        Active:false
-      }
-    })
+      where: {
+        userId: dbuser.id,
+        failed: true,
+        Active: false,
+      },
+    });
   } catch (error) {
-    throw new Error("Server Error")
+    throw new Error("Server Error");
   }
-}
+};
 
+export const reActiveTask = async ({
+  targetId,
+  duedate,
+}: {
+  targetId: string;
+  duedate?: Date;
+}) => {
+  await db.$connect();
 
+  try {
+    const failedTarget = await db.bucketItems.findFirst({
+      where: {
+        id: targetId,
+        Active: false,
+        failed: true,
+      },
+    });
+    const holdTarget = await db.bucketItems.findFirst({
+      where: {
+        id: targetId,
+        Active: false,
+        onHold: true,
+      },
+    });
+
+    if (failedTarget) {
+      return await db.bucketItems.update({
+        where: {
+          id: targetId,
+        },
+        data: {
+          Active: true,
+          failed: false,
+          duedate: duedate,
+        },
+      });
+    }
+    if (holdTarget) {
+      if (duedate) {
+        return await db.bucketItems.update({
+          where: {
+            id: targetId,
+          },
+          data: {
+            Active: true,
+            onHold: false,
+            duedate:duedate
+          },
+        });
+      }
+      return await db.bucketItems.update({
+        where: {
+          id: targetId,
+        },
+        data: {
+          Active: true,
+          onHold: false,
+        },
+      });
+    }
+  } catch (error) {
+    throw new Error("Server Error chenge main");
+  }
+};

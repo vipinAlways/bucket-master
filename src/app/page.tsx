@@ -12,7 +12,7 @@ import {
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
 import Loader from "@/components/Loader";
-import { Minus, Plus } from "lucide-react";
+import { Activity, Minus, Plus } from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
 import OnholdProof from "@/components/OnholdProof";
 import CreateBucketItem from "@/components/CreateBucketItem";
@@ -119,8 +119,8 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <div className="p-2 flex max-md:gap-10 justify-around relative max-md:flex-col items-center">
+    <div className="w-full">
+      <div className="p-2 flex max-md:gap-10 justify-around w-45 relative max-md:flex-col items-center">
         <div className="relative md:w-fit w-full max-md:flex-col flex items-center justify-end md:gap-10">
           <div className="max-md:hidden  h-full">
             <div className="flex items-start justify-center w-36 h-96 rounded-full px-5 py-1 selection:select-none">
@@ -133,7 +133,7 @@ export default function Home() {
             </div>
           </div>
           <div className="bucket ">
-            <div className="water h-80 w-80"></div>
+            <div className=" water rounded-md  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"></div>
           </div>
           <div className="block w-full md:hidden h-20">
             <TimeCountDown />
@@ -143,12 +143,12 @@ export default function Home() {
           {isActive ? (
             completed === true ? (
               <div className="w-full flex justify-start ">
-                <OnholdProof />
+              
                 <Button onClick={() => setCompelted(false)}>Edit Amount</Button>
               </div>
             ) : (
-              <div className="h-80 w-80 relative me transition-all  duration-600 ease-linear">
-                <div className="absolute  w-full card  rounded-xl bg-[#cfcfcf] h-full transition-all duration-400 ease-in-out  ">
+              <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
+                <div className="relative  w-full card  rounded-xl bg-[#cfcfcf] h-full transition-all duration-400 ease-in-out  ">
                   <div className="back w-80 flex font-bucket text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full ">
                     <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-textwhite ">
                       <span>{data?.budget}</span>
@@ -200,7 +200,9 @@ export default function Home() {
                     <h1 className="w-full text-6xl text-end">Bucket:</h1>
                   </div>
                 </div>
-              </div>
+
+                <OnholdProof />
+              </div>  
             )
           ) : (
             <CreateBucketItem />
@@ -213,13 +215,26 @@ export default function Home() {
       </div>
 
       <div>
+        <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col font-bucket">You Missed It,<span className="text-6xl text-textgreen "> But Growth Comes from Challenges!</span></h1>
+     
+      {
+        failed.data && (
+          <div className=" flex items-center gap-5 min-w-96 border ">
+          <h1 className="text-white font-bucket text-4xl">{failed.data[0].ItemName}</h1>
 
-        <h1 className="text-textgreen">Recent Failed targets</h1>
-        {failed.data?.map((failedTarget, index) => (
-          <div key={index}>
-            <h1 className="text-white">{failedTarget.ItemName}</h1>
+          <div className="w-full flex justify-around  flex-col ">
+            <h1 className="text-3xl ">Amount : {failed.data[0].budget}</h1>
+            <h1 className="text-3xl ">Remaining : {failed.data[0].remainingAmount}</h1>
+            <div>
+
+            <Button className="p-2 text-2xl">Reactive <Activity/></Button>
+            </div>
           </div>
-        ))}
+        </div>
+        )
+      }
+       
+     
       </div>
     </div>
   );

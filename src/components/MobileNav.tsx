@@ -12,21 +12,24 @@ import {
 import Image from "next/image";
 import { Separator } from "./ui/separator";
 import { cn } from "@/lib/utils";
-import { Home, Inbox, Navigation, Settings, Sidebar } from "lucide-react";
+import { Menu, Settings } from "lucide-react";
 import Link from "next/link";
 import { items } from "@/app/constants/constant";
+import { Button } from "./ui/button";
 
-const MobileNavigation = ({ className }: { className: string }) => {
+const MobileNavigation = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className={cn("sm:hidden")}>
-      <Sheet open={open} onOpenChange={setOpen}>
+    <header className={cn("absolute w-10 top-2 z-50 bg-[#3c23804d] rounded-md left-3 ")}>
+      <Sheet onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Sidebar className="mx-2 my-1.5 fixed " />
+          <Button variant="outline" className="border-none w-10">
+            <Menu />
+          </Button>
         </SheetTrigger>
         <SheetContent
-          className="shad-sheet h-screen px-3 w-60"
+          className="shad-sheet h-screen px-3 w-60 bg-headLine"
           side={"left"}
           aria-describedby="sheet-description"
         >

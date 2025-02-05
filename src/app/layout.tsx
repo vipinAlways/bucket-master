@@ -32,11 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen bg-bggreen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[100vw] overflow-x-hidden min-h-screen bg-bggreen px-3`}
       >
         <Provider>
-          <main className="py-2 w-full pr-2 pl-1 max-sm:px-2">
-          <MobileNavigation className=""/>
+          <main className="py-2 w-full pr-2 pl-1 max-sm:px-2 relative">
+          {/* <MobileNavigation/> */}
             <BucketLabel/>
             {children}
             </main>

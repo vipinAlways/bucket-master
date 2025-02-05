@@ -65,6 +65,16 @@ export default {
   				ring: 'hsl(var(--sidebar-ring))'
   			}
   		},
+		keyframes:{
+			"wave": {
+				"0%" :{
+				  transform: "rotate(0)"
+				},
+				"100%": {
+				  transform: "rotate(360deg)"
+				}
+			  }
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
@@ -75,6 +85,9 @@ export default {
 			bucket:['"LeagueSpartan-Bold"'],
 			master:['"Quicksand-VariableFont_wght"']
 
+		},
+		animation:{
+			"wave":'wave 5s linear infinite'
 		}
   	}
   },

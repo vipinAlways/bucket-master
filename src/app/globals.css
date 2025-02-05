@@ -223,21 +223,11 @@ body {
   left: -3rem;
   background-color: #fff;
 }
-.water:before {
-  border-radius: 45%;
-  background: rgba(255, 255, 255, 0.7);
-  animation: wave 5s linear infinite;
+
+.missed,.missed>span{
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #e4f8f2;
+  color: transparent;
 }
-.water:after {
-  border-radius: 35%;
-  background: rgba(255, 255, 255, 0.3);
-  animation: wave 5s linear infinite;
-}
-@keyframes wave {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+
+
