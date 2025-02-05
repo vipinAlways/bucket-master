@@ -304,6 +304,9 @@ export const reActiveTask = async ({
     });
 
     if (failedTarget) {
+      if (!duedate) {
+        throw new Error("Due need to restart the challenge")
+      }
       return await db.bucketItems.update({
         where: {
           id: targetId,
