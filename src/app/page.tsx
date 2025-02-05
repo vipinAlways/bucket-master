@@ -143,7 +143,6 @@ export default function Home() {
           {isActive ? (
             completed === true ? (
               <div className="w-full flex justify-start ">
-              
                 <Button onClick={() => setCompelted(false)}>Edit Amount</Button>
               </div>
             ) : (
@@ -202,7 +201,7 @@ export default function Home() {
                 </div>
 
                 <OnholdProof />
-              </div>  
+              </div>
             )
           ) : (
             <CreateBucketItem />
@@ -214,27 +213,42 @@ export default function Home() {
         {data?.Active && <Loader />}
       </div>
 
-      <div>
-        <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col font-bucket">You Missed It,<span className="text-6xl text-textgreen "> But Growth Comes from Challenges!</span></h1>
-     
-      {
-        failed.data && (
-          <div className=" flex items-center gap-5 min-w-96 border ">
-          <h1 className="text-white font-bucket text-4xl">{failed.data[0].ItemName}</h1>
+      <div className=" w-fit py-4 text-bggreen ">
+        <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col font-bucket">
+          You Missed It,
+          <span className="text-6xl text-textgreen ">
+            {" "}
+            But Growth Comes from Challenges!
+          </span>
+        </h1>
 
-          <div className="w-full flex justify-around  flex-col ">
-            <h1 className="text-3xl ">Amount : {failed.data[0].budget}</h1>
-            <h1 className="text-3xl ">Remaining : {failed.data[0].remainingAmount}</h1>
-            <div>
+        <div className="w-full flex items-center justify-center">
+          {failed.data && (
+            <div className=" flex items-center  w-fit gap-8 px-6 py-3  rounded-lg bg-textgreen ">
+              <h1 className=" font-bucket text-6xl">
+                {failed.data[0].ItemName}
+              </h1>
 
-            <Button className="p-2 text-2xl">Reactive <Activity/></Button>
+              <div className="w-full flex justify-around font-master gap-1.5 items-center flex-col ">
+                <h1 className="text-3xl ">Amount : {failed.data[0].budget}</h1>
+                <h1 className="text-3xl ">
+                  Remaining : {failed.data[0].remainingAmount}
+                </h1>
+
+                <Button className="p-2 text-2xl  bg-green-600">
+                  Reactive <Activity />
+                </Button>
+                <div className="fixed top-0 left-0 w-full bg-green-400/60 h-full p-3 z-50 font-bucket flex items-center flex-col gap-6 justify-center">
+                  <h1 className="text-5xl text-bggreen">Yeah! That's the spirit—go get it back</h1>
+                 <div className=" flex items-center gap-4 ">
+                 <Button className="text-3xl p-8 bg-bggreen text-headLine">YEAH! LET'S GO!</Button>
+                 <Button className="text-3xl p-8 bg-red-600 hover:bg-red-800">NOT FEELING IT</Button>
+                 </div>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
-        )
-      }
-       
-     
       </div>
     </div>
   );

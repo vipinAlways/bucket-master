@@ -77,7 +77,7 @@ const BucketLabel = () => {
 
             <SheetFooter className="px-3 py-2 flex flex-col text-xl">
               <SheetClose asChild>
-                <Link href={"/setting"} className="flex h-10 gap-2 text-xl">
+                <Link href={"/setting"} className="flex h-10 items-center justify-start w-full gap-2 text-xl">
                   <span>
                     <Settings className="text-xl" />
                   </span>
