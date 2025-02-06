@@ -21,15 +21,16 @@ const TimeCountDown = () => {
   const queryClient = useQueryClient();
 
   const { data } = useQuery({
-    queryKey: ["item-active"],
+    queryKey: ["item-time-active"],
     queryFn: async () => activeBucketItem(),
   });
 
   const { mutate } = useMutation({
     mutationFn: async () => failedTOAcheive(),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
-      queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      
     },
   });
 
