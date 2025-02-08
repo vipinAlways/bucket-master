@@ -210,7 +210,6 @@ body {
   background-color: skyblue;
   position: relative;
   clip-path: polygon(0% 10%, 100% 10%, 90% 100%, 10% 100%);
- 
 }
 
 .water:before,
@@ -219,7 +218,7 @@ body {
   position: absolute;
   width: 24.5rem;
   height: 24.5rem;
-  
+
   left: -3rem;
   background-color: #fff;
 }
@@ -227,7 +226,7 @@ body {
 .missed,
 .missed > span {
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #e4f8f2;
+  -webkit-text-stroke-color: #49cca5;
   color: transparent;
 }
 
@@ -343,11 +342,7 @@ body {
   100% {
   }
 }
-@keyframes mtn {
-  100% {
-    transform: translateX(-2000px) rotate(130deg);
-  }
-}
+
 @keyframes hill {
   100% {
     transform: translateX(-2000px);

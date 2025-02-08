@@ -3,10 +3,10 @@ import {
   activeBucketItem,
   failedTOAcheive,
 } from "@/app/actions/bucketList-action/bucketlist-action";
-
 import { cn } from "@/lib/utils";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
+
 
 const TimeCountDown = () => {
   const [time, setTime] = useState<Date | undefined | null>(new Date());
@@ -25,7 +25,7 @@ const TimeCountDown = () => {
     queryFn: async () => activeBucketItem(),
   });
 
-  const { mutate } = useMutation({
+  const { mutate,isPending } = useMutation({
     mutationFn: async () => failedTOAcheive(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
@@ -80,7 +80,9 @@ const TimeCountDown = () => {
     ) {
       mutate();
     }
-  }, [ remainingTime.hours]);
+  }, [ data]);
+
+
 
   return (
     <div

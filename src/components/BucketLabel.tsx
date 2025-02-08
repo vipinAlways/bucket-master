@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Sheet,
   SheetClose,
@@ -15,14 +15,23 @@ import { Button } from "./ui/button";
 import { Menu, Settings } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { items } from "@/app/constants/constant";
+import { usePathname } from "next/navigation";
+
+
 const BucketLabel = () => {
+  const pathName = usePathname()
   const [open, setOpen] = useState(false);
+  console.log(open,"check");
+  useEffect(()=>{
+    setOpen(!open)
+  },[pathName])
+  console.log('open', open)
   return (
-    <Link
-      href={"/"}
+    <div
+
       className="flex h-28  justify-center items-center px-2 mx-3 w-full max-sm:gap-8 bg-bggreen border-b rounded-lg border-textgreen  z-10 sticky top-0"
     >
-      <Sheet onOpenChange={setOpen}>
+      <Sheet onOpenChange={setOpen} open={open}>
         <SheetTrigger asChild>
           <Button variant="outline" className="absolute top-2 left-3 border-none w-10 text-textgreen hover:text-textgreen">
             <Menu />
@@ -106,7 +115,7 @@ const BucketLabel = () => {
           master
         </span>
       </p>
-    </Link>
+    </div>
   );
 };
 

@@ -27,7 +27,7 @@ export default function Home() {
   const { toast } = useToast();
   const [functionalamount, setFunctionalAmount] = useState<number>(0);
   const [remainingBalancePercentage, setRemainingBalancePercentage] =
-    useState<number>(20);
+    useState<number>(0);
   const queryClient = useQueryClient();
 
   const { data, isPending } = useQuery({
@@ -38,7 +38,7 @@ export default function Home() {
   useEffect(() => {
     if (data?.remainingAmount! >= 0 && data?.budget) {
       const percentage = 100 - (data.remainingAmount / data.budget) * 100;
-      setRemainingBalancePercentage(percentage + 20);
+      setRemainingBalancePercentage(percentage);
     }
   }, [data]);
   const { mutate } = useMutation({
@@ -112,11 +112,11 @@ export default function Home() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full font-bucket">
       <div>
         <div className="max-md:hidden  h-20 flex items-center justify-center pt-4">
           <div className="flex items-start justify-center h-full rounded-full selection:select-none">
-            <h1 className="text-6xl missed flex items-center gap-4 justify-center text-textwhite font-bucket text-center rounded-xl shrink-0">
+            <h1 className="text-6xl missed flex items-center gap-4 justify-center text-textwhite  text-center rounded-xl shrink-0">
               {data?.ItemName ? (
                 <>
                   Target Name:<span>{data?.ItemName}</span>
@@ -134,15 +134,22 @@ export default function Home() {
             <TimeCountDown />
           </div>
           <div className="h-full w-full flex items-center justify-center ">
-            <div className="bucket ">
+            <div className="bucket relative">
               <div
                 style={
                   {
-                    "--top-start": `-${remainingBalancePercentage}%`,
+                    "--top-start": `-${
+                      remainingBalancePercentage !== 0
+                        ? remainingBalancePercentage + 15
+                        : 20
+                    }%`,
                   } as React.CSSProperties
                 }
                 className=" water rounded-md  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
               ></div>
+              <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl missed">
+                {remainingBalancePercentage!== 0 && remainingBalancePercentage.toLocaleString() + "%"}
+              </h1>
             </div>
           </div>
         </div>
@@ -155,7 +162,7 @@ export default function Home() {
             ) : (
               <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
                 <div className="relative  w-full card  rounded-xl bg-headLine h-full transition-all duration-400 ease-in-out  ">
-                  <div className="back w-80 flex font-bucket text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full ">
+                  <div className="back w-80 flex  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full ">
                     <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bggreen border-none">
                       <span>{data?.budget}</span>
                     </p>
@@ -199,7 +206,7 @@ export default function Home() {
                         : ""}
                     </p>
                   </div>
-                  <div className="front flex flex-col justify-around p-8 h-full font-bucket text-textgreen rounded-md bg-headLine">
+                  <div className="front flex flex-col justify-around p-8 h-full  text-textgreen rounded-md bg-headLine">
                     <h1 className="w-full text-6xl text-start">Hover:</h1>
                     <h1 className="w-full text-6xl text-end">To:</h1>
                     <h1 className="w-full text-6xl text-start">Edit:</h1>
@@ -219,7 +226,7 @@ export default function Home() {
       </div>
 
       <div className=" w-fit py-4 text-bggreen ">
-        <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col font-bucket">
+        <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
           You Missed It,
           <span className="text-6xl text-textgreen ">
             {" "}
