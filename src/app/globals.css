@@ -348,3 +348,33 @@ body {
     transform: translateX(-2000px);
   }
 }
+/* HTML: <div class="loader"></div> */
+.loader {
+  display: inline-flex;
+
+  background:
+    var(--c) calc(50% - 5px)/5px 5px,
+    var(--c) calc(50% + 5px)/5px 5px;
+}
+.loader::before,
+.loader::after {
+  content: "12 00 23 40 31 45 60 17 45 32 29 42 50 08 14 07 46 11 03 55";
+  font-size: 3.25rem;
+
+  font-family: monospace;
+  font-weight: bold;
+  line-height: 1em;
+  height: 60%;
+  width: 100%;
+  color: #05130f;
+  text-shadow: 0 0 0 #dc1010;
+  overflow: hidden;
+  margin: 5px 10px; 
+  animation: l3 1s steps(20) infinite;
+}
+.loader::before {
+  animation-duration: 1.5s;
+}
+@keyframes l3 {
+  100% {text-shadow: 0 -20em 0 #000}
+}

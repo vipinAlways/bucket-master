@@ -1,14 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
 import React, { useEffect, useState } from "react";
 import { PostUser } from "./actions/User-action/UserAction";
 import { useToast } from "@/hooks/use-toast";
 import {
   activeBucketItem,
-  getFailedToAcheive,
-  reActiveTask,
   remainingAmountIncrease,
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
@@ -221,9 +218,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex w-full items-start  px-10">
-        {data?.Active && <Loader />}
-      </div>
+    
 
       <div className=" w-fit py-4 text-bggreen ">
         <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
@@ -238,6 +233,11 @@ export default function Home() {
           <Failed />
         </div>
       </div>
+
+
+      {/* <div className="flex w-full items-start  px-10">
+        {data?.Active && <Loader />}
+      </div> */}
     </div>
   );
 }

@@ -17,23 +17,22 @@ import { Separator } from "./ui/separator";
 import { items } from "@/app/constants/constant";
 import { usePathname } from "next/navigation";
 
-
 const BucketLabel = () => {
-  const pathName = usePathname()
+  const pathName = usePathname();
   const [open, setOpen] = useState(false);
-  console.log(open,"check");
-  useEffect(()=>{
-    setOpen(!open)
-  },[pathName])
-  console.log('open', open)
-  return (
-    <div
+  console.log(open, "check");
+  useEffect(() => {
+    setOpen(false);
+  }, [pathName]);
 
-      className="flex h-28  justify-center items-center px-2 mx-3 w-full max-sm:gap-8 bg-bggreen border-b rounded-lg border-textgreen  z-10 sticky top-0"
-    >
+  return (
+    <div className="flex h-28  justify-center items-center px-2 mx-3 w-full max-sm:gap-8 bg-bggreen border-b rounded-lg border-textgreen  z-10 sticky top-0">
       <Sheet onOpenChange={setOpen} open={open}>
         <SheetTrigger asChild>
-          <Button variant="outline" className="absolute top-2 left-3 border-none w-10 text-textgreen hover:text-textgreen">
+          <Button
+            variant="outline"
+            className="absolute top-2 left-3 border-none w-10 text-textgreen hover:text-textgreen"
+          >
             <Menu />
           </Button>
         </SheetTrigger>
@@ -86,7 +85,10 @@ const BucketLabel = () => {
 
             <SheetFooter className="px-3 py-2 flex flex-col text-xl">
               <SheetClose asChild>
-                <Link href={"/setting"} className="flex h-10 items-center justify-start w-full gap-2 text-xl">
+                <Link
+                  href={"/setting"}
+                  className="flex h-10 items-center justify-start w-full gap-2 text-xl"
+                >
                   <span>
                     <Settings className="text-xl" />
                   </span>

@@ -73,7 +73,7 @@ export const startTarget = async ({
 };
 
 export const activeBucketItem = async () => {
-  await db.$connect();
+
 
   try {
     const user = await getUser();
@@ -175,7 +175,7 @@ export const targetonHold = async () => {
         userId: dbuser.id,
         Active: true,
         onHold: false,
-        failed:false
+        failed: false,
       },
     });
 
@@ -289,59 +289,88 @@ export const reActiveTask = async ({
 
   try {
     const failedTarget = await db.bucketItems.findFirst({
-      where: {
-        id: targetId,
-        Active: false,
-        failed: true,
-      },
+      where: { id: targetId, Active: false, failed: true },
     });
+
     const holdTarget = await db.bucketItems.findFirst({
-      where: {
-        id: targetId,
-        Active: false,
-        onHold: true,
-      },
+      where: { id: targetId, Active: false, onHold: true },
     });
 
     if (failedTarget) {
       if (!duedate) {
-        throw new Error("Due need to restart the challenge")
+        throw new Error("Due need to restart the challenge");
       }
       return await db.bucketItems.update({
-        where: {
-          id: targetId,
-        },
-        data: {
-          Active: true,
-          failed: false,
-          duedate: duedate,
-        },
+        where: { id: targetId },
+        data: { Active: true, failed: false, duedate },
       });
     }
+
     if (holdTarget) {
-      if (duedate) {
-        return await db.bucketItems.update({
-          where: {
-            id: targetId,
-          },
-          data: {
-            Active: true,
-            onHold: false,
-            duedate:duedate
-          },
-        });
-      }
       return await db.bucketItems.update({
-        where: {
-          id: targetId,
-        },
-        data: {
-          Active: true,
-          onHold: false,
-        },
+        where: { id: targetId },
+        data: { Active: true, onHold: false, ...(duedate && { duedate }) },
       });
     }
   } catch (error) {
     throw new Error("Server Error chenge main");
   }
 };
+
+
+export async function trackRecord() {
+  await db.$connect();
+  try {
+    const user = await getUser();
+    if (!user || !user.email) {
+      throw new Error("user is not authenticated");
+    }
+
+    const dbuser = await db.user.findFirst({
+      where: {
+        email: user.email,
+      },
+    });
+    if (!dbuser) {
+      throw new Error("User is not regiester");
+    }
+
+    const achievedTartget = await db.bucketItems.findMany({
+      where: {
+        userId: dbuser.id,
+        Achieved: true,
+      },
+    });
+
+    if (!achievedTartget) return;
+
+    const holdTartget = await db.bucketItems.findMany({
+      where: {
+        userId: dbuser.id,
+        onHold: true,
+        failed: false,
+      },
+    });
+    if (!holdTartget) return;
+    const failedTartget = await db.bucketItems.findMany({
+      where: {
+        userId: dbuser.id,
+        failed: true,
+        onHold: false,
+      },
+    });
+
+    if (!failedTartget) return;
+    return {
+      achievedTartget,
+      achiveCount: achievedTartget.length,
+      holdTartget,
+      holdCount: holdTartget.length,
+      failedTartget,
+      failedCount: failedTartget.length,
+    };
+    
+  } catch (error) {
+    throw new Error(`api error while getting track record ${error}`);
+  }
+}
