@@ -31,7 +31,7 @@ const page = () => {
   return (
     <div className="flex flex-wrap items-center gap-5">
       {routes.map((route, index) => (
-        <Link href={`/track/${route.url}`} key={route.headline + index.toLocaleString()}>
+        <Link href={`/track/${route.url}`} key={route.headline + index.toString()}>
           <h1>{route.headline}</h1>
         </Link>
       ))}

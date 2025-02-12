@@ -145,7 +145,7 @@ export default function Home() {
                 className=" water rounded-md  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
               ></div>
               <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl missed">
-                {remainingBalancePercentage!== 0 && remainingBalancePercentage.toLocaleString() + "%"}
+                {remainingBalancePercentage!== 0 && remainingBalancePercentage.toString() + "%"}
               </h1>
             </div>
           </div>

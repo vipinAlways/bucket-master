@@ -73,8 +73,6 @@ export const startTarget = async ({
 };
 
 export const activeBucketItem = async () => {
-
-
   try {
     const user = await getUser();
     if (!user?.email) {
@@ -108,8 +106,6 @@ export const remainingAmountIncrease = async ({
 }: {
   remainingAmount: number;
 }) => {
-  await db.$connect();
-
   try {
     const user = await getUser();
     if (!user?.email) {
@@ -153,7 +149,6 @@ export const remainingAmountIncrease = async ({
 };
 
 export const targetonHold = async () => {
-  await db.$connect();
   try {
     const user = await getUser();
     if (!user?.email) {
@@ -200,7 +195,6 @@ export const targetonHold = async () => {
   }
 };
 export const failedTOAcheive = async () => {
-  await db.$connect();
   try {
     const user = await getUser();
     if (!user?.email) {
@@ -248,35 +242,33 @@ export const failedTOAcheive = async () => {
   }
 };
 export const getFailedToAcheive = async () => {
-  await db.$connect();
-
   try {
     const user = await getUser();
     if (!user?.email) {
       throw new Error("User is not Authenticated");
     }
+
+    
     const dbuser = await db.user.findFirst({
-      where: {
-        email: user.email,
+      where: { email: user.email },
+      include: {
+        BucketItem: {
+          where: { failed: true, Active: false },
+        },
       },
     });
 
-    if (!dbuser) {
-      console.log("no user with this email");
-      throw new Error("User is not regiester");
+    if (!dbuser || !dbuser.BucketItem.length) {
+      throw new Error("No failed items found");
     }
 
-    return await db.bucketItems.findMany({
-      where: {
-        userId: dbuser.id,
-        failed: true,
-        Active: false,
-      },
-    });
+    return dbuser.BucketItem; 
   } catch (error) {
+    console.error("Error fetching failed items:", error);
     throw new Error("Server Error");
   }
 };
+
 
 export const reActiveTask = async ({
   targetId,
@@ -285,8 +277,6 @@ export const reActiveTask = async ({
   targetId: string;
   duedate?: Date;
 }) => {
-  await db.$connect();
-
   try {
     const failedTarget = await db.bucketItems.findFirst({
       where: { id: targetId, Active: false, failed: true },
@@ -317,9 +307,7 @@ export const reActiveTask = async ({
   }
 };
 
-
 export async function trackRecord() {
-  await db.$connect();
   try {
     const user = await getUser();
     if (!user || !user.email) {
@@ -369,7 +357,6 @@ export async function trackRecord() {
       failedTartget,
       failedCount: failedTartget.length,
     };
-    
   } catch (error) {
     throw new Error(`api error while getting track record ${error}`);
   }

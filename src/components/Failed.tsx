@@ -1,15 +1,14 @@
-"use clinet";
+"use client";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import ActionPerformLoader from "./ActionPerformLoader";
-import { Activity } from "lucide-react";
+import { Activity, Loader2 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getFailedToAcheive,
   reActiveTask,
 } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
-
 
 const Failed = () => {
   const [hidden1, setHidden] = useState(true);
@@ -25,17 +24,18 @@ const Failed = () => {
     onError: () =>
       toast({
         title: "Error",
-        description: "ServerError while increasing remaining amount",
+        description: "Server error while increasing remaining amount",
         variant: "destructive",
       }),
     onSuccess: () => {
       toast({
         title: "Success",
-        description: "Remaining Amount Increased Successfully",
+        description: "Remaining amount increased successfully",
       });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
-      setHidden(true)
+      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
+      setHidden(true);
     },
   });
 
@@ -44,10 +44,31 @@ const Failed = () => {
     queryFn: getFailedToAcheive,
   });
 
+  // Form submit handler
   const onReactiveFailedTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    failedTargetRestart.mutate({ targetId: targetId, duedate: dueDate });
+    failedTargetRestart.mutate({ targetId, duedate: dueDate });
   };
+
+  if (failed.isPending) {
+    return (
+      <div className="w-full flex items-center justify-center">
+        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg bg-textgreen">
+          <h1 className="font-bucket text-6xl bg-textgreen/40 w-56 h-10"></h1>
+
+          <div className="w-full flex flex-col items-center gap-1.5 font-master">
+            <h1 className="text-3xl bg-textgreen/40 w-8 h-9"></h1>
+            <h1 className="text-3xl bg-textgreen/40 w-8 h-9"></h1>
+
+            <Button className="p-2 text-2xl bg-green-600">
+              Reactive <Activity />
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full flex items-center justify-center">
       {failed.data?.length ? (
@@ -83,9 +104,7 @@ const Failed = () => {
 
       {!hidden1 && (
         <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textgreen">
-          <h1 className="text-5xl">
-            Yeah! That's the spirit—go get it back
-          </h1>
+          <h1 className="text-5xl">Yeah! That's the spirit—go get it back</h1>
 
           <div className="flex items-center gap-4">
             {hidden3 ? (
@@ -108,18 +127,24 @@ const Failed = () => {
                   </Button>
                 </>
               ) : (
-                <form onSubmit={onReactiveFailedTask} className="text-2xl flex flex-col flex-1 items-center gap-10 ">
-                <div className="flex items-center gap-9 flex-1 ">
-                <label htmlFor="dueDate" className="rounded-md h-full">Set Due Date</label>
-                  <input
-                    type="date"
-                    value={dueDate ? dueDate.toISOString().split("T")[0] : ""}
-                    onChange={(e) => setDueDate(new Date(e.target.value))}
-                    className="rounded-md h-full py-1 flex items-center
-                    justify-center text-zinc-600"
-                  />
-                </div>
-                  <Button type="submit" className="h-full text-xl py-2">LET'S GOOOO</Button>
+                <form
+                  onSubmit={onReactiveFailedTask}
+                  className="text-2xl flex flex-col flex-1 items-center gap-10 "
+                >
+                  <div className="flex items-center gap-9 flex-1 ">
+                    <label htmlFor="dueDate" className="rounded-md h-full">
+                      Set Due Date
+                    </label>
+                    <input
+                      type="date"
+                      value={dueDate ? dueDate.toISOString().split("T")[0] : ""}
+                      onChange={(e) => setDueDate(new Date(e.target.value))}
+                      className="rounded-md h-full py-1 flex items-center justify-center text-zinc-600"
+                    />
+                  </div>
+                  <Button type="submit" className="h-full text-xl py-2">
+                    LET'S GOOOO
+                  </Button>
                 </form>
               )
             ) : (
