@@ -248,7 +248,6 @@ export const getFailedToAcheive = async () => {
       throw new Error("User is not Authenticated");
     }
 
-    
     const dbuser = await db.user.findFirst({
       where: { email: user.email },
       include: {
@@ -262,13 +261,12 @@ export const getFailedToAcheive = async () => {
       throw new Error("No failed items found");
     }
 
-    return dbuser.BucketItem; 
+    return dbuser.BucketItem;
   } catch (error) {
     console.error("Error fetching failed items:", error);
     throw new Error("Server Error");
   }
 };
-
 
 export const reActiveTask = async ({
   targetId,
@@ -278,17 +276,41 @@ export const reActiveTask = async ({
   duedate?: Date;
 }) => {
   try {
-    const failedTarget = await db.bucketItems.findFirst({
-      where: { id: targetId, Active: false, failed: true },
+    const user = await getUser();
+    if (!user?.email) {
+      throw new Error("User is not Authenticated");
+    }
+
+    const dbuser = await db.user.findFirst({
+      where: { email: user.email },
+      select: { id: true },
     });
 
-    const holdTarget = await db.bucketItems.findFirst({
-      where: { id: targetId, Active: false, onHold: true },
-    });
+    if (!dbuser) {
+      throw new Error("User not found");
+    }
 
-    if (failedTarget) {
+    const [activeTask, targetItem] = await Promise.all([
+      db.bucketItems.findFirst({
+        where: { userId: dbuser.id, Active: true },
+      }),
+      db.bucketItems.findFirst({
+        where: { id: targetId, userId: dbuser.id },
+        select: { id: true, Active: true, failed: true, onHold: true },
+      }),
+    ]);
+
+    if (activeTask) {
+      throw new Error("You already have an active task. Complete it first!");
+    }
+
+    if (!targetItem) {
+      throw new Error("Target item not found");
+    }
+
+    if (targetItem.failed) {
       if (!duedate) {
-        throw new Error("Due need to restart the challenge");
+        throw new Error("Due date is required to restart the challenge");
       }
       return await db.bucketItems.update({
         where: { id: targetId },
@@ -296,14 +318,14 @@ export const reActiveTask = async ({
       });
     }
 
-    if (holdTarget) {
+    if (targetItem.onHold) {
       return await db.bucketItems.update({
         where: { id: targetId },
         data: { Active: true, onHold: false, ...(duedate && { duedate }) },
       });
     }
   } catch (error) {
-    throw new Error("Server Error chenge main");
+    throw new Error("Server Error");
   }
 };
 

@@ -34,6 +34,7 @@ const CreateBucketItem = () => {
       });
       setHidden("hidden");
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
     },
   });
 

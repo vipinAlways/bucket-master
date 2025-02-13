@@ -21,12 +21,19 @@ const Failed = () => {
 
   const failedTargetRestart = useMutation({
     mutationFn: reActiveTask,
-    onError: () =>
+    onError: (error) => {
+      
       toast({
-        title: "Error",
-        description: "Server error while increasing remaining amount",
-        variant: "destructive",
-      }),
+        title: "Success",
+        description: "You Make Active Tesk",
+        variant:"destructive"
+      });
+      queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
+      setHidden(true);
+  
+    },
     onSuccess: () => {
       toast({
         title: "Success",
@@ -36,6 +43,8 @@ const Failed = () => {
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-failed"] });
       setHidden(true);
+      setHidden3(true);
+      setHidden2(true);
     },
   });
 
@@ -44,7 +53,7 @@ const Failed = () => {
     queryFn: getFailedToAcheive,
   });
 
-  // Form submit handler
+
   const onReactiveFailedTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     failedTargetRestart.mutate({ targetId, duedate: dueDate });

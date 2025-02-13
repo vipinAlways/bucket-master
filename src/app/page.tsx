@@ -126,11 +126,11 @@ export default function Home() {
         </div>
       </div>
       <div className="p-2 flex max-md:gap-10 justify-around w-45 relative max-md:flex-col h-96 py-8 items-center">
-        <div className="relative md:w-fit w-full max-md:flex-col flex items-center h-80 justify-start md:gap-10">
-          <div className="h-full w-full flex items-end  ">
+        <div className="relative md:w-fit w-full max-md:flex-col flex items-center h-80 justify-start">
+          <div className="h-full w-96 flex items-end  ">
             <TimeCountDown />
           </div>
-          <div className="h-full w-full flex items-center justify-center ">
+          <div className="h-full flex items-center justify-center ">
             <div className="bucket relative">
               <div
                 style={
@@ -142,10 +142,11 @@ export default function Home() {
                     }%`,
                   } as React.CSSProperties
                 }
-                className=" water rounded-md  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
+                className=" water  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
               ></div>
               <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl missed">
-                {remainingBalancePercentage!== 0 && remainingBalancePercentage.toString() + "%"}
+                {remainingBalancePercentage !== 0 &&
+                  remainingBalancePercentage.toFixed(2).toString() + "%"}
               </h1>
             </div>
           </div>
@@ -186,7 +187,7 @@ export default function Home() {
                             ) || 0;
                           setFunctionalAmount(number);
                         }}
-                        className="h-9 rounded-full px-2 w-40 text-xl "
+                        className="h-9 rounded-full px-2 w-40 text-xl text-black/70"
                       />
 
                       <Button
@@ -218,8 +219,6 @@ export default function Home() {
         </div>
       </div>
 
-    
-
       <div className=" w-fit py-4 text-bggreen ">
         <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
           You Missed It,
@@ -233,7 +232,6 @@ export default function Home() {
           <Failed />
         </div>
       </div>
-
 
       {/* <div className="flex w-full items-start  px-10">
         {data?.Active && <Loader />}
