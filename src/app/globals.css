@@ -379,3 +379,7 @@ body {
   100% {text-shadow: 0 -20em 0 #000}
 }
 
+.card:hover > :not(:hover){
+  transform:scale(0.95);
+  transition: all ease 0.2s;
+}
