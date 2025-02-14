@@ -9,6 +9,7 @@ import {
   reActiveTask,
 } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 
 const Failed = () => {
   const [hidden1, setHidden] = useState(true);
@@ -18,6 +19,8 @@ const Failed = () => {
   const [dueDate, setDueDate] = useState<Date>(new Date());
   const queryClient = useQueryClient();
   const { toast } = useToast();
+
+  
 
   const failedTargetRestart = useMutation({
     mutationFn: reActiveTask,
@@ -59,6 +62,10 @@ const Failed = () => {
     failedTargetRestart.mutate({ targetId, duedate: dueDate });
   };
 
+  console.log(failed.data,"ye hain");
+
+ 
+
   if (failed.isPending) {
     return (
       <div className="w-full flex items-center justify-center">
@@ -81,21 +88,21 @@ const Failed = () => {
   return (
     <div className="w-full flex items-center justify-center">
       {failed.data?.length ? (
-        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg bg-textgreen">
-          <h1 className="font-bucket text-6xl">
-            {failed.data[0]?.ItemName || "No Item Name"}
+        <div className="flex items-center w-[30rem] gap-8 px-6 py-3 rounded-lg bg-textgreen">
+          <h1 className={cn("font-bucket w-1/3",failed.data[failed.data.length-1]?.ItemName.split(" ").length <2 ?"text-5xl":"text-4xl")}>
+            {failed.data[failed.data.length-1]?.ItemName || "No Item Name"}
           </h1>
 
           <div className="w-full flex flex-col items-center gap-1.5 font-master">
-            <h1 className="text-3xl">Amount: {failed.data[0].budget}</h1>
+            <h1 className="text-3xl">Amount: {failed.data[failed.data.length-1].budget}</h1>
             <h1 className="text-3xl">
-              Remaining: {failed.data[0].remainingAmount}
+              Remaining: {failed.data[failed.data.length-1].remainingAmount}
             </h1>
 
             <Button
               className="p-2 text-2xl bg-green-600"
               onClick={() => {
-                setTargetId(failed.data[0].id);
+                setTargetId(failed.data[failed.data.length-1].id);
                 setHidden(false);
               }}
             >

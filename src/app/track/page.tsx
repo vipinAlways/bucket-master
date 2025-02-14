@@ -25,13 +25,13 @@ const page = () => {
     {
       url: "failData",
       count: data?.failedCount,
-      headline: "Acheived Tasks",
+      headline: "Hold Tasks",
     },
   ];
   return (
-    <div className="flex flex-wrap items-center gap-5">
+    <div className="flex flex-wrap items-center gap-5 flex-col h-full">
       {routes.map((route, index) => (
-        <Link href={`/track/${route.url}`} key={route.headline + index.toString()}>
+        <Link href={`/track/${route.url}`} key={route.headline + index.toString()} className="w-96 flex flex-col h-60 border-2 drop-shadow-2xl shad text-white ">
           <h1>{route.headline}</h1>
         </Link>
       ))}

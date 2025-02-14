@@ -70,6 +70,7 @@ export default function Home() {
       });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
     },
   });
 

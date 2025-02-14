@@ -26,8 +26,9 @@ const TimeCountDown = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: failedTOAcheive,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
     },
   });
 
@@ -46,7 +47,7 @@ const TimeCountDown = () => {
 
       if (diff <= 0 || data?.onHold) {
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        if (!isPending) mutate(); // Trigger mutation when time is up
+        if (!isPending) mutate(); 
         return;
       }
 
@@ -58,11 +59,11 @@ const TimeCountDown = () => {
       });
     };
 
-    updateRemainingTime(); // Run immediately
+    updateRemainingTime(); 
     const interval = setInterval(updateRemainingTime, 1000);
 
     return () => clearInterval(interval);
-  }, [time, data?.onHold]);
+  }, [time, data?.onHold,remainingTime.minutes]);
 
   return (
     <div
