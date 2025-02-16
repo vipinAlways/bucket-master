@@ -47,6 +47,11 @@ export default function Home() {
         description: "ServerError",
         variant: "destructive",
       }),
+      onSuccess:()=>{
+        queryClient.invalidateQueries({ queryKey: ["item-active"] });
+        queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+        queryClient.invalidateQueries({ queryKey: ["item-failed"] });
+      }
   });
 
   useEffect(() => {
