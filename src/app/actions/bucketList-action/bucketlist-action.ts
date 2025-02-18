@@ -119,8 +119,8 @@ export const remainingAmountIncrease = async ({
     });
 
     if (!dbuser) {
-      console.log("no user with this email");
-      return;
+      throw new Error("no user with this email");
+   
     }
     const activeBucket = await db.bucketItems.findFirst({
       where: {
@@ -129,14 +129,11 @@ export const remainingAmountIncrease = async ({
       },
     });
 
-    if (!activeBucket) {
-      console.log("no active bucket");
-      return;
-    }
+   
 
     return await db.bucketItems.update({
       where: {
-        id: activeBucket.id,
+        id: activeBucket?.id,
       },
       data: {
         remainingAmount: remainingAmount,
@@ -325,6 +322,9 @@ export const reActiveTask = async ({
       });
     }
   } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message); 
+    }
     throw new Error("Server Error");
   }
 };
@@ -345,24 +345,24 @@ export async function trackRecord() {
       throw new Error("User is not regiester");
     }
 
-    const achievedTartget = await db.bucketItems.findMany({
+    const achievedTarget = await db.bucketItems.findMany({
       where: {
         userId: dbuser.id,
         Achieved: true,
       },
     });
 
-    if (!achievedTartget) return;
+    if (!achievedTarget) return;
 
-    const holdTartget = await db.bucketItems.findMany({
+    const holdTarget = await db.bucketItems.findMany({
       where: {
         userId: dbuser.id,
         onHold: true,
         failed: false,
       },
     });
-    if (!holdTartget) return;
-    const failedTartget = await db.bucketItems.findMany({
+    if (!holdTarget) return;
+    const failedTarget = await db.bucketItems.findMany({
       where: {
         userId: dbuser.id,
         failed: true,
@@ -370,14 +370,14 @@ export async function trackRecord() {
       },
     });
 
-    if (!failedTartget) return;
+    if (!failedTarget) return;
     return {
-      achievedTartget,
-      achiveCount: achievedTartget.length,
-      holdTartget,
-      holdCount: holdTartget.length,
-      failedTartget,
-      failedCount: failedTartget.length,
+      achievedTarget,
+      achiveCount: achievedTarget.length,
+      holdTarget,
+      holdCount: holdTarget.length,
+      failedTarget,
+      failedCount: failedTarget.length,
     };
   } catch (error) {
     throw new Error(`api error while getting track record ${error}`);

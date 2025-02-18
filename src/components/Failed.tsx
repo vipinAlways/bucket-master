@@ -10,6 +10,7 @@ import {
 } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import ReactiveTask from "./ReactiveTask";
 
 const Failed = () => {
   const [hidden1, setHidden] = useState(true);
@@ -27,8 +28,8 @@ const Failed = () => {
     onError: (error) => {
       
       toast({
-        title: "Success",
-        description: "You Make Active Tesk",
+        title: "failed",
+        description: `${error.message}`,
         variant:"destructive"
       });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
@@ -62,7 +63,7 @@ const Failed = () => {
     failedTargetRestart.mutate({ targetId, duedate: dueDate });
   };
 
-  console.log(failed.data,"ye hain");
+
 
  
 
@@ -168,6 +169,7 @@ const Failed = () => {
             )}
           </div>
         </div>
+        // <ReactiveTask targetId={targetId}/>
       )}
     </div>
   );

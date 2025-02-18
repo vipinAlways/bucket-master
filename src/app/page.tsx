@@ -115,7 +115,7 @@ export default function Home() {
   }
 
   return (
-    <div className="w-full font-bucket">
+    <div className="w-full font-bucket px-9">
       <div>
         <div className="max-md:hidden  h-20 flex items-center justify-center pt-4">
           <div className="flex items-start justify-center h-full rounded-full selection:select-none">
@@ -150,7 +150,7 @@ export default function Home() {
                 }
                 className=" water  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
               ></div>
-              <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl missed">
+              <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl missed">
                 {remainingBalancePercentage !== 0 &&
                   remainingBalancePercentage.toFixed(2).toString() + "%"}
               </h1>
@@ -225,7 +225,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className=" w-fit py-4 text-bggreen ">
+      <div className=" w-fit py-4 text-bggreen  flex-col flex items-start gap-3">
         <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
           You Missed It,
           <span className="text-6xl text-textgreen ">
@@ -239,9 +239,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* <div className="flex w-full items-start  px-10">
-        {data?.Active && <Loader />}
-      </div> */}
+     
     </div>
   );
 }
