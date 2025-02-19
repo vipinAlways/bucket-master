@@ -131,7 +131,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="p-2 flex max-md:gap-10 justify-around w-45 relative max-md:flex-col h-96 py-8 items-center">
+      <div className="p-2 flex gap-10 justify-around w-45 relative max-md:flex-col h-96 py-8 items-center ">
         <div className="relative md:w-fit w-full max-md:flex-col flex items-center h-80 justify-start">
           <div className="h-full w-96 flex items-end  ">
             <TimeCountDown />

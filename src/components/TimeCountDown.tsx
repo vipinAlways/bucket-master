@@ -40,17 +40,20 @@ const TimeCountDown = () => {
 
   useEffect(() => {
     if (!time) return;
-
+  
     const updateRemainingTime = () => {
       const now = new Date();
       const diff = time.getTime() - now.getTime();
-
+  
       if (diff <= 0 || data?.onHold) {
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        if (!isPending) mutate(); 
+  
+        if (!isPending) {
+          mutate(); // Call `mutate()` once when time runs out
+        }
         return;
       }
-
+  
       setRemainingTime({
         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
         hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
@@ -58,12 +61,13 @@ const TimeCountDown = () => {
         seconds: Math.floor((diff % (1000 * 60)) / 1000),
       });
     };
-
-    updateRemainingTime(); 
+  
+    updateRemainingTime();
     const interval = setInterval(updateRemainingTime, 1000);
-
+  
     return () => clearInterval(interval);
-  }, [time, data?.onHold,remainingTime.minutes]);
+  }, [time, data?.onHold]); 
+  
 
   return (
     <div

@@ -86,8 +86,8 @@ export const activeBucketItem = async () => {
     });
 
     if (!dbuser) {
-      console.log("no user with this email");
-      return;
+      throw new Error("no user with this email");
+      
     }
     return await db.bucketItems.findFirst({
       where: {
