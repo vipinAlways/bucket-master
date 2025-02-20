@@ -125,7 +125,10 @@ body {
     #e20c0c 80%
   );
   background-size: 400% 400%;
-  animation: gradient 8s ease infinite;
+  animation: gradient 5s ease infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 .new {
   background-color: #4d955c;
@@ -139,7 +142,7 @@ body {
     #6acf34 80%
   );
   background-size: 400% 400%;
-  animation: gradient 8s ease infinite;
+  animation: gradient 5s ease infinite;
 }
 
 @keyframes gradient {
@@ -225,7 +228,7 @@ body {
 
 .missed,
 .missed > span {
-  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #074835;
   color: transparent;
 }

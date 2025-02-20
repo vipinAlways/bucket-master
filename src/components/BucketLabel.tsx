@@ -20,7 +20,7 @@ import { usePathname } from "next/navigation";
 const BucketLabel = () => {
   const pathName = usePathname();
   const [open, setOpen] = useState(false);
-  console.log(open, "check");
+  
   useEffect(() => {
     setOpen(false);
   }, [pathName]);

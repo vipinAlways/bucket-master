@@ -77,7 +77,7 @@ const Failed = () => {
             <h1 className="text-3xl bg-textgreen/40 w-8 h-9"></h1>
             <h1 className="text-3xl bg-textgreen/40 w-8 h-9"></h1>
 
-            <Button className="p-2 text-2xl bg-green-600">
+            <Button className="p-2 text-2xl bg-green-600 hover:bg-green-400">
               Reactive <Activity />
             </Button>
           </div>

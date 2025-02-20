@@ -47,11 +47,11 @@ export default function Home() {
         description: "ServerError",
         variant: "destructive",
       }),
-      onSuccess:()=>{
-        queryClient.invalidateQueries({ queryKey: ["item-active"] });
-        queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
-        queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-      }
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
+    },
   });
 
   useEffect(() => {
@@ -62,12 +62,17 @@ export default function Home() {
 
   const remainingAmountFu = useMutation({
     mutationFn: remainingAmountIncrease,
-    onError: () =>
+    onError: () => {
       toast({
         title: "Error",
         description: "ServerError while increasing remaining amount",
         variant: "destructive",
-      }),
+      });
+      queryClient.invalidateQueries({ queryKey: ["item-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
+    },
+
     onSuccess: () => {
       toast({
         title: "Success",
@@ -148,12 +153,13 @@ export default function Home() {
                     }%`,
                   } as React.CSSProperties
                 }
-                className=" water  h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%]  before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
-              ></div>
-              <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl missed">
-                {remainingBalancePercentage !== 0 &&
-                  remainingBalancePercentage.toFixed(2).toString() + "%"}
-              </h1>
+                className="water h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d] flex items-center justify-center"
+              >
+                <h1 className="text-4xl missed ">
+                  {remainingBalancePercentage !== 0 &&
+                    remainingBalancePercentage.toFixed(2).toString() + "%"}
+                </h1>
+              </div>
             </div>
           </div>
         </div>
@@ -238,8 +244,6 @@ export default function Home() {
           <Failed />
         </div>
       </div>
-
-     
     </div>
   );
 }

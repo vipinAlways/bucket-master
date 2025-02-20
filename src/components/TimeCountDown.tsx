@@ -40,20 +40,20 @@ const TimeCountDown = () => {
 
   useEffect(() => {
     if (!time) return;
-  
+
     const updateRemainingTime = () => {
       const now = new Date();
       const diff = time.getTime() - now.getTime();
-  
+
       if (diff <= 0 || data?.onHold) {
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  
+
         if (!isPending) {
           mutate(); // Call `mutate()` once when time runs out
         }
         return;
       }
-  
+
       setRemainingTime({
         days: Math.floor(diff / (1000 * 60 * 60 * 24)),
         hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
@@ -61,26 +61,43 @@ const TimeCountDown = () => {
         seconds: Math.floor((diff % (1000 * 60)) / 1000),
       });
     };
-  
+
     updateRemainingTime();
     const interval = setInterval(updateRemainingTime, 1000);
-  
+
     return () => clearInterval(interval);
-  }, [time, data?.onHold]); 
-  
+  }, [time, data?.onHold]);
 
   return (
     <div
-      className={`flex flex-col w-full text-4xl items-center text-center font-mono ${
+      className={`flex flex-col w-full items-center text-center font-serif ${
         !data?.Active && "hidden"
       }`}
     >
-      <div className={cn("flex items-center justify-around max-md:gap-2 w-80 text-7xl",remainingTime.days <1 ?"text-green-700":"text-red-600")}>
-        <p>{remainingTime.days}</p>
-        <p>{remainingTime.hours}</p>
-        <p>{remainingTime.minutes}</p>
-        <p>{remainingTime.seconds}</p>
-      </div>
+      <ul
+        className={cn(
+          "flex  items-center gap-4 max-md:gap-2 w-80 text-7xl",
+          remainingTime.days > 0 ? "new" : " bgnew"
+        )}
+      >
+        <li>
+          {" "}
+          <p>D </p> <p>{remainingTime.days}</p>
+        </li>
+        <li>
+          {" "}
+          <p className="text-6xl">H </p> <p>{remainingTime.hours}</p>
+        </li>
+        <li>
+          {" "}
+          <p className="text-5xl">M </p> <p>{remainingTime.minutes}</p>
+        </li>
+        <li>
+          {" "}
+          <p className="text-4xl">S </p>
+          <p>{remainingTime.seconds}</p>
+        </li>
+      </ul>
     </div>
   );
 };
