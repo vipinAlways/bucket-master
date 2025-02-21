@@ -76,8 +76,7 @@ export const activeBucketItem = async () => {
   try {
     const user = await getUser();
     if (!user?.email) {
-      console.log("Invalid user data");
-      return;
+      throw new Error("User is not Authenticated");
     }
     const dbuser = await db.user.findFirst({
       where: {
@@ -87,7 +86,6 @@ export const activeBucketItem = async () => {
 
     if (!dbuser) {
       throw new Error("no user with this email");
-      
     }
     return await db.bucketItems.findFirst({
       where: {
@@ -120,7 +118,6 @@ export const remainingAmountIncrease = async ({
 
     if (!dbuser) {
       throw new Error("no user with this email");
-   
     }
     const activeBucket = await db.bucketItems.findFirst({
       where: {
@@ -128,8 +125,6 @@ export const remainingAmountIncrease = async ({
         Active: true,
       },
     });
-
-   
 
     return await db.bucketItems.update({
       where: {
@@ -195,19 +190,18 @@ export const failedTOAcheive = async () => {
   try {
     const user = await getUser();
     if (!user?.email) {
-      console.log("Invalid user data");
-      return;
+      throw new Error("User is not Authenticated");
     }
+
     const dbuser = await db.user.findFirst({
-      where: {
-        email: user.email,
-      },
+      where: { email: user.email },
     });
 
     if (!dbuser) {
-      console.log("no user with this email");
+      console.log("No user with this email:", user.email);
       return;
     }
+
     const activeBucket = await db.bucketItems.findFirst({
       where: {
         userId: dbuser.id,
@@ -217,27 +211,44 @@ export const failedTOAcheive = async () => {
       },
     });
 
-    if (!activeBucket || !activeBucket.budget) {
-      console.log("no active bucket");
+    if (!activeBucket) {
+      throw new Error("No active bucket found for user ID");
+    }
+
+    if (!activeBucket.budget) {
+      console.log("Active bucket has no budget");
       return;
     }
 
-    if (activeBucket.duedate && new Date(activeBucket.duedate) < new Date()) {
-      return await db.bucketItems.update({
-        where: {
-          id: activeBucket.id,
-        },
-        data: {
-          failed: true,
-          Active: false,
-        },
-      });
+    
+
+    if (activeBucket.duedate) {
+      const dueDate = new Date(activeBucket.duedate);
+      const now = new Date();
+
+      if (dueDate < now) {
+        try {
+          const updatedBucket = await db.bucketItems.update({
+            where: { id: activeBucket.id },
+            data: { failed: true, Active: false },
+          });
+
+          
+          return updatedBucket;
+        } catch (updateError) {
+          console.log("Error while updating bucket status:", updateError);
+        }
+      } else {
+        console.log("Bucket duedate not reached:", dueDate);
+      }
+    } else {
+      console.log("No duedate found for bucket:", activeBucket.id);
     }
   } catch (error) {
-    console.log("error while failed bucket item server", error);
-    console.log("error while bucket item server failed");
+    console.log("Error in failedTOAcheive function:", error);
   }
 };
+
 export const getFailedToAcheive = async () => {
   try {
     const user = await getUser();
@@ -323,7 +334,7 @@ export const reActiveTask = async ({
     }
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(error.message); 
+      throw new Error(error.message);
     }
     throw new Error("Server Error");
   }

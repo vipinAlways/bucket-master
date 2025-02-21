@@ -216,12 +216,12 @@ export default function Home() {
                         : ""}
                     </p>
                   </div>
-                  <div className="front flex flex-col justify-around p-8 h-full  text-textgreen rounded-md bg-headLine">
+                  {/* <div className="front flex flex-col justify-around p-8 h-full  text-textgreen rounded-md bg-headLine">
                     <h1 className="w-full text-6xl text-start">Hover:</h1>
                     <h1 className="w-full text-6xl text-end">To:</h1>
                     <h1 className="w-full text-6xl text-start">Edit:</h1>
                     <h1 className="w-full text-6xl text-end">Bucket:</h1>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )
