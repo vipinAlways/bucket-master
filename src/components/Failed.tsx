@@ -159,7 +159,7 @@ const Failed = () => {
                       className="rounded-md h-full py-1 flex items-center justify-center text-zinc-600"
                     />
                   </div>
-                  <Button type="submit" className="h-full text-xl py-2">
+                  <Button className="h-full text-xl py-2">
                     LET'S GOOOO
                   </Button>
                 </form>

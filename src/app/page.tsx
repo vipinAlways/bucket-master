@@ -10,7 +10,14 @@ import {
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
 import Loader from "@/components/Loader";
-import { Activity, Minus, Plus } from "lucide-react";
+import {
+  Activity,
+  ArrowDownAZ,
+  ArrowDownNarrowWide,
+  ArrowUpNarrowWide,
+  Minus,
+  Plus,
+} from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
 import OnholdProof from "@/components/OnholdProof";
 import CreateBucketItem from "@/components/CreateBucketItem";
@@ -99,6 +106,9 @@ export default function Home() {
 
   useEffect(() => {
     mutate();
+    queryClient.invalidateQueries({ queryKey: ["item-active"] });
+    queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+    queryClient.invalidateQueries({ queryKey: ["item-failed"] });
   }, [mutate]);
 
   useEffect(() => {
@@ -116,6 +126,9 @@ export default function Home() {
   }, [data?.remainingAmount, functionalamount]);
 
   if (isPending) {
+    queryClient.invalidateQueries({ queryKey: ["item-active"] });
+    queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
+    queryClient.invalidateQueries({ queryKey: ["item-failed"] });
     return <PendingLoader />;
   }
 
@@ -171,8 +184,8 @@ export default function Home() {
               </div>
             ) : (
               <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
-                <div className="relative  w-full card  rounded-xl bg-headLine h-full transition-all duration-400 ease-in-out  ">
-                  <div className="back w-80 flex  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full ">
+                <div className="relative  w-full  rounded-xl bg-headLine h-full transition-all duration-400 ease-in-out group  ">
+                  <div className="absolute top-0 left-0 group-hover:z-30 w-80 flex opacity-0  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full group-hover:opacity-100 transition-all duration-500 ease-out ">
                     <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bggreen border-none">
                       <span>{data?.budget}</span>
                     </p>
@@ -184,7 +197,7 @@ export default function Home() {
                         onClick={handleRemainingAmountdecrease}
                         className="bg-red-600 text-2xl p-0.5 w-12 h-9 rounded-2xl hover:bg-red-600"
                       >
-                        <Minus className="text-2xl" />
+                        <ArrowDownNarrowWide />
                       </Button>
                       <input
                         placeholder="Enter the amount"
@@ -203,11 +216,10 @@ export default function Home() {
                       />
 
                       <Button
-                        onClick={handleRemainingAmountIncrease}
+                        onClick={handleRemainingAmountdecrease}
                         className="bg-green-600 text-2xl p-0.5 w-12 h-9 rounded-2xl hover:bg-green-600"
-                        disabled={dissable}
                       >
-                        <Plus />
+                        <ArrowUpNarrowWide />
                       </Button>
                     </div>
                     <p className="text-center w-80 text-red-500 h-9">
@@ -216,12 +228,12 @@ export default function Home() {
                         : ""}
                     </p>
                   </div>
-                  {/* <div className="front flex flex-col justify-around p-8 h-full  text-textgreen rounded-md bg-headLine">
+                  <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-500 ease-in text-textgreen rounded-md bg-headLine ">
                     <h1 className="w-full text-6xl text-start">Hover:</h1>
                     <h1 className="w-full text-6xl text-end">To:</h1>
                     <h1 className="w-full text-6xl text-start">Edit:</h1>
                     <h1 className="w-full text-6xl text-end">Bucket:</h1>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             )

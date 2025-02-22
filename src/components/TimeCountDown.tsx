@@ -49,7 +49,7 @@ const TimeCountDown = () => {
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
         if (!isPending) {
-          mutate(); // Call `mutate()` once when time runs out
+          mutate(); 
         }
         return;
       }
@@ -92,7 +92,7 @@ const TimeCountDown = () => {
           {" "}
           <p className="text-5xl">M </p> <p>{remainingTime.minutes}</p>
         </li>
-        <li>
+        <li className="flex flex-col items-start">
           {" "}
           <p className="text-4xl">S </p>
           <p>{remainingTime.seconds}</p>

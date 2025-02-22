@@ -116,13 +116,13 @@ body {
 }
 
 .bgnew {
-  background: rgb(222, 11, 11);
+  background: #FFD700;
   background: linear-gradient(
     40deg,
-    #a82a2a 17%,
-    #be1b1bf5 41%,
-    #821515f8 56%,
-    #e20c0c 80%
+    #d6b709 17%,
+    #a28b0b 41%,
+    #665701 56%,
+    #ffd900 80%
   );
   background-size: 400% 400%;
   animation: gradient 5s ease infinite;
@@ -131,15 +131,15 @@ body {
   color: transparent;
 }
 .new {
-  background-color: #4d955c;
+  background-color: #5EEAD4 ;
   box-shadow: 0 0 3px 1px #70b87e, 0 0 7px 5px #0d9a03,
     0 0 10px 5px rgb(11, 207, 207);
   background: linear-gradient(
     40deg,
-    #70b87e 17%,
-    #0d9a03 41%,
-    #4d955c 56%,
-    #6acf34 80%
+    #19e5c6 17%,
+    #156d60 41%,
+    #40897e 56%,
+    #1dad98 80%
   );
   background-size: 400% 400%;
   animation: gradient 5s ease infinite;
