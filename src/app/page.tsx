@@ -19,17 +19,18 @@ import {
   Plus,
 } from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
-import OnholdProof from "@/components/OnholdProof";
+
 import CreateBucketItem from "@/components/CreateBucketItem";
-import ActionPerformLoader from "@/components/ActionPerformLoader";
+
 import Failed from "@/components/Failed";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const [isActive, setIsActive] = useState(false);
-  const [dissable, setDissable] = useState(false);
-  const [completed, setCompelted] = useState<boolean>(false);
+  const [disable, setDisable] = useState(false);
+  const [completed, setCompleted] = useState<boolean>(false);
   const { toast } = useToast();
-  const [functionalamount, setFunctionalAmount] = useState<number>(0);
+  const [functionalAmount, setFunctionalAmount] = useState<number>(0);
   const [remainingBalancePercentage, setRemainingBalancePercentage] =
     useState<number>(0);
   const queryClient = useQueryClient();
@@ -37,21 +38,23 @@ export default function Home() {
   const { data, isPending } = useQuery({
     queryKey: ["item-active"],
     queryFn: activeBucketItem,
+    
   });
 
   useEffect(() => {
-    if (data?.remainingAmount! >= 0 && data?.budget) {
+    if (data?.remainingAmount !== undefined && data?.budget) {
       const percentage = 100 - (data.remainingAmount / data.budget) * 100;
       setRemainingBalancePercentage(percentage);
     }
   }, [data]);
+
   const { mutate } = useMutation({
     mutationKey: ["create-user"],
     mutationFn: PostUser,
     onError: () =>
       toast({
         title: "Error",
-        description: "ServerError",
+        description: "Server Error",
         variant: "destructive",
       }),
     onSuccess: () => {
@@ -72,14 +75,13 @@ export default function Home() {
     onError: () => {
       toast({
         title: "Error",
-        description: "ServerError while increasing remaining amount",
+        description: "Server Error while increasing remaining amount",
         variant: "destructive",
       });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-failed"] });
     },
-
     onSuccess: () => {
       toast({
         title: "Success",
@@ -90,40 +92,38 @@ export default function Home() {
       queryClient.invalidateQueries({ queryKey: ["item-failed"] });
     },
   });
-
   const handleRemainingAmountIncrease = () => {
     remainingAmountFu.mutate({
-      remainingAmount: data?.remainingAmount! - functionalamount,
+      remainingAmount: data?.remainingAmount! - functionalAmount,
     });
     setFunctionalAmount(0);
   };
-  const handleRemainingAmountdecrease = () => {
-    remainingAmountFu.mutate({
-      remainingAmount: data?.remainingAmount! + functionalamount,
-    });
-    setFunctionalAmount(0);
+
+  const handleRemainingAmountDecrease = () => {
+    if (data?.remainingAmount !== undefined) {
+      remainingAmountFu.mutate({
+        remainingAmount: data.remainingAmount + functionalAmount,
+      });
+      setFunctionalAmount(0);
+    }
   };
+
+  useEffect(() => {
+    if (data?.remainingAmount !== undefined) {
+      setDisable(data.remainingAmount < functionalAmount);
+      setCompleted(data.remainingAmount === 0);
+    } else {
+      setDisable(false);
+    }
+  }, [data?.remainingAmount, functionalAmount]);
 
   useEffect(() => {
     mutate();
     queryClient.invalidateQueries({ queryKey: ["item-active"] });
     queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
     queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-  }, [mutate]);
-
-  useEffect(() => {
-    if (data?.remainingAmount !== undefined) {
-      if (data.remainingAmount < functionalamount) {
-        setDissable(true);
-      } else {
-        setDissable(false);
-      }
-
-      setCompelted(data.remainingAmount === 0);
-    } else {
-      setDissable(false);
-    }
-  }, [data?.remainingAmount, functionalamount]);
+  }, []);
+  
 
   if (isPending) {
     queryClient.invalidateQueries({ queryKey: ["item-active"] });
@@ -160,15 +160,15 @@ export default function Home() {
                 style={
                   {
                     "--top-start": `-${
-                      remainingBalancePercentage !== 0
+                      remainingBalancePercentage >= 0
                         ? remainingBalancePercentage + 15
                         : 20
                     }%`,
                   } as React.CSSProperties
                 }
-                className="water h-80 w-80 before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d] flex items-center justify-center"
+                className={cn("water h-80 w-80  flex items-center justify-center",remainingBalancePercentage >= 0 && "before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d]")}
               >
-                <h1 className="text-4xl missed ">
+                <h1 className="text-4xl missed  text-black">
                   {remainingBalancePercentage !== 0 &&
                     remainingBalancePercentage.toFixed(2).toString() + "%"}
                 </h1>
@@ -180,12 +180,12 @@ export default function Home() {
           {isActive ? (
             completed === true ? (
               <div className="w-full flex justify-start ">
-                <Button onClick={() => setCompelted(false)}>Edit Amount</Button>
+                <Button onClick={() => setCompleted(false)}>Edit Amount</Button>
               </div>
             ) : (
               <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
                 <div className="relative  w-full  rounded-xl bg-headLine h-full transition-all duration-400 ease-in-out group  ">
-                  <div className="absolute top-0 left-0 group-hover:z-30 w-80 flex opacity-0  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full group-hover:opacity-100 transition-all duration-500 ease-out ">
+                  <div className="absolute top-0 left-0 group-hover:z-30 w-80 flex opacity-0  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full group-hover:opacity-100 transition-all duration-100 ease-out ">
                     <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bggreen border-none">
                       <span>{data?.budget}</span>
                     </p>
@@ -194,7 +194,7 @@ export default function Home() {
                     </p>
                     <div className="flex items-center justify-between w-fit gap-2.5">
                       <Button
-                        onClick={handleRemainingAmountdecrease}
+                        onClick={handleRemainingAmountDecrease}
                         className="bg-red-600 text-2xl p-0.5 w-12 h-9 rounded-2xl hover:bg-red-600"
                       >
                         <ArrowDownNarrowWide />
@@ -203,7 +203,7 @@ export default function Home() {
                         placeholder="Enter the amount"
                         name="amountEnter"
                         type="text"
-                        value={functionalamount}
+                        value={functionalAmount}
                         onChange={(e) => {
                           const number =
                             parseInt(
@@ -216,19 +216,19 @@ export default function Home() {
                       />
 
                       <Button
-                        onClick={handleRemainingAmountdecrease}
+                        onClick={handleRemainingAmountIncrease}
                         className="bg-green-600 text-2xl p-0.5 w-12 h-9 rounded-2xl hover:bg-green-600"
                       >
                         <ArrowUpNarrowWide />
                       </Button>
                     </div>
                     <p className="text-center w-80 text-red-500 h-9">
-                      {dissable
+                      {disable
                         ? "You have entered more than remaining amount"
                         : ""}
                     </p>
                   </div>
-                  <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-500 ease-in text-textgreen rounded-md bg-headLine ">
+                  <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-textgreen rounded-xl bg-headLine ">
                     <h1 className="w-full text-6xl text-start">Hover:</h1>
                     <h1 className="w-full text-6xl text-end">To:</h1>
                     <h1 className="w-full text-6xl text-start">Edit:</h1>

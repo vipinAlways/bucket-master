@@ -76,7 +76,7 @@ const TimeCountDown = () => {
     >
       <ul
         className={cn(
-          "flex  items-center gap-4 max-md:gap-2 w-80 text-7xl",
+          "flex flex-1  items-center gap-4 max-md:gap-2 w-88 text-7xl",
           remainingTime.days > 0 ? "new" : " bgnew"
         )}
       >
@@ -92,7 +92,7 @@ const TimeCountDown = () => {
           {" "}
           <p className="text-5xl">M </p> <p>{remainingTime.minutes}</p>
         </li>
-        <li className="flex flex-col items-start">
+        <li className="flex flex-col items-start w-20">
           {" "}
           <p className="text-4xl">S </p>
           <p>{remainingTime.seconds}</p>

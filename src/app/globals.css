@@ -210,7 +210,7 @@ body {
 }
 
 .water {
-  background-color: skyblue;
+  background-color: rgb(135, 235, 173);
   position: relative;
   clip-path: polygon(0% 10%, 100% 10%, 90% 100%, 10% 100%);
 }
