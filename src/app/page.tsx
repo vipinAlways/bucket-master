@@ -35,10 +35,11 @@ export default function Home() {
     useState<number>(0);
   const queryClient = useQueryClient();
 
-  const { data, isPending } = useQuery({
+  const { data, isPending, refetch } = useQuery({
     queryKey: ["item-active"],
     queryFn: activeBucketItem,
-    
+    staleTime: 1000 * 60,
+    enabled: true,
   });
 
   useEffect(() => {
@@ -123,7 +124,6 @@ export default function Home() {
     queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
     queryClient.invalidateQueries({ queryKey: ["item-failed"] });
   }, []);
-  
 
   if (isPending) {
     queryClient.invalidateQueries({ queryKey: ["item-active"] });
@@ -166,7 +166,11 @@ export default function Home() {
                     }%`,
                   } as React.CSSProperties
                 }
-                className={cn("water h-80 w-80  flex items-center justify-center",remainingBalancePercentage >= 0 && "before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d]")}
+                className={cn(
+                  "water h-80 w-80  flex items-center justify-center",
+                  remainingBalancePercentage >= 0 &&
+                    "before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
+                )}
               >
                 <h1 className="text-4xl missed  text-black">
                   {remainingBalancePercentage !== 0 &&

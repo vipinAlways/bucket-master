@@ -12,10 +12,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "./ui/button";
-import { Menu, Settings } from "lucide-react";
+import { LogOutIcon, Menu, Settings } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { items } from "@/app/constants/constant";
 import { usePathname } from "next/navigation";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 
 const BucketLabel = () => {
   const pathName = usePathname();
@@ -83,7 +84,7 @@ const BucketLabel = () => {
               </ul>
             </nav>
 
-            <SheetFooter className="px-3 py-2 flex flex-col text-xl">
+            <SheetFooter className="w-full px-3 py-2 flex items-center text-xl">
               <SheetClose asChild>
                 <Link
                   href={"/setting"}
@@ -97,7 +98,9 @@ const BucketLabel = () => {
                     <span className="font-bucket text-xl">Settings</span>
                   </p>
                 </Link>
+
               </SheetClose>
+                <LogoutLink > <LogOutIcon/></LogoutLink>
             </SheetFooter>
           </div>
         </SheetContent>

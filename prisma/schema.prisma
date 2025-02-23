@@ -12,13 +12,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id         String        @id @default(uuid())
-  userName   String
-  email      String
-  Avatar     String
-  BucketItem BucketItems[]
-  level      Int          @default(0)
+  id           String        @id @default(uuid())
+  userName     String         
+  email        String         @unique
+  Avatar       String
+  BucketItem   BucketItems[]
+  level        Int           @default(0)
+  points       Int           @default(0)
+  streak       Int           @default(0)
+  createdAt    DateTime      @default(now())
+  lastActiveAt DateTime      @default(now())
 }
 
 model BucketItems {
@@ -35,6 +40,8 @@ model BucketItems {
   budget          Float
   remainingAmount Float
   failed          Boolean
+  reasoanOfTarget String?
+  createdAt       DateTime     @default(now())
 }
 
 enum typeOfTarget {
