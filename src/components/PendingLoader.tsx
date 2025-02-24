@@ -3,9 +3,9 @@ import React from "react";
 
 const PendingLoader = () => {
   return (
-   <div className="h-3/5 w-full flex  items-center justify-center md:mx-16"> 
-       
-      <div className="flex h-60 justify-start items-center w-60 breath" >
+   <div className="h-3/5 w-3/5 flex items-center justify-center md:mx-16"> 
+     <div className="h-full w-full flex items-center justify-center breath ">    
+      <div className="flex h-60 justify-start items-center w-60">
         <Image
           src="/images/Bucket-icon.svg"
           alt="logo"
@@ -21,6 +21,7 @@ const PendingLoader = () => {
           </span>
         </p>
       </div>
+    </div>
    </div>
   );
 };

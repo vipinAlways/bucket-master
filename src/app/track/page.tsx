@@ -92,7 +92,7 @@ const Home: React.FC = () => {
         {routes.map((route, index) => (
           <Button
             key={`${route.headline}-${index}`}
-            className="w-96 flex flex-col h-52 rounded-lg p-3 text-bggreen bg-textgreen gap-2 hover:scale-105 transition-all ease-linear duration-200 cursor-pointer hover:bg-textgreen"
+            className="w-96 flex flex-col h-52 rounded-lg p-3 text-textgreen bg-headLine/40 backdrop-blur-md  gap-2 hover:scale-105  ease-linear duration-200  hover:bg-headLine/80 transition-all "
             onClick={() => setHistoryFor(route.url)}
           >
             <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bggreen">

@@ -21,7 +21,7 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 const BucketLabel = () => {
   const pathName = usePathname();
   const [open, setOpen] = useState(false);
-  
+
   useEffect(() => {
     setOpen(false);
   }, [pathName]);
@@ -98,9 +98,11 @@ const BucketLabel = () => {
                     <span className="font-bucket text-xl">Settings</span>
                   </p>
                 </Link>
-
               </SheetClose>
-                <LogoutLink > <LogOutIcon/></LogoutLink>
+              <LogoutLink>
+                {" "}
+                <LogOutIcon />
+              </LogoutLink>
             </SheetFooter>
           </div>
         </SheetContent>
@@ -120,6 +122,29 @@ const BucketLabel = () => {
           master
         </span>
       </p>
+
+      <div className="top-2 right-0 absolute flex items-center gap-2">
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12 2C14 5 16 7 16 10C16 13 14 15 12 16C10 15 8 13 8 10C8 7 10 5 12 2Z"
+            fill="orange"
+          />
+          <path
+            d="M12 22C15 22 18 19 18 16C18 14 17 13 16 12C16 15 14 17 12 18C10 17 8 15 8 12C7 13 6 14 6 16C6 19 9 22 12 22Z"
+            fill="red"
+          />
+        </svg>
+
+        
+      </div>
     </div>
   );
 };

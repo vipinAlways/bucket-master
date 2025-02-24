@@ -249,14 +249,14 @@ export const failedTOAcheive = async () => {
   }
 };
 
-export const getFailedToAcheive = async () => {
+export const getFailedToAchieve = async () => {
   try {
     const user = await getUser();
     if (!user?.email) {
-      throw new Error("User is not Authenticated");
+      throw new Error("User is not authenticated");
     }
 
-    const dbuser = await db.user.findFirst({
+    const dbUser = await db.user.findFirst({
       where: { email: user.email },
       include: {
         BucketItem: {
@@ -265,16 +265,17 @@ export const getFailedToAcheive = async () => {
       },
     });
 
-    if (!dbuser || !dbuser.BucketItem.length) {
-      throw new Error("No failed items found");
+    if (!dbUser || !dbUser.BucketItem?.length) {
+      return [];
     }
 
-    return dbuser.BucketItem;
+    return dbUser.BucketItem;
   } catch (error) {
     console.error("Error fetching failed items:", error);
-    throw new Error("Server Error");
+    throw new Error("Failed to retrieve failed bucket items");
   }
 };
+
 
 export const reActiveTask = async ({
   targetId,

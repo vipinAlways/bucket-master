@@ -5,7 +5,7 @@ import ActionPerformLoader from "./ActionPerformLoader";
 import { Activity, Loader2 } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  getFailedToAcheive,
+  getFailedToAchieve,
   reActiveTask,
 } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
@@ -54,7 +54,7 @@ const Failed = () => {
 
   const failed = useQuery({
     queryKey: ["item-failed"],
-    queryFn: getFailedToAcheive,
+    queryFn: getFailedToAchieve,
   });
 
 
