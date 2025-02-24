@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
   const failedTargetRestart = useMutation({
     mutationFn: reActiveTask,
-    onError: (error) => {
+    onError: () => {
       toast({
         title: "Error",
         description: "Failed to reactivate task.",
@@ -167,7 +167,7 @@ const Home: React.FC = () => {
 
       {!hidden && (
         <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textgreen">
-          <h1 className="text-5xl">Yeah! That's the spirit—go get it back</h1>
+          <h1 className="text-5xl">Yeah! That&lsquo;s the spirit—go get it back</h1>
 
           <div className="flex items-center gap-4">
             {hidden ? (
@@ -187,7 +187,7 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <Button type="submit" className="h-full text-xl py-2">
-                  LET'S GOOOO
+                  LET&lsquo;S GOOOO
                 </Button>
               </form>
             ) : (

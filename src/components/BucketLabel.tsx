@@ -17,7 +17,7 @@ import { Separator } from "./ui/separator";
 import { items } from "@/app/constants/constant";
 import { usePathname } from "next/navigation";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getDbUser } from "@/app/actions/User-action/UserAction";
 
 const BucketLabel = () => {

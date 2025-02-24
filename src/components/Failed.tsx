@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import ActionPerformLoader from "./ActionPerformLoader";
-import { Activity, Loader2 } from "lucide-react";
+import { Activity } from "lucide-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getFailedToAchieve,
@@ -10,7 +10,6 @@ import {
 } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import ReactiveTask from "./ReactiveTask";
 
 const Failed = () => {
   const [hidden1, setHidden] = useState(true);
@@ -114,14 +113,14 @@ const Failed = () => {
       ) : (
         <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg h-40 bg-textgreen">
           <h1 className="font-bucket text-6xl">
-            Currently You don't Failed Great
+            Currently You don&lsquo;t Failed Great
           </h1>
         </div>
       )}
 
       {!hidden1 && (
         <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textgreen">
-          <h1 className="text-5xl">Yeah! That's the spirit—go get it back</h1>
+          <h1 className="text-5xl">Yeah! That&lsquo;s the spirit—go get it back</h1>
 
           <div className="flex items-center gap-4">
             {hidden3 ? (
@@ -137,7 +136,7 @@ const Failed = () => {
                       }, 1500);
                     }}
                   >
-                    YEAH! LET'S GO!
+                    YEAH! LET&lsquo;S GO!
                   </Button>
                   <Button className="text-3xl p-8 bg-red-600 hover:bg-red-800">
                     NOT FEELING IT
@@ -160,7 +159,7 @@ const Failed = () => {
                     />
                   </div>
                   <Button className="h-full text-xl py-2">
-                    LET'S GOOOO
+                    LET&lsquo;S GOOOO
                   </Button>
                 </form>
               )

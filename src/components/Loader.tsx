@@ -1,6 +1,5 @@
 "use client"
-import { activeBucketItem } from "@/app/actions/bucketList-action/bucketlist-action";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {  useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Progress } from "./ui/progress";
 

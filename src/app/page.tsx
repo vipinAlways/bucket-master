@@ -9,15 +9,8 @@ import {
   remainingAmountIncrease,
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
-import Loader from "@/components/Loader";
-import {
-  Activity,
-  ArrowDownAZ,
-  ArrowDownNarrowWide,
-  ArrowUpNarrowWide,
-  Minus,
-  Plus,
-} from "lucide-react";
+
+import { ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
 
 import CreateBucketItem from "@/components/CreateBucketItem";
@@ -41,7 +34,7 @@ export default function Home() {
     staleTime: 1000 * 60,
     enabled: true,
   });
-  
+
   useEffect(() => {
     if (data?.remainingAmount !== undefined && data?.budget) {
       const percentage = 100 - (data.remainingAmount / data.budget) * 100;
@@ -101,13 +94,14 @@ export default function Home() {
   };
 
   const handleRemainingAmountDecrease = () => {
-    if (data?.remainingAmount !== undefined) {
+    if (data && typeof data.remainingAmount === "number") {
       remainingAmountFu.mutate({
         remainingAmount: data.remainingAmount + functionalAmount,
       });
       setFunctionalAmount(0);
     }
   };
+  
 
   useEffect(() => {
     if (data?.remainingAmount !== undefined) {
@@ -123,7 +117,8 @@ export default function Home() {
     queryClient.invalidateQueries({ queryKey: ["item-active"] });
     queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
     queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-  }, []);
+    refetch()
+  });
 
   if (isPending) {
     queryClient.invalidateQueries({ queryKey: ["item-active"] });

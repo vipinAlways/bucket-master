@@ -66,7 +66,7 @@ const TimeCountDown = () => {
     const interval = setInterval(updateRemainingTime, 1000);
 
     return () => clearInterval(interval);
-  }, [time, data?.onHold]);
+  }, [time, data?.onHold,isPending,mutate]);
 
   return (
     <div
