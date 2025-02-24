@@ -17,14 +17,21 @@ import { Separator } from "./ui/separator";
 import { items } from "@/app/constants/constant";
 import { usePathname } from "next/navigation";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getDbUser } from "@/app/actions/User-action/UserAction";
 
 const BucketLabel = () => {
   const pathName = usePathname();
   const [open, setOpen] = useState(false);
 
+  const { data, isPending } = useQuery({
+    queryKey: ["user-data"],
+    queryFn: getDbUser,
+  });
   useEffect(() => {
     setOpen(false);
   }, [pathName]);
+  console.log(data, "ye hain");
 
   return (
     <div className="flex h-28  justify-center items-center px-2 mx-3 w-full max-sm:gap-8 bg-bggreen border-b rounded-lg border-textgreen  z-10 sticky top-0">
@@ -123,10 +130,12 @@ const BucketLabel = () => {
         </span>
       </p>
 
-      <div className="top-2 right-0 absolute flex items-center gap-2">
-        <svg
-          width="50"
-          height="50"
+      <div className="top-2 right-6 absolute flex flex-col items-center gap-2">
+        <h4 className="text-2xl  font-bucket  text-headLine"> Streak</h4>
+       <div className="flex items-center gap-2">
+       <svg
+          width="40"
+          height="40"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -142,8 +151,12 @@ const BucketLabel = () => {
             fill="red"
           />
         </svg>
-
-        
+        <span className="text-3xl text-textgreen missed">
+          {data && "streak" in data
+            ? data.streak
+            : isPending && <span>&#8734;</span>}
+        </span>
+       </div>
       </div>
     </div>
   );

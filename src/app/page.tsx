@@ -41,7 +41,7 @@ export default function Home() {
     staleTime: 1000 * 60,
     enabled: true,
   });
-
+  
   useEffect(() => {
     if (data?.remainingAmount !== undefined && data?.budget) {
       const percentage = 100 - (data.remainingAmount / data.budget) * 100;
