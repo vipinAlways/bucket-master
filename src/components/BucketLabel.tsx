@@ -31,7 +31,7 @@ const BucketLabel = () => {
   useEffect(() => {
     setOpen(false);
   }, [pathName]);
-  console.log(data, "ye hain");
+  
 
   return (
     <div className="flex h-28  justify-center items-center px-2 mx-3 w-full max-sm:gap-8 bg-bggreen border-b rounded-lg border-textgreen  z-10 sticky top-0">

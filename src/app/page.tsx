@@ -188,8 +188,10 @@ export default function Home() {
           {isActive ? (
             completed === true ? (
               <div className="w-full flex justify-start gap-3  ">
-                <Button onClick={() => setCompleted(false)}>Edit Amount</Button>
-                <Button onClick={() => setCompleted(false)}>Achieve</Button>
+                <Button onClick={() => {setCompleted(false)
+                  holdAcheive.mutate({todo:"hold"})
+                }}>Edit Amount</Button>
+                <Button onClick={() => holdAcheive.mutate({ todo: "achieve" })}>Achieve</Button>
               </div>
             ) : (
               <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
