@@ -30,7 +30,7 @@ export const startTarget = async ({
         email: user?.email,
       },
     });
-    if (!dbuser) console.log("no user with this email");
+    if (!dbuser || !dbuser.id) console.log("no user with this email");
 
     const isAlreadyHaveTarget = await db.bucketItems.findFirst({
       where: {
@@ -62,6 +62,17 @@ export const startTarget = async ({
         ItemName: itemName,
         Active: true,
         failed: false,
+      },
+    });
+
+    const pointUpdate = await db.user.update({
+      where: {
+        id: dbuser?.id,
+      },
+      data: {
+        points: {
+          increment: 20,
+        },
       },
     });
 
@@ -140,7 +151,7 @@ export const remainingAmountIncrease = async ({
   }
 };
 
-export const targetonHold = async () => {
+export const holdOrAchive = async ({ todo }: { todo: string }) => {
   try {
     const user = await getUser();
     if (!user?.email) {
@@ -163,6 +174,7 @@ export const targetonHold = async () => {
         Active: true,
         onHold: false,
         failed: false,
+        Achieved: false,
       },
     });
 
@@ -171,16 +183,43 @@ export const targetonHold = async () => {
       return;
     }
 
-    return await db.bucketItems.update({
-      where: {
-        id: activeBucket.id,
-      },
-      data: {
-        onHold: true,
-        Active: false,
-        duedate: new Date(),
-      },
-    });
+    if (todo === "hold") {
+      return await db.bucketItems.update({
+        where: {
+          id: activeBucket.id,
+        },
+        data: {
+          onHold: true,
+          Active: false,
+          duedate: new Date(),
+        },
+      });
+    }
+    if (todo === "achieve") {
+      const hasAchieve = await db.bucketItems.update({
+        where: {
+          id: activeBucket.id,
+        },
+        data: {
+          Active: false,
+          Achieved: true,
+        },
+      });
+      const pointUpdate = await db.user.update({
+        where: {
+          id: activeBucket.userId,
+        },
+        data: {
+          points: {
+            increment: Math.floor(activeBucket.budget ?? 0 / 10),
+          },
+        },
+      });
+      return {
+        hasAchieve,
+        pointUpdate,
+      };
+    }
   } catch (error) {
     console.log("error while holding bucket item server", error);
     console.log("error while bucket item server holding");
@@ -220,8 +259,6 @@ export const failedTOAcheive = async () => {
       return;
     }
 
-    
-
     if (activeBucket.duedate) {
       const dueDate = new Date(activeBucket.duedate);
       const now = new Date();
@@ -233,7 +270,6 @@ export const failedTOAcheive = async () => {
             data: { failed: true, Active: false },
           });
 
-          
           return updatedBucket;
         } catch (updateError) {
           console.log("Error while updating bucket status:", updateError);
@@ -275,7 +311,6 @@ export const getFailedToAchieve = async () => {
     throw new Error("Failed to retrieve failed bucket items");
   }
 };
-
 
 export const reActiveTask = async ({
   targetId,

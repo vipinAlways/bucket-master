@@ -1,4 +1,4 @@
-import { History, Home, Inbox } from "lucide-react";
+import { BarChartBig, History, Home, Inbox } from "lucide-react";
 
 export const items = [
     {
@@ -15,5 +15,10 @@ export const items = [
       title:"Track Record",
       url:"/track",
       icon: History
+    },
+    {
+      title:"Leader Board",
+      url:"/LeaderBoard",
+      icon: BarChartBig
     }
   ];

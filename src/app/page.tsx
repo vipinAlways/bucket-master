@@ -6,10 +6,11 @@ import { PostUser } from "./actions/User-action/UserAction";
 import { useToast } from "@/hooks/use-toast";
 import {
   activeBucketItem,
+  holdOrAchive,
   remainingAmountIncrease,
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
-
+import Loader from "@/components/Loader";
 import { ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
 
@@ -28,7 +29,7 @@ export default function Home() {
     useState<number>(0);
   const queryClient = useQueryClient();
 
-  const { data, isPending, refetch } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["item-active"],
     queryFn: activeBucketItem,
     staleTime: 1000 * 60,
@@ -92,16 +93,16 @@ export default function Home() {
     });
     setFunctionalAmount(0);
   };
+  
 
   const handleRemainingAmountDecrease = () => {
-    if (data && typeof data.remainingAmount === "number") {
+    if (data?.remainingAmount !== undefined) {
       remainingAmountFu.mutate({
         remainingAmount: data.remainingAmount + functionalAmount,
       });
       setFunctionalAmount(0);
     }
   };
-  
 
   useEffect(() => {
     if (data?.remainingAmount !== undefined) {
@@ -117,8 +118,16 @@ export default function Home() {
     queryClient.invalidateQueries({ queryKey: ["item-active"] });
     queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
     queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-    refetch()
-  });
+  }, []);
+
+  const holdAcheive = useMutation({
+    mutationKey:["hold-acheive"],
+    mutationFn:holdOrAchive,
+    onSuccess:()=>toast({
+      title:"Success",
+      description:"Hold or Achieve Successfully"
+    })
+  })
 
   if (isPending) {
     queryClient.invalidateQueries({ queryKey: ["item-active"] });
@@ -178,8 +187,9 @@ export default function Home() {
         <div className="md:w-1/2 w-full flex justify-center">
           {isActive ? (
             completed === true ? (
-              <div className="w-full flex justify-start ">
+              <div className="w-full flex justify-start gap-3  ">
                 <Button onClick={() => setCompleted(false)}>Edit Amount</Button>
+                <Button onClick={() => setCompleted(false)}>Achieve</Button>
               </div>
             ) : (
               <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
