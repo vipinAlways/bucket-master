@@ -251,7 +251,7 @@ export const failedTOAcheive = async () => {
     });
 
     if (!activeBucket) {
-      throw new Error("No active bucket found for user ID");
+      return;
     }
 
     if (!activeBucket.budget) {

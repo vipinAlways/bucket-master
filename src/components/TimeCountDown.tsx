@@ -1,15 +1,27 @@
 "use client";
-import {
-  activeBucketItem,
-  failedTOAcheive,
-} from "@/app/actions/bucketList-action/bucketlist-action";
+
+import { activeBucketItem, failedTOAcheive } from "@/app/actions/bucketList-action/bucketlist-action";
 import { cn } from "@/lib/utils";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 
-const TimeCountDown = () => {
+interface RemainingTime {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+interface BucketItem {
+  id: string;
+  duedate?: string;
+  Active?: boolean;
+  onHold?: boolean;
+}
+
+const TimeCountDown: React.FC = () => {
   const [time, setTime] = useState<Date | null>(null);
-  const [remainingTime, setRemainingTime] = useState({
+  const [remainingTime, setRemainingTime] = useState<RemainingTime>({
     days: 0,
     hours: 0,
     minutes: 0,
@@ -49,7 +61,7 @@ const TimeCountDown = () => {
         setRemainingTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
         if (!isPending) {
-          mutate(); 
+          mutate();
         }
         return;
       }
@@ -66,7 +78,7 @@ const TimeCountDown = () => {
     const interval = setInterval(updateRemainingTime, 1000);
 
     return () => clearInterval(interval);
-  }, [time, data?.onHold,isPending,mutate]);
+  }, [time, data?.onHold, isPending, mutate]);
 
   return (
     <div
@@ -76,25 +88,21 @@ const TimeCountDown = () => {
     >
       <ul
         className={cn(
-          "flex flex-1  items-center gap-4 max-md:gap-2 w-88 text-7xl",
-          remainingTime.days > 0 ? "new" : " bgnew"
+          "flex flex-1 items-center gap-4 max-md:gap-2 w-88 text-7xl",
+          remainingTime.days > 0 ? "new" : "bgnew"
         )}
       >
         <li>
-          {" "}
-          <p>D </p> <p>{remainingTime.days}</p>
+          <p>D</p> <p>{remainingTime.days}</p>
         </li>
         <li>
-          {" "}
-          <p className="text-6xl">H </p> <p>{remainingTime.hours}</p>
+          <p className="text-6xl">H</p> <p>{remainingTime.hours}</p>
         </li>
         <li>
-          {" "}
-          <p className="text-5xl">M </p> <p>{remainingTime.minutes}</p>
+          <p className="text-5xl">M</p> <p>{remainingTime.minutes}</p>
         </li>
         <li className="flex flex-col items-start w-20">
-          {" "}
-          <p className="text-4xl">S </p>
+          <p className="text-4xl">S</p>
           <p>{remainingTime.seconds}</p>
         </li>
       </ul>
