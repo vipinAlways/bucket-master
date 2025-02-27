@@ -53,9 +53,9 @@ export default function Home() {
         variant: "destructive",
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-failed"] });
+      queryClient.invalidateQueries({ queryKey: ["item-active"] });
     },
   });
 

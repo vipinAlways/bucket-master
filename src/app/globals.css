@@ -92,7 +92,7 @@ body {
     @apply hover:transition hover:scale-110  hover:ease-out hover:duration-300 transition-all;
   }
   .details{
-    @apply  flex flex-col rounded-lg p-3 text-textgreen bg-headLine/60 backdrop-blur-md  gap-2 hover:scale-105  ease-linear duration-200  hover:bg-headLine/80 transition-all ;
+    @apply  flex rounded-lg p-3 text-textgreen bg-headLine/60 backdrop-blur-md  gap-2 hover:scale-105  ease-linear duration-200  hover:bg-headLine/80 transition-all ;
   }
 }
 

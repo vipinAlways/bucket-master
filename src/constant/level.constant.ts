@@ -1,4 +1,4 @@
-const levels = [
+export const levels = [
     {
         name: "Beginner",
         value: 0,
