@@ -29,7 +29,7 @@ export default function Home() {
     useState<number>(0);
   const queryClient = useQueryClient();
 
-  const { data, isPending } = useQuery({
+  const { data ,isPending } = useQuery({
     queryKey: ["item-active"],
     queryFn: activeBucketItem,
     staleTime: 1000 * 60,
@@ -62,6 +62,8 @@ export default function Home() {
   useEffect(() => {
     if (data?.Active) {
       setIsActive(data.Active);
+    }else{
+      setIsActive(false)
     }
   }, [data]);
 

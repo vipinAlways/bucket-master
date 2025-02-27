@@ -82,13 +82,13 @@ export const startTarget = async ({
     return;
   }
 };
-
 export const activeBucketItem = async () => {
   try {
     const user = await getUser();
     if (!user?.email) {
       throw new Error("User is not Authenticated");
     }
+
     const dbuser = await db.user.findFirst({
       where: {
         email: user.email,
@@ -96,19 +96,23 @@ export const activeBucketItem = async () => {
     });
 
     if (!dbuser) {
-      throw new Error("no user with this email");
+      throw new Error("No user with this email");
     }
-    return await db.bucketItems.findFirst({
+
+    const active = await db.bucketItems.findFirst({
       where: {
         userId: dbuser.id,
         Active: true,
       },
     });
+
+    return active ?? null; // Ensure it never returns undefined
   } catch (error) {
-    console.log("error while find bucket item", error);
-    console.log("error while bucket item");
+    console.log("Error while finding bucket item:", error);
+    return null; // Return a default value instead of undefined
   }
 };
+
 
 export const remainingAmountIncrease = async ({
   remainingAmount,
