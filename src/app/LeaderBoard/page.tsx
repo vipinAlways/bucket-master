@@ -6,23 +6,29 @@ import { User } from "@prisma/client";
 import { levels } from "@/constant/level.constant";
 
 const page = () => {
-  const { data } = useQuery({
-    queryKey: ["all-users-data"],
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["all-users"],
     queryFn: getAllUser,
   });
 
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  if (!data || data.length === 0) return <p>No users found</p>;
+
   return (
-    <div className="p-4 flex gap-4 items-start">
-      <ol className="list-decimal group  w-full  ">
+    <div className="p-4 flex gap-4 items-start h-full justify-around relative">
+      <ol className="group h-full border  w-96 flex flex-col gap-2 overflow-y-auto ">
         {data &&
-          data.map((user: User) => (
+          data.map((user: User, index) => (
             <li
               key={user.id}
-              className="details w-96 h-44 flex items-start justify-around flex-1 bg-[#3c23804d]"
+              className="details w-96 rounded-l flex items-start justify-around  bg-[#3c23804d]"
             >
               <div className="flex flex-col items-start justify-center h-full">
                 <div>
-                  <h1 className="text-3xl font-bucket ">{user.userName}</h1>
+                  <h1 className="text-3xl font-bucket ">
+                    <span>{index + 1}</span> {user.userName}
+                  </h1>
                   <h3 className="text-2xl font-bucket ">
                     <span>Total Points : </span> {user.points}
                   </h3>
@@ -36,21 +42,29 @@ const page = () => {
               </div>
             </li>
           ))}
+
+      
       </ol>
 
       <div className="flex gap-3 items-end">
-        <div>
-          <h1>{data && data[0].userName}</h1>
-          <div className="h-72 w-14 bg-yellow-600"></div>
-        </div>
-        <div>
-          <h1>{data && data[1].userName}</h1>
-          <div className="h-80 w-14 bg-red-600"></div>
-        </div>{" "}
-        <div>
-            <h1>{data && data[2].userName}</h1>
+        {data?.[1] && (
+          <div>
+            <h1 className="h-14 w-14 rounded-full border">{data[1].userName}</h1>
+            <div className="h-72 w-14 bg-yellow-600"></div>
+          </div>
+        )}
+        {data?.[0] && (
+          <div>
+            <h1 className="h-14 w-14 rounded-full border">{data[0].userName}</h1>
+            <div className="h-80 w-14 bg-red-600"></div>
+          </div>
+        )}
+        {data?.[2] && (
+          <div>
+            <h1 className="h-14 w-14 rounded-full border">{data[2].userName}</h1>
             <div className="h-64 w-14 bg-green-600"></div>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

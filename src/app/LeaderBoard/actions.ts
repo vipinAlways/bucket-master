@@ -3,14 +3,17 @@ import { db } from "@/lib/db";
 
 
 export const getAllUser = async () => {
- try {
-    return  await db.user.findMany({
-      orderBy:{
-         points:"asc"
-      }
-    })
-     
- } catch (error) {
-    throw new Error("Server Error");
- }
-};
+   try {
+     const users = await db.user.findMany({
+       orderBy: {
+         points: "desc",
+       },
+     });
+ 
+     return users; // No need for ?? null
+   } catch (error) {
+     console.error("Error fetching users:", error);
+     throw new Error("Failed to fetch users");
+   }
+ };
+ 
