@@ -241,7 +241,7 @@ export default function Home() {
                         : ""}
                     </p>
                   </div>
-                  <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-textgreen rounded-xl bg-headLine ">
+                  <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-bggreen rounded-xl bg-headLine ">
                     <h1 className="w-full text-6xl text-start">Hover:</h1>
                     <h1 className="w-full text-6xl text-end">To:</h1>
                     <h1 className="w-full text-6xl text-start">Edit:</h1>

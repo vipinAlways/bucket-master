@@ -111,7 +111,7 @@ const Failed = () => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg h-40 bg-textgreen">
+        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg h-40 bg-textgreen text-bggreen">
           <h1 className="font-bucket text-6xl">
             Currently You don&lsquo;t Failed Great
           </h1>

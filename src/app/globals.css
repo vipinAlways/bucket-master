@@ -141,7 +141,7 @@ body {
 
   background: linear-gradient(
     40deg,
-    #19e5c6 17%,
+    #13f8d6 17%,
     #156d60 41%,
     #40897e 56%,
     #1dad98 80%
@@ -218,7 +218,7 @@ body {
 }
 
 .water {
-  background-color: rgb(135, 235, 173);
+  background-color: #71d1ac;
   position: relative;
   clip-path: polygon(0% 10%, 100% 10%, 90% 100%, 10% 100%);
 }
@@ -231,13 +231,13 @@ body {
   height: 24.5rem;
 
   left: -3rem;
-  background-color: #fff;
+  background-color: #dbfff1;
 }
 
 .missed,
 .missed > span {
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #074835;
+  -webkit-text-stroke-color: #6f837b;
   color: transparent;
 }
 
@@ -406,8 +406,9 @@ body {
   );
   background-size: 400% 400%;
   animation: gradient 5s ease infinite;
+}
 
-  /* background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent; */
+
+div > ol::-webkit-scrollbar{
+  display: none;
 }
