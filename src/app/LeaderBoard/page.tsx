@@ -4,6 +4,7 @@ import React from "react";
 import { getAllUser } from "./actions";
 import { User } from "@prisma/client";
 import { levels } from "@/constant/level.constant";
+import Image from "next/image";
 
 const page = () => {
   const { data, isLoading, error } = useQuery({
@@ -48,22 +49,43 @@ const page = () => {
 
       <div className="flex gap-3 items-end">
         {data?.[1] && (
-          <div>
-            <h1 className="h-14 w-14 rounded-full border">{data[1].userName}</h1>
-            <div className="h-72 w-14 bg-yellow-600"></div>
+          <div className="flex flex-col items-center justify-center gap-2"> 
+            <div className="relative h-16 w-16">
+                <Image
+                src={data[1]?.Avatar}
+                alt="avatar"
+                layout="fill"
+                className="cover rounded-full"
+                />
+            </div>
+            <div className="h-72 w-14 bgne2" style={{ "--colo": "yellow" } as React.CSSProperties}></div>
           </div>
         )}
         {data?.[0] && (
-          <div>
-            <h1 className="h-14 w-14 rounded-full border">{data[0].userName}</h1>
-            <div className="h-80 w-14 bg-red-600"></div>
+          <div className="flex flex-col items-center justify-center gap-2"> 
+          <div className="relative h-16 w-16">
+              <Image
+              src={data[0]?.Avatar}
+              alt="avatar"
+              layout="fill"
+              className="cover rounded-full"
+              />
           </div>
+          <div className="h-72 w-14 bgne2" style={{ "--colo": "red" } as React.CSSProperties}></div>
+        </div>
         )}
         {data?.[2] && (
-          <div>
-            <h1 className="h-14 w-14 rounded-full border">{data[2].userName}</h1>
-            <div className="h-64 w-14 bg-green-600"></div>
+          <div className="flex flex-col items-center justify-center gap-2"> 
+          <div className="relative h-16 w-16">
+              <Image
+              src={data[2]?.Avatar}
+              alt="avatar"
+              layout="fill"
+              className="cover rounded-full"
+              />
           </div>
+          <div className="h-72 w-14 bgne2" style={{ "--colo": "blue" } as React.CSSProperties}></div>
+        </div>
         )}
       </div>
     </div>

@@ -3,11 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ["www.w3.org"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "",
+        hostname: "www.w3.org",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
       },
     ],
   },

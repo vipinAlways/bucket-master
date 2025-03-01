@@ -91,8 +91,8 @@ body {
   .hover-btn {
     @apply hover:transition hover:scale-110  hover:ease-out hover:duration-300 transition-all;
   }
-  .details{
-    @apply  flex rounded-lg p-3 text-textgreen backdrop-blur-md  gap-2 hover:scale-105  ease-linear duration-200   transition-all ;
+  .details {
+    @apply flex rounded-lg p-3 text-textgreen backdrop-blur-md  gap-2 hover:scale-105  ease-linear duration-200   transition-all;
   }
 }
 
@@ -118,8 +118,11 @@ body {
   font-style: normal;
 }
 
+/* :root{
+  --colo: */
+
 .bgnew {
-  background: #FFD700;
+  background-color: #ffd700;
   background: linear-gradient(
     40deg,
     #d6b709 17%,
@@ -134,9 +137,8 @@ body {
   color: transparent;
 }
 .new {
-  background-color: #5EEAD4 ;
-  box-shadow: 0 0 3px 1px #70b87e, 0 0 7px 5px #0d9a03,
-    0 0 10px 5px rgb(11, 207, 207);
+  background-color: #5eead4;
+
   background: linear-gradient(
     40deg,
     #19e5c6 17%,
@@ -146,6 +148,9 @@ body {
   );
   background-size: 400% 400%;
   animation: gradient 5s ease infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 @keyframes gradient {
@@ -358,9 +363,8 @@ body {
 .loader {
   display: inline-flex;
 
-  background:
-    var(--c) calc(50% - 5px)/5px 5px,
-    var(--c) calc(50% + 5px)/5px 5px;
+  background: var(--c) calc(50% - 5px) / 5px 5px,
+    var(--c) calc(50% + 5px) / 5px 5px;
 }
 .loader::before,
 .loader::after {
@@ -375,18 +379,35 @@ body {
   color: #05130f;
   text-shadow: 0 0 0 #dc1010;
   overflow: hidden;
-  margin: 5px 10px; 
+  margin: 5px 10px;
   animation: l3 1s steps(20) infinite;
 }
 .loader::before {
   animation-duration: 1.5s;
 }
 @keyframes l3 {
-  100% {text-shadow: 0 -20em 0 #000}
+  100% {
+    text-shadow: 0 -20em 0 #000;
+  }
 }
 
-.card:hover > :not(:hover){
-  transform:scale(0.95);
+.card:hover > :not(:hover) {
+  transform: scale(0.95);
   transition: all ease 0.2s;
 }
 
+.bgne2 {
+  background: linear-gradient(
+    40deg,
+    var(--colo) 17%,
+    #a28b0b 41%,
+    #665701 56%,
+    #ffd900 80%
+  );
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+
+  /* background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent; */
+}
