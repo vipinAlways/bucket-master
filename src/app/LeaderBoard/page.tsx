@@ -45,7 +45,7 @@ const page = () => {
               </div>
               <div className="flex flex-col items-center justify-center h-full text-bggreen">
                 {levels.find((level) => level.points >= user.points)?.name}
-                {/* {user.maxpoints} */}
+                
               </div>
             </li>
           ))}
