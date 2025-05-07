@@ -65,7 +65,7 @@ export const startTarget = async ({
       },
     });
 
-    const pointUpdate = await db.user.update({
+   await db.user.update({
       where: {
         id: dbuser?.id,
       },
@@ -90,29 +90,20 @@ export const activeBucketItem = async () => {
     }
 
     const dbuser = await db.user.findFirst({
-      where: {
-        email: user.email,
-      },
+      where: { email: user.email },
+      select: { id: true },
     });
-
-    if (!dbuser) {
-      throw new Error("No user with this email");
-    }
 
     const active = await db.bucketItems.findFirst({
-      where: {
-        userId: dbuser.id,
-        Active: true,
-      },
+      where: { userId: dbuser?.id, Active: true },
     });
 
-    return active ?? null; // Ensure it never returns undefined
+    return active;
   } catch (error) {
     console.log("Error while finding bucket item:", error);
-    return null; // Return a default value instead of undefined
+    return null;
   }
 };
-
 
 export const remainingAmountIncrease = async ({
   remainingAmount,
@@ -128,7 +119,9 @@ export const remainingAmountIncrease = async ({
     const dbuser = await db.user.findFirst({
       where: {
         email: user.email,
+
       },
+      select: { id: true },
     });
 
     if (!dbuser) {

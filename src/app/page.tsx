@@ -58,6 +58,9 @@ export default function Home() {
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
     },
   });
+  useEffect(() => {
+    mutate();
+  },[]);
 
   useEffect(() => {
     if (data?.Active) {
@@ -115,12 +118,7 @@ export default function Home() {
     }
   }, [data?.remainingAmount, functionalAmount]);
 
-  useEffect(() => {
-    mutate();
-    queryClient.invalidateQueries({ queryKey: ["item-active"] });
-    queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
-    queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-  }, []);
+ 
 
   const holdAcheive = useMutation({
     mutationKey:["hold-acheive"],
