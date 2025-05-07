@@ -178,7 +178,7 @@ export default function Home() {
                     "before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
                 )}
               >
-                <h1 className="text-4xl missed  text-black">
+                <h1 className={cn('text-4xl ',remainingBalancePercentage>60 ? "text-zinc-400": "text-black")}>
                   {remainingBalancePercentage !== 0 &&
                     remainingBalancePercentage.toFixed(2).toString() + "%"}
                 </h1>

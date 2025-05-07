@@ -92,7 +92,7 @@ body {
     @apply hover:transition hover:scale-110  hover:ease-out hover:duration-300 transition-all;
   }
   .details {
-    @apply flex rounded-lg p-3 text-textgreen backdrop-blur-md  gap-2 hover:scale-105  ease-linear duration-200   transition-all;
+    @apply flex rounded-lg p-3 text-textgreen backdrop-blur-md  gap-2 hover:scale-[1.02]  ease-linear duration-200   transition-all;
   }
 }
 
@@ -236,12 +236,7 @@ body {
   background-color: #dbfff1;
 }
 
-.missed,
-.missed > span {
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #6f837b;
-  color: transparent;
-}
+
 
 .loop-wrapper {
   margin: 0 auto;

@@ -87,12 +87,12 @@ const Home: React.FC = () => {
   const selectedTasks = selectedRoute?.taskData || [];
 
   return (
-    <div className="flex h-full p-3 relative">
+    <div className="flex h-[calc(100vh-8rem)] p-3 relative">
       <div className="flex flex-col gap-3 p-3 card min-h-full">
         {routes.map((route, index) => (
           <Button
             key={`${route.headline}-${index}`}
-            className="details flex-col hover:bg-headLine/40 bg-headLine/60  w-96 h-52 "
+            className="details flex-col hover:bg-headLine/20 bg-headLine/60  w-96 h-48 "
             onClick={() => setHistoryFor(route.url)}
           >
             <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bggreen">
