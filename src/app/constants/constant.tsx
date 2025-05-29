@@ -7,11 +7,6 @@ export const items = [
       icon: Home,
     },
     {
-      title: "Inbox",
-      url: "indox",
-      icon: Inbox,
-    },
-    {
       title:"Track Record",
       url:"/track",
       icon: History

@@ -10,12 +10,9 @@ import {
   remainingAmountIncrease,
 } from "./actions/bucketList-action/bucketlist-action";
 import TimeCountDown from "@/components/TimeCountDown";
-import Loader from "@/components/Loader";
 import { ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react";
 import PendingLoader from "@/components/PendingLoader";
-
 import CreateBucketItem from "@/components/CreateBucketItem";
-
 import Failed from "@/components/Failed";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +26,7 @@ export default function Home() {
     useState<number>(0);
   const queryClient = useQueryClient();
 
-  const { data ,isPending } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["item-active"],
     queryFn: activeBucketItem,
     staleTime: 1000 * 60,
@@ -60,13 +57,13 @@ export default function Home() {
   });
   useEffect(() => {
     mutate();
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (data?.Active) {
       setIsActive(data.Active);
-    }else{
-      setIsActive(false)
+    } else {
+      setIsActive(false);
     }
   }, [data]);
 
@@ -98,7 +95,6 @@ export default function Home() {
     });
     setFunctionalAmount(0);
   };
-  
 
   const handleRemainingAmountDecrease = () => {
     if (data?.remainingAmount !== undefined) {
@@ -118,16 +114,15 @@ export default function Home() {
     }
   }, [data?.remainingAmount, functionalAmount]);
 
- 
-
   const holdAcheive = useMutation({
-    mutationKey:["hold-acheive"],
-    mutationFn:holdOrAchive,
-    onSuccess:()=>toast({
-      title:"Success",
-      description:"Hold or Achieve Successfully"
-    })
-  })
+    mutationKey: ["hold-acheive"],
+    mutationFn: holdOrAchive,
+    onSuccess: () =>
+      toast({
+        title: "Success",
+        description: "Hold or Achieve Successfully",
+      }),
+  });
 
   if (isPending) {
     queryClient.invalidateQueries({ queryKey: ["item-active"] });
@@ -176,7 +171,14 @@ export default function Home() {
                     "before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
                 )}
               >
-                <h1 className={cn('text-4xl ',remainingBalancePercentage>60 ? "text-zinc-400": "text-black")}>
+                <h1
+                  className={cn(
+                    "text-4xl ",
+                    remainingBalancePercentage > 60
+                      ? "text-zinc-400"
+                      : "text-black"
+                  )}
+                >
                   {remainingBalancePercentage !== 0 &&
                     remainingBalancePercentage.toFixed(2).toString() + "%"}
                 </h1>
@@ -188,10 +190,17 @@ export default function Home() {
           {isActive ? (
             completed === true ? (
               <div className="w-full flex justify-start gap-3  ">
-                <Button onClick={() => {setCompleted(false)
-                  holdAcheive.mutate({todo:"hold"})
-                }}>Edit Amount</Button>
-                <Button onClick={() => holdAcheive.mutate({ todo: "achieve" })}>Achieve</Button>
+                <Button
+                  onClick={() => {
+                    setCompleted(false);
+                    holdAcheive.mutate({ todo: "hold" });
+                  }}
+                >
+                  Edit Amount
+                </Button>
+                <Button onClick={() => holdAcheive.mutate({ todo: "achieve" })}>
+                  Achieve
+                </Button>
               </div>
             ) : (
               <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
@@ -255,10 +264,9 @@ export default function Home() {
       </div>
 
       <div className=" w-fit py-4 text-bggreen  flex-col flex items-start gap-3">
-        <h1 className="text-textgreen missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
+        <h1 className="text-textwhite missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
           You Missed It,
-          <span className="text-6xl text-textgreen ">
-            {" "}
+          <span className="text-6xl text-textwhite ">
             But Growth Comes from Challenges!
           </span>
         </h1>

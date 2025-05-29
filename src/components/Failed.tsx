@@ -88,7 +88,7 @@ const Failed = () => {
   return (
     <div className="w-full flex items-center justify-center">
       {failed.data?.length ? (
-        <div className="flex items-center w-[30rem] gap-8 px-6 py-3 rounded-lg bg-textgreen">
+        <div className="flex items-center w-[30rem] gap-8 px-6 py-3 rounded-lg bg-textwhite">
           <h1 className={cn("font-bucket w-1/3",failed.data[failed.data.length-1]?.ItemName.split(" ").length <2 ?"text-5xl":"text-4xl")}>
             {failed.data[failed.data.length-1]?.ItemName || "No Item Name"}
           </h1>
