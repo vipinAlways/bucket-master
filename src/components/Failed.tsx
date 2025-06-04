@@ -170,7 +170,7 @@ const Failed = () => {
           </div>
         </div>
       )}
-      {/* <ReactiveTask targetId={targetId}/> */}
+      <ReactiveTask targetId={targetId}/>
     </div>
   );
 };

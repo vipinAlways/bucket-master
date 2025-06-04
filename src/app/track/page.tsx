@@ -155,7 +155,7 @@ const Home: React.FC = () => {
                   </p>
                   <p>{task.budget || "0"}</p>
                   <p>{task.remainingAmount || "0"}</p>
-                  <p>{"00000"}</p>
+                
                 </div>
               </div>
             </div>
