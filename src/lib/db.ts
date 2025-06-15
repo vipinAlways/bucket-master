@@ -1,18 +1,18 @@
+// lib/db.ts
 import { PrismaClient } from '@prisma/client'
 
-declare global {
-  var cachedPrisma: PrismaClient | undefined
+const globalForPrisma = globalThis as unknown as {
+  cachedPrisma?: PrismaClient
 }
 
-let prisma: PrismaClient
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient()
-} else {
-  if (!global.cachedPrisma) {
-    global.cachedPrisma = new PrismaClient()
-  }
+const prisma =
+  globalForPrisma.cachedPrisma ??
+  new PrismaClient({
+    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : [],
+  })
 
-  prisma = global.cachedPrisma
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.cachedPrisma = prisma
 }
 
 export const db = prisma

@@ -57,7 +57,7 @@ export default function Home() {
   });
   useEffect(() => {
     mutate();
-  }, []);
+  }, [mutate]);
 
   useEffect(() => {
     if (data?.Active) {
@@ -91,7 +91,7 @@ export default function Home() {
   });
   const handleRemainingAmountIncrease = () => {
     remainingAmountFu.mutate({
-      remainingAmount: data?.remainingAmount! - functionalAmount,
+      remainingAmount: (data?.remainingAmount ?? 0) - functionalAmount,
     });
     setFunctionalAmount(0);
   };

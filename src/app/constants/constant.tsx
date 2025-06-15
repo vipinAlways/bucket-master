@@ -1,4 +1,4 @@
-import { BarChartBig, History, Home, Inbox } from "lucide-react";
+import { BarChartBig, History, Home } from "lucide-react";
 
 export const items = [
     {

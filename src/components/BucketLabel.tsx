@@ -34,7 +34,7 @@ const BucketLabel = () => {
   
 
   return (
-    <div className="flex h-28  justify-center items-center px-2 mx-3 w-full max-sm:gap-8 bg-bggreen border-b rounded-lg border-textwhite  z-10 sticky top-0">
+    <div className="flex h-28  justify-center items-center px-2 w-full max-sm:gap-8 bg-bggreen border-b border-textwhite  z-10 sticky top-0">
       <Sheet onOpenChange={setOpen} open={open}>
         <SheetTrigger asChild>
           <Button

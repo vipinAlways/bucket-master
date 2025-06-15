@@ -12,12 +12,12 @@ interface RemainingTime {
   seconds: number;
 }
 
-interface BucketItem {
-  id: string;
-  duedate?: string;
-  Active?: boolean;
-  onHold?: boolean;
-}
+// interface BucketItem {
+//   id: string;
+//   duedate?: string;
+//   Active?: boolean;
+//   onHold?: boolean;
+// }
 
 const TimeCountDown: React.FC = () => {
   const [time, setTime] = useState<Date | null>(null);

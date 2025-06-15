@@ -1,13 +1,13 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { getAllUser } from "./actions";
 import { User } from "@prisma/client";
 import { levels } from "@/constant/level.constant";
 import Image from "next/image";
 import PendingLoader from "@/components/PendingLoader";
 
-const page = () => {
+const Page = () => {
   const [userId, setUserId] = useState<string>("");
 
   const { data, isLoading, error } = useQuery({
@@ -19,7 +19,7 @@ const page = () => {
   if (error) return <p>Error: {error.message}</p>;
   if (!data || data.length === 0) return <p>No users found</p>;
 
-  let user: User = data.find((user) => user.id === userId) || data[0];
+  const user: User = data.find((user) => user.id === userId) || data[0];
 
   return (
     <div className="p-4 flex gap-4 items-start h-[calc(100% - 10rem)] justify-between relative">
@@ -141,4 +141,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
