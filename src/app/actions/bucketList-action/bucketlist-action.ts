@@ -304,7 +304,7 @@ export const getFailedToAchieve = async () => {
 
     return dbUser.BucketItem;
   } catch (error) {
-    console.error("Error fetching failed items:", error);
+  
     throw new Error("Failed to retrieve failed bucket items");
   }
 };

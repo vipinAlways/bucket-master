@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import ActionPerformLoader from "./ActionPerformLoader";
@@ -10,76 +11,68 @@ import {
 } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import ReactiveTask from "./ReactiveTask";
+
+type ViewState = "idle" | "motivated" | "form" | "loading";
 
 const Failed = () => {
-  const [hidden1, setHidden] = useState(true);
-  const [hidden2, setHidden2] = useState(true);
-  const [hidden3, setHidden3] = useState(true);
   const [targetId, setTargetId] = useState("");
-  const [dueDate, setDueDate] = useState<Date>(new Date());
+  const [dueDate, setDueDate] = useState<Date>(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow;
+  });
+
+  const [viewState, setViewState] = useState<ViewState>("idle");
+
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  
+  const failed = useQuery({
+    queryKey: ["item-failed"],
+    queryFn: getFailedToAchieve,
+ 
+  });
 
   const failedTargetRestart = useMutation({
     mutationFn: reActiveTask,
     onError: (error) => {
-      
       toast({
-        title: "failed",
-        description: `${error.message}`,
-        variant:"destructive"
+        title: "Failed",
+        description: error.message,
+        variant: "destructive",
       });
-      queryClient.invalidateQueries({ queryKey: ["item-active"] });
-      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-      setHidden(true);
-  
+      setViewState("idle");
     },
     onSuccess: () => {
       toast({
         title: "Success",
         description: "Remaining amount increased successfully",
       });
+      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
-      queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-      setHidden(true);
-      setHidden3(true);
-      setHidden2(true);
+      setViewState("idle");
     },
   });
 
-  const failed = useQuery({
-    queryKey: ["item-failed"],
-    queryFn: getFailedToAchieve,
-  });
-
+  const lastFailedItem = failed.data?.[failed.data.length - 1];
 
   const onReactiveFailedTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     failedTargetRestart.mutate({ targetId, duedate: dueDate });
+    setViewState("loading");
   };
 
-
-
- 
-
-  if (failed.isPending) {
+  if (failed.isLoading) {
     return (
       <div className="w-full flex items-center justify-center">
-        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg bg-textgreen">
-          <h1 className="font-bucket text-6xl bg-textgreen/40 w-56 h-10"></h1>
-
-          <div className="w-full flex flex-col items-center gap-1.5 font-master">
-            <h1 className="text-3xl bg-textgreen/40 w-8 h-9"></h1>
-            <h1 className="text-3xl bg-textgreen/40 w-8 h-9"></h1>
-
-            <Button className="p-2 text-2xl bg-green-600 hover:bg-green-400">
-              Reactive <Activity />
-            </Button>
+        <div className="flex items-center w-96 gap-8 px-6 py-3 rounded-lg bg-white/20 backdrop-blur-xl">
+          <h1 className="font-bucket text-6xl bg-white/40 w-56 h-10 rounded-lg"></h1>
+          <div className="w-full flex flex-col items-center gap-1.5 font-master rounded-lg">
+            <h1 className="text-3xl bg-white/40 w-24 rounded-md h-9"></h1>
+            <h1 className="text-3xl bg-white/40 w-24 rounded-mg h-9"></h1>
+            <Button className="p-2 text-2xl bg-white/40 w-28 h-8"></Button>
           </div>
         </div>
       </div>
@@ -88,23 +81,30 @@ const Failed = () => {
 
   return (
     <div className="w-full flex items-center justify-center">
-      {failed.data?.length ? (
-        <div className="flex items-center w-[30rem] gap-8 px-6 py-3 rounded-lg bg-textwhite">
-          <h1 className={cn("font-bucket w-1/3",failed.data[failed.data.length-1]?.ItemName.split(" ").length <2 ?"text-5xl":"text-4xl")}>
-            {failed.data[failed.data.length-1]?.ItemName || "No Item Name"}
+      {lastFailedItem ? (
+        <div className="flex items-center max-w-md gap-8 px-6 py-3 rounded-lg bg-textwhite">
+          <h1
+            className={cn(
+              "font-bucket w-1/3",
+              lastFailedItem.ItemName.split(" ").length < 2
+                ? "text-5xl"
+                : "text-4xl"
+            )}
+          >
+            {lastFailedItem.ItemName}
           </h1>
 
           <div className="w-full flex flex-col items-center gap-1.5 font-master">
-            <h1 className="text-3xl">Amount: {failed.data[failed.data.length-1].budget}</h1>
+            <h1 className="text-3xl">Amount: {lastFailedItem.budget}</h1>
             <h1 className="text-3xl">
-              Remaining: {failed.data[failed.data.length-1].remainingAmount}
+              Remaining: {lastFailedItem.remainingAmount}
             </h1>
 
             <Button
               className="p-2 text-2xl bg-green-600"
               onClick={() => {
-                setTargetId(failed.data[failed.data.length-1].id);
-                setHidden(false);
+                setTargetId(lastFailedItem.id);
+                setViewState("motivated");
               }}
             >
               Reactive <Activity />
@@ -114,63 +114,70 @@ const Failed = () => {
       ) : (
         <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg h-40 bg-textgreen text-bggreen">
           <h1 className="font-bucket text-6xl">
-            Currently You don&lsquo;t Failed Great
+            Currently You Don’t Failed. Great!
           </h1>
         </div>
       )}
 
-      {!hidden1 && (
+      {viewState !== "idle" && (
         <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textgreen">
-          <h1 className="text-5xl">Yeah! That&lsquo;s the spirit—go get it back</h1>
-
-          <div className="flex items-center gap-4">
-            {hidden3 ? (
-              hidden2 ? (
-                <>
-                  <Button
-                    className="text-3xl p-8 bg-bggreen text-headLine"
-                    onClick={() => {
-                      setHidden3(false);
-                      setTimeout(() => {
-                        setHidden3(true);
-                        setHidden2(false);
-                      }, 1500);
-                    }}
-                  >
-                    YEAH! LET&lsquo;S GO!
-                  </Button>
-                  <Button className="text-3xl p-8 bg-red-600 hover:bg-red-800">
-                    NOT FEELING IT
-                  </Button>
-                </>
-              ) : (
-                <form
-                  onSubmit={onReactiveFailedTask}
-                  className="text-2xl flex flex-col flex-1 items-center gap-10 "
+          {viewState === "motivated" && (
+            <>
+              <h1 className="text-5xl">
+                Yeah! That’s the spirit—go get it back
+              </h1>
+              <div className="flex items-center gap-4">
+                <Button
+                  className="text-3xl p-8 bg-bggreen text-headLine"
+                  onClick={() => {
+                    setViewState("loading");
+                    setTimeout(() => setViewState("form"), 1500);
+                  }}
                 >
-                  <div className="flex items-center gap-9 flex-1 ">
-                    <label htmlFor="dueDate" className="rounded-md h-full">
-                      Set Due Date
-                    </label>
-                    <input
-                      type="date"
-                      value={dueDate ? dueDate.toISOString().split("T")[0] : ""}
-                      onChange={(e) => setDueDate(new Date(e.target.value))}
-                      className="rounded-md h-full py-1 flex items-center justify-center text-zinc-600"
-                    />
-                  </div>
-                  <Button className="h-full text-xl py-2">
-                    LET&lsquo;S GOOOO
-                  </Button>
-                </form>
-              )
-            ) : (
-              <ActionPerformLoader />
-            )}
-          </div>
+                  YEAH! LET’S GO!
+                </Button>
+                <Button
+                  className="text-3xl p-8 bg-red-600 hover:bg-red-800"
+                  onClick={() => setViewState("idle")}
+                >
+                  NOT FEELING IT
+                </Button>
+              </div>
+            </>
+          )}
+
+          {viewState === "form" && (
+            <form
+              onSubmit={onReactiveFailedTask}
+              className="text-2xl flex flex-col items-center gap-10"
+            >
+              <div className="flex items-center gap-9">
+                <label htmlFor="dueDate" className="rounded-md">
+                  Set Due Date
+                </label>
+                <input
+                  type="date"
+                  value={dueDate.toISOString().split("T")[0]}
+                  onChange={(e) => setDueDate(new Date(e.target.value))}
+                  className="rounded-md py-1 px-2 text-zinc-600"
+                />
+              </div>
+              <Button type="submit" className="text-xl py-2">
+                LET’S GOOOO
+              </Button>
+              <Button
+                type="button"
+                className="text-xl py-2"
+                onClick={() => setViewState("idle")}
+              >
+                Cancel
+              </Button>
+            </form>
+          )}
+
+          {viewState === "loading" && <ActionPerformLoader />}
         </div>
       )}
-      <ReactiveTask targetId={targetId}/>
     </div>
   );
 };
