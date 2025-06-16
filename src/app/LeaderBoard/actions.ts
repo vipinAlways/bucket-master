@@ -10,7 +10,7 @@ export const getAllUser = async () => {
        },
      });
  
-     return users; // No need for ?? null
+     return users; 
    } catch (error) {
      console.error("Error fetching users:", error);
      throw new Error("Failed to fetch users");
