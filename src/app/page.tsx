@@ -154,7 +154,7 @@ export default function Home() {
             <div className="h-full w-96 flex items-end  ">
               <TimeCountDown />
             </div>
-            <div className="h-full flex items-center justify-center ">
+            <div className="h-full flex items-center justify-center">
               <div className="overflow-hidden rounded-[50px] relative">
                 <div
                   style={
@@ -167,7 +167,7 @@ export default function Home() {
                     } as React.CSSProperties
                   }
                   className={cn(
-                    "water h-80 w-80  flex items-center justify-center ",
+                    "water h-80 w-80  flex items-center justify-center",
                     remainingBalancePercentage >= 0 &&
                       "before:animate-wave after:animate-wave after:rounded-[35%] before:rounded-[45%] before:bg-[#ffffffb3] after:bg-[#ffffff4d]"
                   )}
