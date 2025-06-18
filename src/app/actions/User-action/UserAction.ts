@@ -3,10 +3,11 @@
 import { db } from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
-const { getUser } = getKindeServerSession();
-const user = await getUser();
+
 
 export const PostUser = async () => {
+  const { getUser } = getKindeServerSession();
+const user = await getUser();
   if (!user?.family_name || !user?.email || !user?.picture) {
     console.log("Invalid user data");
     return { success: false, message: "Invalid user data" };
@@ -56,6 +57,8 @@ export const PostUser = async () => {
 };
 
 export const getDbUser = async () => {
+  const { getUser } = getKindeServerSession();
+const user = await getUser();
   if (!user?.family_name || !user?.email || !user?.picture) {
     console.log("Invalid user data");
     return { success: false, message: "Invalid user data" };

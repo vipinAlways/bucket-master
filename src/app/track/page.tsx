@@ -95,7 +95,7 @@ const Home: React.FC = () => {
             className="details flex-col hover:bg-headLine/20 bg-headLine/60  w-96 h-48 "
             onClick={() => setHistoryFor(route.url)}
           >
-            <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bggreen">
+            <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bg">
               {route.headline}
             </h1>
             <div className="flex flex-col gap-1 items-start justify-center">
@@ -115,10 +115,10 @@ const Home: React.FC = () => {
           selectedTasks.map((task, index) => (
             <div
               key={task.id || index}
-              className="w-96 flex flex-col h-56 rounded-lg p-3 text-bggreen bg-textgreen gap-2 hover:bg-textgreen "
+              className="w-96 flex flex-col h-56 rounded-lg p-3 text-bg bg-textgreen gap-2 hover:bg-textgreen "
             >
               <div className="w-full flex justify-between p-0.5">
-                <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bggreen">
+                <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bg">
                   {task.ItemName}
                 </h1>
                 <Button

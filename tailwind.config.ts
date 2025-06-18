@@ -12,11 +12,11 @@ export default {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        textwhite: "#dbfff1",
-        textgreen: "#78ffc4",
-        headLine: "#78ffc4",
-        bggreen: "#05130f",
-        bgCard: "#009da4",
+        textgreen: "#e0e0e0",
+        textBlack:"#09020a",
+        headLine: "#e0e0e0",
+        bg:"#fbf1fc",
+        bgCard: "#d5e285",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

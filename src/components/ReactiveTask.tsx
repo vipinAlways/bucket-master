@@ -56,7 +56,7 @@ const ReactiveTask = ({targetId}:{targetId:string}) => {
         hidden2 ? (
           <>
             <Button
-              className="text-3xl p-8 bg-bggreen text-headLine"
+              className="text-3xl p-8 bg-bg text-headLine"
               onClick={() => {
                 setHidden3(false);
                 setTimeout(() => {

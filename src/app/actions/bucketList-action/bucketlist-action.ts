@@ -283,6 +283,7 @@ export const failedTOAcheive = async () => {
 };
 
 export const getFailedToAchieve = async () => {
+  
   try {
     const user = await getUser();
     if (!user?.email) {

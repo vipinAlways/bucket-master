@@ -133,11 +133,11 @@ export default function Home() {
 
   return (
     <Suspense fallback={<p>loading.......</p>}>
-      <div className="w-full font-bucket px-9" >
+      <div className="w-full font-bucket px-9 max-h-min" >
         <div>
           <div className="max-md:hidden  h-20 flex items-center justify-center pt-4">
             <div className="flex items-start justify-center h-full rounded-full selection:select-none">
-              <h1 className="text-6xl missed flex items-center gap-4 justify-center text-textwhite  text-center rounded-xl shrink-0">
+              <h1 className="text-6xl missed flex items-center gap-4 justify-center text-textBlack  text-center rounded-xl shrink-0">
                 {data?.ItemName ? (
                   <>
                     Target Name:<span>{data?.ItemName}</span>
@@ -149,8 +149,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="p-2 flex gap-10 justify-around w-45 relative max-md:flex-col h-96 py-8 items-center ">
-          <div className="relative md:w-fit w-full max-md:flex-col flex items-center h-80 justify-start">
+        <div className="p-2 flex gap-10 justify-around w-45 relative max-md:flex-col lg:h-96 py-8 items-center ">
+          <div className="relative md:w-fit w-full max-md:flex-col flex items-center lg:h-80  justify-start">
             <div className="h-full w-96 flex items-end  ">
               <TimeCountDown />
             </div>
@@ -176,8 +176,8 @@ export default function Home() {
                     className={cn(
                       "text-4xl ",
                       remainingBalancePercentage > 60
-                        ? "text-zinc-400"
-                        : "text-black"
+                      ? "text-zinc-400"
+                      : "text-textBlack"
                     )}
                   >
                     {remainingBalancePercentage !== 0 &&
@@ -187,7 +187,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 w-full flex justify-center">
+          <div className="md:w-1/2 w-full flex justify-center ">
             {isActive ? (
               completed === true ? (
                 <div className="w-full flex justify-start gap-3  ">
@@ -209,10 +209,10 @@ export default function Home() {
                 <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
                   <div className="relative  w-full  rounded-xl bg-headLine h-full transition-all duration-400 ease-in-out group  ">
                     <div className="absolute top-0 left-0 group-hover:z-30 w-80 flex opacity-0  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full group-hover:opacity-100 transition-all duration-100 ease-out ">
-                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bggreen border-none">
+                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bg border-none">
                         <span>{data?.budget}</span>
                       </p>
-                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bggreen border-none">
+                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bg border-none">
                         <span>{data?.remainingAmount}</span>
                       </p>
                       <div className="flex items-center justify-between w-fit gap-2.5">
@@ -235,7 +235,7 @@ export default function Home() {
                               ) || 0;
                             setFunctionalAmount(number);
                           }}
-                          className="h-9 rounded-full px-2 w-40 text-xl text-black/70"
+                          className="h-9 rounded-full px-2 w-40 text-xl text-textBlack/70"
                         />
 
                         <Button
@@ -251,7 +251,7 @@ export default function Home() {
                           : ""}
                       </p>
                     </div>
-                    <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-bggreen rounded-xl bg-headLine ">
+                    <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-bg rounded-xl bg-headLine ">
                       <h1 className="w-full text-6xl text-start">Hover:</h1>
                       <h1 className="w-full text-6xl text-end">To:</h1>
                       <h1 className="w-full text-6xl text-start">Edit:</h1>
@@ -266,10 +266,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className=" w-fit py-4 text-bggreen  flex-col flex items-start gap-3">
-          <h1 className="text-textwhite missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
+        <div className=" w-fit py-4 text-bg  flex-col flex items-start gap-3">
+          <h1 className="text-textBlack missed text-5xl flex items-start gap-1.5 p-2 flex-col ">
             You Missed It,
-            <span className="text-6xl text-textwhite ">
+            <span className="text-6xl text-textBlack ">
               But Growth Comes from Challenges!
             </span>
           </h1>

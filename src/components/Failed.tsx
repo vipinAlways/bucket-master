@@ -82,7 +82,7 @@ const Failed = () => {
   return (
     <div className="w-full flex items-center justify-center">
       {lastFailedItem ? (
-        <div className="flex items-center max-w-md gap-8 px-6 py-3 rounded-lg bg-textwhite">
+        <div className="flex items-center max-w-md gap-8 p-6 rounded-lg bg-bgCard/60 text-textBlack">
           <h1
             className={cn(
               "font-bucket w-1/3",
@@ -101,7 +101,7 @@ const Failed = () => {
             </h1>
 
             <Button
-              className="p-2 text-2xl bg-green-600"
+              className="p-2 text-2xl"
               onClick={() => {
                 setTargetId(lastFailedItem.id);
                 setViewState("motivated");
@@ -112,15 +112,15 @@ const Failed = () => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg h-40 bg-textgreen text-bggreen">
+        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg h-40 bg-textgreen text-bg">
           <h1 className="font-bucket text-6xl">
-            Currently You Don’t Failed. Great!
+            Currently You Don&#39;t Failed. Great!
           </h1>
         </div>
       )}
 
       {viewState !== "idle" && (
-        <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textgreen">
+        <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textBlack">
           {viewState === "motivated" && (
             <>
               <h1 className="text-5xl">
@@ -128,7 +128,7 @@ const Failed = () => {
               </h1>
               <div className="flex items-center gap-4">
                 <Button
-                  className="text-3xl p-8 bg-bggreen text-headLine"
+                  className="text-3xl p-8 text-textBlack hover-btn"
                   onClick={() => {
                     setViewState("loading");
                     setTimeout(() => setViewState("form"), 1500);
@@ -137,7 +137,7 @@ const Failed = () => {
                   YEAH! LET’S GO!
                 </Button>
                 <Button
-                  className="text-3xl p-8 bg-red-600 hover:bg-red-800"
+                  className="text-3xl p-8 bg-red-600 hover:bg-red-700 hover-btn hover:text-textgreen"
                   onClick={() => setViewState("idle")}
                 >
                   NOT FEELING IT
@@ -163,7 +163,7 @@ const Failed = () => {
                 />
               </div>
               <Button type="submit" className="text-xl py-2">
-                LET’S GOOOO
+                LET&#39;S GOOOO
               </Button>
               <Button
                 type="button"

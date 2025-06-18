@@ -34,12 +34,12 @@ const BucketLabel = () => {
   
 
   return (
-    <div className="flex h-28  justify-center items-center px-2 w-full max-sm:gap-8 bg-bggreen border-b border-textwhite  z-10 sticky top-0">
+    <div className="flex h-28  justify-center items-center px-2 w-full max-sm:gap-8 bg-bg border-b border-black  z-10 sticky top-0">
       <Sheet onOpenChange={setOpen} open={open}>
         <SheetTrigger asChild>
           <Button
             variant="outline"
-            className="absolute top-2 left-3 border-none w-10 text-textwhite hover:text-textwhite"
+            className="absolute top-2 left-3 border-none w-10 text-textBlack hover:text-textBlack"
           >
             <Menu />
           </Button>
@@ -123,7 +123,7 @@ const BucketLabel = () => {
         className="sm:h-32 sm:w-60 max-sm:w-24 max-sm:h-14 object-contain"
       />
 
-      <p className="text-center flex flex-col font-medium  outline-none ring-sidebar-ring text-sidebar-foreground/80 text-textwhite">
+      <p className="text-center flex flex-col font-medium  outline-none ring-sidebar-ring text-sidebar-foreground/80 text-textBlack">
         <span className="font-bucket sm:text-7xl text-2xl  ">BuCkeT</span>
         <span className="font-master sm:text-xl text-sm tracking-[0.75rem] ">
           master
@@ -131,7 +131,7 @@ const BucketLabel = () => {
       </p>
 
       <div className="top-2 right-6 absolute flex flex-col items-center gap-2">
-        <h4 className="text-2xl  font-bucket  text-textwhite"> Streak</h4>
+        <h4 className="text-2xl  font-bucket  text-textBlack"> Streak</h4>
        <div className="flex items-center gap-2">
        <svg
           width="40"
@@ -151,7 +151,7 @@ const BucketLabel = () => {
             fill="red"
           />
         </svg>
-        <span className="text-3xl text-textwhite missed">
+        <span className="text-3xl text-textBlack missed">
           {data && "streak" in data
             ? data.streak
             : isPending && <span>&#8734;</span>}

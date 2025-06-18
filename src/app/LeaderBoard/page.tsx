@@ -28,10 +28,10 @@ const Page = () => {
           data.map((user: User, index) => (
             <li
               key={user.id}
-              className="details w-96 rounded-l flex items-start justify-around  bg-textgreen text-bggreen"
+              className="details w-96 rounded-l flex items-start justify-around  bg-textgreen text-bg"
               onClick={() => setUserId(user.id)}
             >
-              <div className="flex flex-col items-start justify-center h-full text-bggreen">
+              <div className="flex flex-col items-start justify-center h-full text-bg">
                 <div>
                   <h1 className="text-3xl font-bucket ">
                     <span>{index + 1}</span> {user.userName}
@@ -43,7 +43,7 @@ const Page = () => {
 
                 <h1 className="text-xl font-master">Max Task Points</h1>
               </div>
-              <div className="flex flex-col items-center justify-center h-full text-bggreen">
+              <div className="flex flex-col items-center justify-center h-full text-bg">
                 {levels.find((level) => level.points >= user.points)?.name}
                 
               </div>
@@ -114,7 +114,7 @@ const Page = () => {
 
         <div>
           {user && (
-            <div className="flex items-center justify-center gap-10 bg-textgreen  p-4 rounded-lg w-96 h-40 text-bggreen ">
+            <div className="flex items-center justify-center gap-10 bg-textgreen  p-4 rounded-lg w-96 h-40 text-bg ">
               <div className="relative h-24 w-24">
                 <Image
                   src={user?.Avatar}
