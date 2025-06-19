@@ -92,7 +92,7 @@ const Home: React.FC = () => {
         {routes.map((route, index) => (
           <Button
             key={`${route.headline}-${index}`}
-            className="details flex-col hover:bg-headLine/20 bg-headLine/60  w-96 h-48 "
+            className="details flex-col   w-96 h-48 "
             onClick={() => setHistoryFor(route.url)}
           >
             <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bg">
@@ -115,7 +115,7 @@ const Home: React.FC = () => {
           selectedTasks.map((task, index) => (
             <div
               key={task.id || index}
-              className="w-96 flex flex-col h-56 rounded-lg p-3 text-bg bg-textgreen gap-2 hover:bg-textgreen "
+              className="w-96 flex flex-col h-56 rounded-lg p-3   gap-2 bg-[#d6e285f3] text-black"
             >
               <div className="w-full flex justify-between p-0.5">
                 <h1 className="text-3xl border-b-2 border-dotted font-bucket w-fit p-0.5 border-bg">
@@ -155,7 +155,7 @@ const Home: React.FC = () => {
                   </p>
                   <p>{task.budget || "0"}</p>
                   <p>{task.remainingAmount || "0"}</p>
-                
+                  <p>{0}</p>
                 </div>
               </div>
             </div>
@@ -167,7 +167,9 @@ const Home: React.FC = () => {
 
       {!hidden && (
         <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textgreen">
-          <h1 className="text-5xl">Yeah! That&lsquo;s the spirit—go get it back</h1>
+          <h1 className="text-5xl">
+            Yeah! That&lsquo;s the spirit—go get it back
+          </h1>
 
           <div className="flex items-center gap-4">
             {hidden ? (

@@ -30,7 +30,6 @@ const Failed = () => {
   const failed = useQuery({
     queryKey: ["item-failed"],
     queryFn: getFailedToAchieve,
- 
   });
 
   const failedTargetRestart = useMutation({
@@ -64,10 +63,10 @@ const Failed = () => {
     setViewState("loading");
   };
 
-  if (failed.isLoading) {
+  if (failed.isPending) {
     return (
       <div className="w-full flex items-center justify-center">
-        <div className="flex items-center w-96 gap-8 px-6 py-3 rounded-lg bg-white/20 backdrop-blur-xl">
+        <div className="flex items-center w-96 gap-8 px-6 py-3 rounded-lg bg-black/20 backdrop-blur-xl">
           <h1 className="font-bucket text-6xl bg-white/40 w-56 h-10 rounded-lg"></h1>
           <div className="w-full flex flex-col items-center gap-1.5 font-master rounded-lg">
             <h1 className="text-3xl bg-white/40 w-24 rounded-md h-9"></h1>
@@ -82,7 +81,7 @@ const Failed = () => {
   return (
     <div className="w-full flex items-center justify-center">
       {lastFailedItem ? (
-        <div className="flex items-center max-w-md gap-8 p-6 rounded-lg bg-bgCard/60 text-textBlack">
+        <div className="flex items-center max-w-md gap-8 p-6 rounded-lg bg-bgCard/60 text-textBlack flex-1">
           <h1
             className={cn(
               "font-bucket w-1/3",
@@ -94,14 +93,16 @@ const Failed = () => {
             {lastFailedItem.ItemName}
           </h1>
 
-          <div className="w-full flex flex-col items-center gap-1.5 font-master">
-            <h1 className="text-3xl">Amount: {lastFailedItem.budget}</h1>
-            <h1 className="text-3xl">
-              Remaining: {lastFailedItem.remainingAmount}
-            </h1>
+          <div className="w-full flex flex-col items-center gap-2 font-master">
+            <div className="flex flex-col items-start p-1 gap-1">
+              <h1 className="text-3xl">Amount: {lastFailedItem.budget}</h1>
+              <h1 className="text-3xl">
+                Remaining: {lastFailedItem.remainingAmount}
+              </h1>
+            </div>
 
             <Button
-              className="p-2 text-2xl"
+              className="p-3 text-2xl hover-btn "
               onClick={() => {
                 setTargetId(lastFailedItem.id);
                 setViewState("motivated");
@@ -134,7 +135,7 @@ const Failed = () => {
                     setTimeout(() => setViewState("form"), 1500);
                   }}
                 >
-                  YEAH! LET’S GO!
+                  YEAH! LET&#39;S GO!
                 </Button>
                 <Button
                   className="text-3xl p-8 bg-red-600 hover:bg-red-700 hover-btn hover:text-textgreen"

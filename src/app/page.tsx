@@ -131,6 +131,7 @@ export default function Home() {
     return <PendingLoader />;
   }
 
+
   return (
     <Suspense fallback={<p>loading.......</p>}>
       <div className="w-full font-bucket px-9 max-h-min" >
@@ -207,12 +208,12 @@ export default function Home() {
                 </div>
               ) : (
                 <div className="h-80 w-80  me transition-all  duration-600 ease-linear">
-                  <div className="relative  w-full  rounded-xl bg-headLine h-full transition-all duration-400 ease-in-out group  ">
-                    <div className="absolute top-0 left-0 group-hover:z-30 w-80 flex opacity-0  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full group-hover:opacity-100 transition-all duration-100 ease-out ">
-                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bg border-none">
+                  <div className="relative  w-full  rounded-xl bg-[#d5e28599] h-full transition-all duration-400 ease-in-out group  ">
+                    <div className="absolute top-0 left-0 group-hover:z-30 w-80 flex cursor-text  text-textgreen items-center justify-center max-h-80 flex-col gap-4 h-full group-hover:opacity-100 transition-all duration-100 ease-out ">
+                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bg text-textBlack border-none">
                         <span>{data?.budget}</span>
                       </p>
-                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bg border-none">
+                      <p className="text-3xl w-40 h-11 flex justify-center items-center rounded-full border bg-bg border-none text-textBlack">
                         <span>{data?.remainingAmount}</span>
                       </p>
                       <div className="flex items-center justify-between w-fit gap-2.5">
@@ -251,12 +252,12 @@ export default function Home() {
                           : ""}
                       </p>
                     </div>
-                    <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-bg rounded-xl bg-headLine ">
+                    {/* <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-bg rounded-xl bg-[#d5e28599] ">
                       <h1 className="w-full text-6xl text-start">Hover:</h1>
                       <h1 className="w-full text-6xl text-end">To:</h1>
                       <h1 className="w-full text-6xl text-start">Edit:</h1>
                       <h1 className="w-full text-6xl text-end">Bucket:</h1>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )
