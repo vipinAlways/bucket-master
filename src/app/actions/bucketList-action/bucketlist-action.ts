@@ -65,7 +65,7 @@ export const startTarget = async ({
       },
     });
 
-   await db.user.update({
+    await db.user.update({
       where: {
         id: dbuser?.id,
       },
@@ -119,7 +119,6 @@ export const remainingAmountIncrease = async ({
     const dbuser = await db.user.findFirst({
       where: {
         email: user.email,
-
       },
       select: { id: true },
     });
@@ -283,7 +282,6 @@ export const failedTOAcheive = async () => {
 };
 
 export const getFailedToAchieve = async () => {
-  
   try {
     const user = await getUser();
     if (!user?.email) {
@@ -305,8 +303,7 @@ export const getFailedToAchieve = async () => {
 
     return dbUser.BucketItem;
   } catch (error) {
-  
-    throw new Error("Failed to retrieve failed bucket items",error??"");
+    throw new Error("Failed to retrieve failed bucket items", error ?? "");
   }
 };
 
@@ -377,45 +374,31 @@ export const reActiveTask = async ({
 export async function trackRecord() {
   try {
     const user = await getUser();
-    if (!user || !user.email) {
-      throw new Error("user is not authenticated");
+
+    if (!user?.email) {
+      throw new Error("User is not authenticated");
     }
 
-    const dbuser = await db.user.findFirst({
-      where: {
-        email: user.email,
-      },
+    const dbUser = await db.user.findFirst({
+      where: { email: user.email },
     });
-    if (!dbuser) {
-      throw new Error("User is not regiester");
+
+    if (!dbUser) {
+      throw new Error("User is not registered");
     }
 
-    const achievedTarget = await db.bucketItems.findMany({
-      where: {
-        userId: dbuser.id,
-        Achieved: true,
-      },
-    });
+    const [achievedTarget, holdTarget, failedTarget] = await Promise.all([
+      db.bucketItems.findMany({
+        where: { userId: dbUser.id, Achieved: true },
+      }),
+      db.bucketItems.findMany({
+        where: { userId: dbUser.id, onHold: true, failed: false },
+      }),
+      db.bucketItems.findMany({
+        where: { userId: dbUser.id, failed: true, onHold: false },
+      }),
+    ]);
 
-    if (!achievedTarget) return;
-
-    const holdTarget = await db.bucketItems.findMany({
-      where: {
-        userId: dbuser.id,
-        onHold: true,
-        failed: false,
-      },
-    });
-    if (!holdTarget) return;
-    const failedTarget = await db.bucketItems.findMany({
-      where: {
-        userId: dbuser.id,
-        failed: true,
-        onHold: false,
-      },
-    });
-
-    if (!failedTarget) return;
     return {
       achievedTarget,
       achiveCount: achievedTarget.length,
@@ -424,7 +407,7 @@ export async function trackRecord() {
       failedTarget,
       failedCount: failedTarget.length,
     };
-  } catch (error) {
-    throw new Error(`api error while getting track record ${error}`);
+  } catch (error: any) {
+    throw new Error(`Error in trackRecord: ${error.message || error}`);
   }
 }

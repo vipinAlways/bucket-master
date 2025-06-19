@@ -10,13 +10,15 @@ import PendingLoader from "@/components/PendingLoader";
 import { Button } from "@/components/ui/button";
 import ActionPerformLoader from "@/components/ActionPerformLoader";
 import { useToast } from "@/hooks/use-toast";
+import ReactiveTask from "@/components/ReactiveTask";
+import Failed, { ViewState } from "@/components/Failed";
 
 const Home: React.FC = () => {
   const [historyFor, setHistoryFor] = useState<string>("");
-  const [hidden, setHidden] = useState<boolean>(true);
+
   const [targetId, setTargetId] = useState<string>("");
   const [dueDate, setDueDate] = useState<Date>(new Date());
-
+  const [viewState, setViewState] = useState<ViewState>("idle");
   const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({
     queryKey: ["track-record"],
@@ -26,16 +28,17 @@ const Home: React.FC = () => {
 
   const failedTargetRestart = useMutation({
     mutationFn: reActiveTask,
-    onError: () => {
+    onError: (error) => {
       toast({
         title: "Error",
-        description: "Failed to reactivate task.",
+        description: error.message || "Failed to reactivate task.",
         variant: "destructive",
       });
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["track-record"] });
-      setHidden(true);
+
+      setViewState("idle");
     },
     onSuccess: () => {
       toast({
@@ -45,7 +48,8 @@ const Home: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-failed"] });
-      setHidden(true);
+
+      setViewState("idle");
     },
   });
 
@@ -80,7 +84,7 @@ const Home: React.FC = () => {
     e.preventDefault();
     failedTargetRestart.mutate({ targetId, duedate: dueDate });
   };
-
+  console.log(targetId, "ye hani ");
   if (isLoading) return <PendingLoader />;
 
   const selectedRoute = routes.find((route) => route.url === historyFor);
@@ -125,7 +129,7 @@ const Home: React.FC = () => {
                   className="bg-red-700 text-textgreen hover:bg-red-800"
                   onClick={() => {
                     setTargetId(task.id);
-                    setHidden(false);
+                    setViewState("motivated");
                   }}
                 >
                   Reactivate
@@ -165,37 +169,63 @@ const Home: React.FC = () => {
         )}
       </div>
 
-      {!hidden && (
-        <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textgreen">
-          <h1 className="text-5xl">
-            Yeah! That&lsquo;s the spirit—go get it back
-          </h1>
-
-          <div className="flex items-center gap-4">
-            {hidden ? (
-              <form
-                onSubmit={onReactiveFailedTask}
-                className="text-2xl flex flex-col flex-1 items-center gap-10 "
-              >
-                <div className="flex items-center gap-9 flex-1 ">
-                  <label htmlFor="dueDate" className="rounded-md h-full">
-                    Set Due Date
-                  </label>
-                  <input
-                    type="date"
-                    value={dueDate ? dueDate.toISOString().split("T")[0] : ""}
-                    onChange={(e) => setDueDate(new Date(e.target.value))}
-                    className="rounded-md h-full py-1 flex items-center justify-center text-zinc-600"
-                  />
-                </div>
-                <Button type="submit" className="h-full text-xl py-2">
-                  LET&lsquo;S GOOOO
+      {viewState !== "idle" && (
+        <div className="fixed top-0 left-0 w-full h-full p-3 z-50 flex flex-col items-center justify-center gap-6 bg-green-400/60 font-bucket text-textBlack">
+          {viewState === "motivated" && (
+            <>
+              <h1 className="text-5xl">
+                Yeah! That’s the spirit—go get it back
+              </h1>
+              <div className="flex items-center gap-4">
+                <Button
+                  className="text-3xl p-8 text-textBlack hover-btn"
+                  onClick={() => {
+                    setViewState("loading");
+                    setTimeout(() => setViewState("form"), 1500);
+                  }}
+                >
+                  YEAH! LET&#39;S GO!
                 </Button>
-              </form>
-            ) : (
-              <ActionPerformLoader />
-            )}
-          </div>
+                <Button
+                  className="text-3xl p-8 bg-red-600 hover:bg-red-700 hover-btn hover:text-textgreen"
+                  onClick={() => setViewState("idle")}
+                >
+                  NOT FEELING IT
+                </Button>
+              </div>
+            </>
+          )}
+
+          {viewState === "form" && (
+            <form
+              onSubmit={onReactiveFailedTask}
+              className="text-2xl flex flex-col items-center gap-10"
+            >
+              <div className="flex items-center gap-9">
+                <label htmlFor="dueDate" className="rounded-md">
+                  Set Due Date
+                </label>
+                <input
+                  type="date"
+                  value={dueDate.toISOString().split("T")[0]}
+                  onChange={(e) => setDueDate(new Date(e.target.value))}
+                  className="rounded-md py-1 px-2 text-zinc-600"
+                />
+              </div>
+              <Button type="submit" className="text-xl py-2">
+                LET&#39;S GOOOO
+              </Button>
+              <Button
+                type="button"
+                className="text-xl py-2"
+                onClick={() => setViewState("idle")}
+              >
+                Cancel
+              </Button>
+            </form>
+          )}
+
+          {viewState === "loading" && <ActionPerformLoader />}
         </div>
       )}
     </div>

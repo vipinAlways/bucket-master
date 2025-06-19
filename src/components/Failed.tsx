@@ -12,7 +12,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
-type ViewState = "idle" | "motivated" | "form" | "loading";
+ export type ViewState = "idle" | "motivated" | "form" | "loading";
 
 const Failed = () => {
   const [targetId, setTargetId] = useState("");
