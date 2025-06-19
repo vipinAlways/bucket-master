@@ -131,10 +131,9 @@ export default function Home() {
     return <PendingLoader />;
   }
 
-
   return (
     <Suspense fallback={<p>loading.......</p>}>
-      <div className="w-full font-bucket px-9 max-h-min" >
+      <div className="w-full font-bucket px-9 max-h-min">
         <div>
           <div className="max-md:hidden  h-20 flex items-center justify-center pt-4">
             <div className="flex items-start justify-center h-full rounded-full selection:select-none">
@@ -177,8 +176,8 @@ export default function Home() {
                     className={cn(
                       "text-4xl ",
                       remainingBalancePercentage > 60
-                      ? "text-zinc-400"
-                      : "text-textBlack"
+                        ? "text-zinc-400"
+                        : "text-textBlack"
                     )}
                   >
                     {remainingBalancePercentage !== 0 &&
@@ -252,12 +251,6 @@ export default function Home() {
                           : ""}
                       </p>
                     </div>
-                    {/* <div className="absolute top-0 left-0 flex flex-col justify-around p-8 h-full w-80 group-hover:opacity-0 transition-all duration-100 ease-in text-bg rounded-xl bg-[#d5e28599] ">
-                      <h1 className="w-full text-6xl text-start">Hover:</h1>
-                      <h1 className="w-full text-6xl text-end">To:</h1>
-                      <h1 className="w-full text-6xl text-start">Edit:</h1>
-                      <h1 className="w-full text-6xl text-end">Bucket:</h1>
-                    </div> */}
                   </div>
                 </div>
               )

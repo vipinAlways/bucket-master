@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import Link from "next/link";
 
 const CreateBucketItem = () => {
   const [target, setTarget] = useState<TargetProps>({
@@ -64,7 +65,12 @@ const CreateBucketItem = () => {
     <div className="w-full flex items-center justify-start max-h-80 flex-col gap-6 ">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className="text-center text-4xl p-3 h-20  text-[#f5edeb] w-72 md:hover-btn">Add to Bucket</Button>
+          <Button
+            variant="outline"
+            className="text-center text-4xl p-3 h-20  text-[#f5edeb] w-72 md:hover-btn"
+          >
+            Add to Bucket
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md font-bucket">
           <DialogHeader>
@@ -159,14 +165,16 @@ const CreateBucketItem = () => {
           </form>
         </DialogContent>
       </Dialog>
-      
 
-      <Button className="text-center text-4xl p-3 h-20  text-[#f5edeb] w-80 md:hover-btn">
+      <Link
+        href={"/track"}
+        className=" text-4xl flex items-center justify-center  h-20 bg-[#8fbc38]  text-[#f5edeb] w-80 md:hover-btn rounded-md "
+      >
         <span className="text-center flex items-center gap-4  ">
           Track Record
           <span className="text-xl">&#128221; &#10024;</span>
         </span>
-      </Button>
+      </Link>
     </div>
   );
 };

@@ -39,9 +39,10 @@ model BucketItems {
   onHold          Boolean
   budget          Float
   remainingAmount Float
-  failed          Boolean
+  failed          Boolean 
   reasoanOfTarget String?
   createdAt       DateTime     @default(now())
+  pauseReason     String?     @default("")
 }
 
 enum typeOfTarget {

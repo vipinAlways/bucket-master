@@ -102,7 +102,7 @@ const Failed = () => {
             </div>
 
             <Button
-              className="p-3 text-2xl hover-btn "
+              className="p-3 text-2xl md:hover-btn "
               onClick={() => {
                 setTargetId(lastFailedItem.id);
                 setViewState("motivated");
@@ -113,8 +113,8 @@ const Failed = () => {
           </div>
         </div>
       ) : (
-        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg h-40 bg-textgreen text-bg">
-          <h1 className="font-bucket text-6xl">
+        <div className="flex items-center w-fit gap-8 px-6 py-3 rounded-lg   bg-bgCard bgnew text-bg">
+          <h1 className="font-bucket text-4xl">
             Currently You Don&#39;t Failed. Great!
           </h1>
         </div>
@@ -129,7 +129,7 @@ const Failed = () => {
               </h1>
               <div className="flex items-center gap-4">
                 <Button
-                  className="text-3xl p-8 text-textBlack hover-btn"
+                  className="text-3xl p-8 text-textBlack md:hover-btn"
                   onClick={() => {
                     setViewState("loading");
                     setTimeout(() => setViewState("form"), 1500);
@@ -138,7 +138,7 @@ const Failed = () => {
                   YEAH! LET&#39;S GO!
                 </Button>
                 <Button
-                  className="text-3xl p-8 bg-red-600 hover:bg-red-700 hover-btn hover:text-textgreen"
+                  className="text-3xl p-8 bg-red-600 hover:bg-red-700 md:hover-btn hover:text-textgreen"
                   onClick={() => setViewState("idle")}
                 >
                   NOT FEELING IT

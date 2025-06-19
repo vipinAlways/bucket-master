@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "docker": "docker run -p 5432:5432 -e POSTGRES_PASSWORD=randompassword postgres",
-    "migrate": "pnpm dlx prisma migrate dev  pnpm dlx prisma generate dev",
-    "build": "next build",
+    "migrate": "pnpm dlx prisma migrate dev &&  pnpm dlx prisma generate dev",
+    "build": "next build && pnpm dlx prisma generate ",
     "start": "next start",
     "lint": "next lint"
   },

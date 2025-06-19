@@ -178,7 +178,7 @@ const Home: React.FC = () => {
               </h1>
               <div className="flex items-center gap-4">
                 <Button
-                  className="text-3xl p-8 text-textBlack hover-btn"
+                  className="text-3xl p-8 text-textBlack md:hover-btn"
                   onClick={() => {
                     setViewState("loading");
                     setTimeout(() => setViewState("form"), 1500);
@@ -187,7 +187,7 @@ const Home: React.FC = () => {
                   YEAH! LET&#39;S GO!
                 </Button>
                 <Button
-                  className="text-3xl p-8 bg-red-600 hover:bg-red-700 hover-btn hover:text-textgreen"
+                  className="text-3xl p-8 bg-red-600 hover:bg-red-700 md:hover-btn hover:text-textgreen"
                   onClick={() => setViewState("idle")}
                 >
                   NOT FEELING IT
