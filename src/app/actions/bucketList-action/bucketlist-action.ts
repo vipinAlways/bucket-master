@@ -278,6 +278,7 @@ export const failedTOAcheive = async () => {
     }
   } catch (error) {
     console.log("Error in failedTOAcheive function:", error);
+    throw new Error("Error in failedTOAcheive function:");
   }
 };
 
@@ -407,7 +408,7 @@ export async function trackRecord() {
       failedTarget,
       failedCount: failedTarget.length,
     };
-  } catch (error: any) {
-    throw new Error(`Error in trackRecord: ${error.message || error}`);
+  } catch (error) {
+    throw new Error(`Error in trackRecord: ${error}`);
   }
 }

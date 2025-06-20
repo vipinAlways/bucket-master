@@ -70,8 +70,7 @@ const user = await getUser();
 
     
   } catch (error) {
-    console.log(error);;
-    throw new Error("User not found || Server Error");
+      throw new Error("User not found || Server Error");
   }
 };
 

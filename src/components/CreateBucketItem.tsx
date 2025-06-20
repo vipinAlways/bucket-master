@@ -1,6 +1,5 @@
 import { startTarget } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
-import { cn } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
@@ -23,7 +22,7 @@ const CreateBucketItem = () => {
     budget: 0,
     itemName: "",
   });
-  const [hidden, setHidden] = useState("hidden");
+
   const [pending, setPending] = useState(false);
   const { toast } = useToast();
 
@@ -43,7 +42,7 @@ const CreateBucketItem = () => {
         title: "Success",
         description: "Bucket Created Successfully",
       });
-      setHidden("hidden");
+
       queryClient.invalidateQueries({ queryKey: ["item-active"] });
       queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
     },

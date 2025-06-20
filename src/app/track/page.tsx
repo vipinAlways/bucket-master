@@ -10,8 +10,7 @@ import PendingLoader from "@/components/PendingLoader";
 import { Button } from "@/components/ui/button";
 import ActionPerformLoader from "@/components/ActionPerformLoader";
 import { useToast } from "@/hooks/use-toast";
-import ReactiveTask from "@/components/ReactiveTask";
-import Failed, { ViewState } from "@/components/Failed";
+import { ViewState } from "@/components/Failed";
 
 const Home: React.FC = () => {
   const [historyFor, setHistoryFor] = useState<string>("");
