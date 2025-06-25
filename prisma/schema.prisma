@@ -18,7 +18,7 @@ model User {
   userName     String         
   email        String         @unique
   Avatar       String
-  BucketItem   BucketItems[]
+  BucketItem   BucketSkill[]
   level        Int           @default(0)
   points       Int           @default(0)
   streak       Int           @default(0)
@@ -26,7 +26,7 @@ model User {
   lastActiveAt DateTime      @default(now())
 }
 
-model BucketItems {
+model BucketSkill {
   id              String       @id @default(uuid())
   User            User?        @relation(fields: [userId], references: [id])
   Active          Boolean
@@ -35,7 +35,7 @@ model BucketItems {
   duedate         DateTime?
   Achieved        Boolean
   PhotoOfTarget   String?
-  type            typeOfTarget
+
   onHold          Boolean
   budget          Float
   remainingAmount Float
@@ -45,7 +45,4 @@ model BucketItems {
   pauseReason     String?     @default("")
 }
 
-enum typeOfTarget {
-  dreamMilestone
-  ShortMilestone
-}
+

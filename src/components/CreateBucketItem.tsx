@@ -169,7 +169,7 @@ const CreateBucketItem = () => {
         href={"/track"}
         className=" text-4xl flex items-center justify-center  h-20 bg-[#8fbc38]  text-[#f5edeb] w-80 md:hover-btn rounded-md "
       >
-        <span className="text-center flex items-center gap-4  ">
+        <span className="text-center flex items-center gap-4 ">
           Track Record
           <span className="text-xl">&#128221; &#10024;</span>
         </span>
