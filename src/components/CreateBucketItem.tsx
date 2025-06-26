@@ -1,4 +1,3 @@
-import { startTarget } from "@/app/actions/bucketList-action/bucketlist-action";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
@@ -28,38 +27,6 @@ const CreateBucketItem = () => {
 
   const queryClient = useQueryClient();
 
-  const createBucketITem = useMutation({
-    mutationKey: ["create-bucket"],
-    mutationFn: startTarget,
-    onError: () =>
-      toast({
-        title: "Error",
-        description: "ServerError while creating bucket",
-        variant: "destructive",
-      }),
-    onSuccess: () => {
-      toast({
-        title: "Success",
-        description: "Bucket Created Successfully",
-      });
-
-      queryClient.invalidateQueries({ queryKey: ["item-active"] });
-      queryClient.invalidateQueries({ queryKey: ["item-time-active"] });
-    },
-  });
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (createBucketITem.isPending) {
-      setPending(true);
-    }
-    createBucketITem.mutate({
-      duedate: target.duedate,
-      type: target.type,
-      budget: target.budget,
-      itemName: target.itemName,
-    });
-  };
   return (
     <div className="w-full flex items-center justify-start max-h-80 flex-col gap-6 ">
       <Dialog>
@@ -79,7 +46,7 @@ const CreateBucketItem = () => {
               done.
             </DialogDescription>
           </DialogHeader>
-          <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-4 w-full" onSubmit={(e)=>e.preventDefault()}>
             <input
               type="text"
               placeholder="Target Name"
