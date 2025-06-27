@@ -14,35 +14,40 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  userName     String         
-  email        String         @unique
+  id           String    @id @default(uuid())
+  userName     String
+  email        String    @unique
   Avatar       String
-  BucketItem   BucketSkill[]
-  level        Int           @default(0)
-  points       Int           @default(0)
-  streak       Int           @default(0)
-  createdAt    DateTime      @default(now())
-  lastActiveAt DateTime      @default(now())
+  RoadMap      RoadMap[]
+  streak       Int       @default(0)
+  createdAt    DateTime  @default(now())
+  lastActiveAt DateTime  @default(now())
 }
 
-model BucketSkill {
-  id              String       @id @default(uuid())
-  User            User?        @relation(fields: [userId], references: [id])
-  Active          Boolean
-  userId          String
-  ItemName        String
-  duedate         DateTime?
-  Achieved        Boolean
-  PhotoOfTarget   String?
-
-  onHold          Boolean
-  budget          Float
-  remainingAmount Float
-  failed          Boolean 
-  reasoanOfTarget String?
-  createdAt       DateTime     @default(now())
-  pauseReason     String?     @default("")
+model RoadMap {
+  id          String       @id @default(uuid())
+  userId      String
+  title       String
+  description String
+  createdAt   DateTime     @default(now())
+  user        User         @relation(fields: [userId], references: [id])
+  days        RoadmapDay[]
 }
 
-
+model RoadmapDay {
+  id        String    @id @default(uuid())
+  roadmapId String
+  dayNumber Int
+  task      Task[]
+  content   String
+  completed Boolean   @default(false)
+  date      DateTime?
+  roadmap   RoadMap   @relation(fields: [roadmapId], references: [id])
+}
+model Task {
+  id         String   @id @default(uuid())
+  content    String
+  done       Boolean  @default(false)
+  dayId      String
+  day        RoadmapDay @relation(fields: [dayId], references: [id])
+}

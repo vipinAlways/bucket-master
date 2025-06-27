@@ -1,5 +1,7 @@
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from "openai";
 
-export const anthropic = new Anthropic({
-  apiKey: process.env.CLAUDE_API_KEY, // defaults to process.env["ANTHROPIC_API_KEY"]
+
+ export const client = new OpenAI({
+  baseURL: "https://api.sambanova.ai/v1", 
+  apiKey: process.env.SAMBANOVA_API_KEY,  
 });
