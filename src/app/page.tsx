@@ -89,7 +89,23 @@ const page = () => {
                     />
                   </div>
                   <div className="grid gap-3">
-                    <Label htmlFor="username-1">Username</Label>
+                    <Label htmlFor="username-1">With In</Label>
+                    <Input
+                      id="username-1"
+                      name="username"
+                      defaultValue="@peduarte"
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="username-1">Hours per dat</Label>
+                    <Input
+                      id="username-1"
+                      name="username"
+                      defaultValue="@peduarte"
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="username-1">future Plan </Label>
                     <Input
                       id="username-1"
                       name="username"
