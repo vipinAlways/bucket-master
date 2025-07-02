@@ -48,7 +48,7 @@ const Page = () => {
             method: "GET",
             redirect: "follow",
             headers: {
-              apikey: process.env.NEXT_PUBLIC_SKILL_API_KEY!,
+              apikey: "qL72hoA1Upx9OX1p8uKBCrYHvLhZhRoL",
             },
             signal: controller.signal,
           }
@@ -56,15 +56,14 @@ const Page = () => {
 
         const data = await res.json();
         console.log("API response:", data);
-        setSkillsArray(data.skills ?? []); // Adjust based on actual API response
+        setSkillsArray(data ?? []);
+        setLoading(false) /// Adjust based on actual API response
       } catch (error: any) {
         if (error.name === "AbortError") {
           console.log("Fetch aborted");
         } else {
           console.error("Error fetching skill data:", error);
         }
-      } finally {
-        setLoading(false);
       }
     }
 
@@ -72,6 +71,8 @@ const Page = () => {
 
     return () => controller.abort();
   }, [debounceSkill]);
+
+  console.log(skillArray);
 
   return (
     <div>
@@ -132,7 +133,6 @@ const Page = () => {
               </DialogHeader>
               <div className="w-full h-full overflow-y-auto">
                 <p>
-                  {/* Replace with dynamic roadmap content if needed */}
                   Lorem ipsum dolor sit amet consectetur adipisicing elit...
                 </p>
               </div>
@@ -189,9 +189,9 @@ const Page = () => {
         {/* Skill Results Display */}
         <div className="flex flex-col gap-2 p-4">
           {loading && <p className="text-muted">Loading...</p>}
-          {skillArray.length > 0 ? (
-            skillArray.map((skillItem) => (
-              <p key={skillItem} className="text-bgCard">
+          {skillArray ? (
+            skillArray.map((skillItem:string,index:number) => (
+              <p key={index} className="text-bgCard">
                 {skillItem}
               </p>
             ))
