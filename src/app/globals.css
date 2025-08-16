@@ -79,23 +79,21 @@ body {
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+body {
+  background: #0f2027; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #0f2027,
+    #203a43,
+    #2c5364
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #0f2027,
+    #203a43,
+    #2c5364
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-@layer utilities {
-  .hover-btn {
-    @apply hover:transition hover:translate-y-[-5px]  hover:ease-linear hover:duration-150 transition-all hover:text-textBlack;
-  }
-  .details {
-    @apply flex rounded-lg p-3 text-textgreen backdrop-blur-md  gap-2 hover:scale-[1.02]  ease-linear duration-200   transition-all;
-  }
-}
-
 @font-face {
   font-family: "Angelina";
   src: url("/fonts/Angelina.ttf") format("truetype");
@@ -116,200 +114,4 @@ body {
     url("/fonts/Quicksand-VariableFont_wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-}
-
-
-
-
-.water {
-  background-color: #7ac1f0;
-  position: relative;
-  clip-path: polygon(0% 10%, 100% 10%, 90% 100%, 10% 100%);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
-}
-
-.water:before,
-.water:after {
-  content: "";
-  position: absolute;
-  width: 24.5rem;
-  height: 24.5rem;
-
-  left: -3rem;
-  background-color: #dbfff1;
-}
-
-
-
-.loop-wrapper {
-  margin: 0 auto;
-  position: relative;
-  display: block;
-  width: 600px;
-  height: 250px;
-  overflow: hidden;
-  border-bottom: 3px solid #fff;
-  color: #fff;
-}
-
-.hill {
-  position: absolute;
-  right: -900px;
-  bottom: -50px;
-  width: 400px;
-  border-radius: 50%;
-  height: 20px;
-  box-shadow: 0 0 0 50px #4db6ac, -20px 0 0 20px #4db6ac, -90px 0 0 50px #4db6ac,
-    250px 0 0 50px #4db6ac, 290px 0 0 50px #4db6ac, 620px 0 0 50px #4db6ac;
-  animation: hill 4s 2s linear infinite;
-}
-
-.rock {
-  margin-top: -17%;
-  height: 2%;
-  width: 2%;
-  bottom: -2px;
-  border-radius: 20px;
-  position: absolute;
-  background: #ddd;
-}
-.truck,
-.wheels {
-  transition: all ease;
-  width: 85px;
-  margin-right: -60px;
-  bottom: 0px;
-  right: 50%;
-  position: absolute;
-  background: #eee;
-}
-.truck {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/truck.svg)
-    no-repeat;
-  background-size: contain;
-  height: 60px;
-}
-.truck:before {
-  content: " ";
-  position: absolute;
-  width: 25px;
-  box-shadow: -30px 28px 0 1.5px #fff, -35px 18px 0 1.5px #fff;
-}
-.wheels {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/130015/wheels.svg)
-    no-repeat;
-  height: 15px;
-  margin-bottom: 0;
-}
-
-.rock {
-  animation: rock 4s -0.53s linear infinite;
-}
-.truck {
-  animation: truck 4s 0.08s ease infinite;
-}
-.wheels {
-  animation: truck 4s 0.001s ease infinite;
-}
-.truck:before {
-  animation: wind 1.5s 0s ease infinite;
-}
-
-@keyframes rock {
-  0% {
-    right: -200px;
-  }
-  100% {
-    right: 2000px;
-  }
-}
-@keyframes truck {
-  0% {
-  }
-  6% {
-    transform: translateY(0px);
-  }
-  7% {
-    transform: translateY(-6px);
-  }
-  9% {
-    transform: translateY(0px);
-  }
-  10% {
-    transform: translateY(-1px);
-  }
-  11% {
-    transform: translateY(0px);
-  }
-  100% {
-  }
-}
-@keyframes wind {
-  0% {
-  }
-  50% {
-    transform: translateY(3px);
-  }
-  100% {
-  }
-}
-
-@keyframes hill {
-  100% {
-    transform: translateX(-2000px);
-  }
-}
-/* HTML: <div class="loader"></div> */
-.loader {
-  display: inline-flex;
-
-  background: var(--c) calc(50% - 5px) / 5px 5px,
-    var(--c) calc(50% + 5px) / 5px 5px;
-}
-.loader::before,
-.loader::after {
-  content: "12 00 23 40 31 45 60 17 45 32 29 42 50 08 14 07 46 11 03 55";
-  font-size: 3.25rem;
-
-  font-family: monospace;
-  font-weight: bold;
-  line-height: 1em;
-  height: 60%;
-  width: 100%;
-  color: #05130f;
-  text-shadow: 0 0 0 #dc1010;
-  overflow: hidden;
-  margin: 5px 10px;
-  animation: l3 1s steps(20) infinite;
-}
-.loader::before {
-  animation-duration: 1.5s;
-}
-@keyframes l3 {
-  100% {
-    text-shadow: 0 -20em 0 #000;
-  }
-}
-
-.card:hover > :not(:hover) {
-  transform: scale(0.95);
-  transition: all ease 0.2s;
-}
-
-.bgne2 {
-  background: linear-gradient(
-    40deg,
-    var(--colo) 17%,
-    #a28b0b 41%,
-    #665701 56%,
-    #ffd900 80%
-  );
-  background-size: 400% 400%;
-  animation: gradient 5s ease infinite;
-}
-
-
-div > ol::-webkit-scrollbar{
-  display: none;
 }

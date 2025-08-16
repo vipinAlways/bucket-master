@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-[100vw] overflow-x-hidden h-screen bg-bg px-3`}
+        className={`${geistSans.variable} ${geistMono.variable} antia liased w-full overflow-x-hidden h-screen text-zinc-400 px-3`}
       >
         <Provider>
           <main className="py-2 w-full pr-2 pl-1 max-sm:px-2 relative h-full">

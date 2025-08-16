@@ -15,13 +15,22 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Roadmap from "@/components/Roadmap";
 
 const Page = () => {
 
 
   return (
-    <div>
-      
+    <div className="">
+        <div className="h-full flex text-muted justify-evenly p-3 gap-4">
+
+          <div className=" flex-1 h-full  ">
+
+          </div>
+          <div className=" flex-1 h-full flex items-center w-full justify-center ">
+            <Roadmap/>  
+          </div>
+        </div>  
     </div>
   );
 };

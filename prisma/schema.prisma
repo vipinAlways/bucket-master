@@ -44,10 +44,11 @@ model RoadmapDay {
   date      DateTime?
   roadmap   RoadMap   @relation(fields: [roadmapId], references: [id])
 }
+
 model Task {
-  id         String   @id @default(uuid())
-  content    String
-  done       Boolean  @default(false)
-  dayId      String
-  day        RoadmapDay @relation(fields: [dayId], references: [id])
+  id      String     @id @default(uuid())
+  content String
+  done    Boolean    @default(false)
+  dayId   String
+  day     RoadmapDay @relation(fields: [dayId], references: [id])
 }
